@@ -18,18 +18,18 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
 
     const [user, setUser] = useState<iUser | null>(null)
-    
 
-    async function registerFunction(){
+
+    const registerFunction = async () =>{
        
     }
 
-    async function loginFunction(){
-
+    const loginFunction = async () =>{
+       
     }
 
-    function logoutFunction(){
-
+    const logoutFunctio = async () =>{
+       
     }
 
     /* EXEMPLO DE AUTOLOGIN
