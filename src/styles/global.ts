@@ -42,16 +42,20 @@ html, body, div, span, applet, object, iframe,
     }
 
     :root {
-        --color-primary: #ff577f;
-        --color-primary-negative: #59323F;
-        --grey-4: #121214;
-        --grey-3: #212529;
-        --grey-2: #343b41;
-        --grey-1: #868e96;
-        --grey-0: #f8f9fa;
-        --white: #fff;
-        --black: #000;
-        --secess: #3fe864;
-        --fail: #e83f5b;
+        --brand-1: ;
+        --brand-2: ;
+        
+        --grey-opacity-1: ;
+        --background-primary: #ffffff;
+        --background-secondary: #e9e9f2;
+        --background-trhird: #e1e1e5;
+        --background-invert: #343434;
+
+        --text-primary: #151515;
+        --text-secondary: #4e4e4e;
+        --text-invert: #ffffff;
+        --text-link: #0069c2;
+
+        --red: #ff0000;
     }
 `
