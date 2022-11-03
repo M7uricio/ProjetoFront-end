@@ -1,31 +1,33 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
-interface iTextProps{
-    variant: string
+interface iTextProps {
+  variant: string;
 }
 
 export const Text = styled.p<iTextProps>`
+  ${({ variant }) => {
+    if (variant === "text1") {
+      return css`
+        font-weight: 400;
+        font-size: 16px;
 
-    ${({variant}) => {
-
-        if(variant === "testText"){
-
-            return css`
-                font-size: 18px;
-                font-weight: 700;
-                line-height: 28px;
-
-                color: black;
-            `
-        } else if(variant === "testTextBig"){
-
-            return css`
-                font-size: 26px;
-                font-weight: 700;
-                line-height: 28px;
-
-                color: black;
-            `
-        }
-    }}
-`
+        color: black;
+      `;
+    } else if (variant === "text2") {
+      return css`
+        font-weight: 400;
+        font-size: 14px;
+      `;
+    } else if (variant === "textSemiBold") {
+      return css`
+        font-weight: 600;
+        font-size: 14px;
+      `;
+    } else if (variant === "textSmall") {
+      return css`
+        font-weight: 400;
+        font-size: 12px;
+      `;
+    }
+  }}
+`;
