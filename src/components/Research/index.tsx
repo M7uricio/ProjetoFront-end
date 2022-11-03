@@ -1,5 +1,5 @@
 import { ButtonSeach } from "../../styles/buttonsIcons";
-import { Input } from "../../styles/input";
+import { Input } from "../../styles/Input";
 import { DivSeach } from "./style";
 
 import "./style.ts";
