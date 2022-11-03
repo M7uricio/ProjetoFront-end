@@ -55,7 +55,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
   const loginFunction = async () => {};
 
-  const logoutFunctio = async () => {};
+  const logoutFunction = async () => {};
 
   /* EXEMPLO DE AUTOLOGIN
     
