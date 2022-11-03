@@ -22,7 +22,7 @@ html, body, div, span, applet, object, iframe,
         font-weight: 400;
         vertical-align: baseline;
         box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Rubik', sans-serif;
         border: none;
     }
 
@@ -42,20 +42,16 @@ html, body, div, span, applet, object, iframe,
     }
 
     :root {
-        --brand-1: ;
-        --brand-2: ;
+        --brand-1: #FFD7A8;
+        --brand-2: #D77127;
+        --brand-2-clear: #C18461;
         
-        --grey-opacity-1: ;
-        --background-primary: #ffffff;
-        --background-secondary: #e9e9f2;
-        --background-trhird: #e1e1e5;
-        --background-invert: #343434;
-
-        --text-primary: #151515;
-        --text-secondary: #4e4e4e;
-        --text-invert: #ffffff;
-        --text-link: #0069c2;
-
-        --red: #ff0000;
+        --grey-opacity: #16161680;
+        --grey-1: #1E1E1E;
+        --grey-2: #737885;
+        --grey-3: #8A8B99;
+        --grey-4: #D9DEE6;
+        --grey-5: #FFF7EE;
+        --white: #FFFFFF;
     }
-`
+`;

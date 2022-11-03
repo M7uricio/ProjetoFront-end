@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components";
 
-interface iInputProps {
+interface iSelectProps {
   variant: string;
   width: string;
   height: string;
 }
 
-export const Input = styled.input<iInputProps>`
+export const Select = styled.select<iSelectProps>`
   ${({ variant, width, height }) => {
-    if (variant === "inputPrimary") {
+    if (variant === "selectPrimary") {
       return css`
         width: ${width};
         height: ${height};
@@ -21,16 +21,11 @@ export const Input = styled.input<iInputProps>`
         border-radius: 27px;
         outline: 2px solid var(--brand-2-clear);
         cursor: pointer;
-        &::placeholder {
-            color: var(--grey-2);
-        }
 
         &:focus {
-            outline: 2px solid var(--brand-2);
-            &::placeholder {
-            color: var(--grey-1);
-            }
-            `;
+          outline: 2px solid var(--brand-2);
+        }
+      `;
     }
   }}
 `;
