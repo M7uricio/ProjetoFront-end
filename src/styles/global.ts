@@ -58,4 +58,4 @@ html, body, div, span, applet, object, iframe,
 
         --red: #ff0000;
     }
-`
+`;

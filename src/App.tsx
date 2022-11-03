@@ -1,20 +1,20 @@
-import React from 'react';
+import React from "react";
 
 import Global from "./styles/global";
 import Routes from "./routes";
+import UserProvider from "./contexts/UserContext";
+import { StyledToast } from "./components/Toastify";
 
-import UserProvider from './contexts/UserContext';
-
-const App =() => {
+const App = () => {
   return (
     <>
-      <Global/>
-
+      <Global />
+      <StyledToast />
       <UserProvider>
-        <Routes/>
+        <Routes />
       </UserProvider>
     </>
   );
-}
+};
 
 export default App;
