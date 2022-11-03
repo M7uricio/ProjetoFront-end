@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, Outlet } from "react-router-dom";
-import { loginSchema } from "./Loginschema";
+import { loginSchema } from "../../validations/Loginschema";
 import { useContext, useState } from "react";
-import { FormLogin } from "../../components/LoginForm";
-import UserProvider, { UserContext } from "../../contexts/UserContext";
+import { FormLogin } from "./styled";
+import  { UserContext } from "../../contexts/UserContext";
 
 
 
@@ -27,7 +27,7 @@ const Login = () => {
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
     loginFunction(data, setLoading);
-    console.log(data)
+    console.log(data);
   };
 
   return (
@@ -52,7 +52,7 @@ const Login = () => {
           {...register("password")}
         />
         {errors.password && <p>{errors.password.message}</p>}
-        <button type="submit" >Entrar</button>
+        <button type="submit">Entrar</button>
         <p>Ainda não possui uma conta?</p>
 
         <Link className="Link" to="/register">

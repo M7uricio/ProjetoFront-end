@@ -44,8 +44,8 @@ const UserProvider = ({ children }: iUserContextProps) => {
         navigate("/landing");
       }
     } catch (error) {
-    //   const requestError = error as AxiosError<iApiError>;
-    //   console.log(requestError)
+      const requestError = error as AxiosError<iApiError>;
+      console.log(requestError)
       
     }finally{
         setLoading(false);
