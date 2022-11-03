@@ -5,7 +5,12 @@ const RegisterCompanyPage = () => {
 
     return (
         <RegisterDiv>
-            
+            <div>
+
+            </div>
+            <div>
+                
+            </div>
         </RegisterDiv>
     )
 }
