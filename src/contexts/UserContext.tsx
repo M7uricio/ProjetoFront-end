@@ -1,14 +1,17 @@
-import { AxiosError } from "axios";
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { iRegisterUser } from "../pages/register";
+import { instance } from "../services/api";
+import { toast } from "react-toastify";
+import axios, { AxiosError } from "axios";
 import { iLoginFormData } from "../pages/Login";
-import { coreApi } from "../services/api";
 
 interface iUserContextProps {
   children: React.ReactNode;
 }
 
 interface iUserContext {
+  registerUserFunction: (data: iRegisterUser) => void;
   loginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,7 +30,38 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const navigate = useNavigate();
-  const registerFunction = async () => {};
+
+  const registerUserFunction = async (data: iRegisterUser) => {
+    const newData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      type: "user",
+    };
+    const id = toast.loading("Please wait...");
+    try {
+      await instance.post("/register", newData);
+      toast.update(id, {
+        render: `Cadastro realizado com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1000,
+      });
+      navigate("/login", { replace: true });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data === "Email already exists")
+          toast.update(id, {
+            render: `E-mail já existe`,
+            type: "error",
+            isLoading: false,
+            autoClose: 1000,
+          });
+        console.error(error);
+      }
+    }
+  };
 
   const loginFunction = async (
     data: iLoginFormData,
@@ -35,7 +69,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
   ) => {
     try {
       setLoading(true);
-      const response = await coreApi.post("/login", data);
+      const response = await instance.post("/login", data);
       setUser(response.data.user);
       localStorage.setItem("@TOKEN", response.data.accessToken);
       if (response.data.user.type === "user") {
@@ -45,13 +79,11 @@ const UserProvider = ({ children }: iUserContextProps) => {
       }
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
-      console.log(requestError)
-      
-    }finally{
-        setLoading(false);
+      console.log(requestError);
+    } finally {
+      setLoading(false);
     }
   };
-
 
   const logoutFunctio = async () => {};
 
@@ -82,11 +114,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     },[]) */
 
   return (
-    <UserContext.Provider
-      value={{
-        loginFunction,
-      }}
-    >
+    <UserContext.Provider value={{ registerUserFunction, loginFunction }}>
       {children}
     </UserContext.Provider>
   );
