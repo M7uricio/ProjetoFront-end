@@ -1,9 +1,10 @@
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { iRegisterUser } from "../pages/register/registeruser";
+import { iRegisterUser } from "../pages/register";
 import { instance } from "../services/api";
 import { toast } from "react-toastify";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { iLoginFormData } from "../pages/Login";
 
 interface iUserContextProps {
   children: React.ReactNode;
@@ -11,9 +12,18 @@ interface iUserContextProps {
 
 interface iUserContext {
   registerUserFunction: (data: iRegisterUser) => void;
+  loginFunction: (
+    data: iLoginFormData,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => void;
 }
 
-interface iUser {}
+interface iUser {
+  user: iUser | null;
+}
+interface iApiError {
+  error: string;
+}
 
 export const UserContext = createContext<iUserContext>({} as iUserContext);
 
@@ -53,9 +63,29 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const loginFunction = async () => {};
+  const loginFunction = async (
+    data: iLoginFormData,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const response = await instance.post("/login", data);
+      setUser(response.data.user);
+      localStorage.setItem("@TOKEN", response.data.accessToken);
+      if (response.data.user.type === "user") {
+        navigate("/register");
+      } else {
+        navigate("/landing");
+      }
+    } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      console.log(requestError);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const logoutFunction = async () => {};
+  const logoutFunctio = async () => {};
 
   /* EXEMPLO DE AUTOLOGIN
     
@@ -84,7 +114,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     },[]) */
 
   return (
-    <UserContext.Provider value={{ registerUserFunction }}>
+    <UserContext.Provider value={{ registerUserFunction, loginFunction }}>
       {children}
     </UserContext.Provider>
   );

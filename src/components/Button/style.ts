@@ -1,42 +1,81 @@
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
-interface iButtonProps{
-    variant?: string,
-    onClick?: () => void,
-    type?: "button" | "submit" | "reset" | undefined,
-    children: React.ReactNode,
-    classname?: string
-  }
+interface iButtonProps {
+  variant?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
+  children: React.ReactNode;
+  classname?: string;
+}
 
-interface iButtonVariants{
-    testButton: FlattenSimpleInterpolation,
-    [key: string]: any
+interface iButtonVariants {
+  ButtonPrimary: FlattenSimpleInterpolation;
+  ButtonSecondary: FlattenSimpleInterpolation;
+  ButtonTertiary: FlattenSimpleInterpolation;
+  [key: string]: any;
 }
 
 const buttonVariants: iButtonVariants = {
-    testButton: css`
-        height: 48px;
-        padding: 0 22px;
-        border-radius: 4px;
+  ButtonPrimary: css`
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 700;
 
-        background-color: red;
+    color: var(--white);
+    background-color: var(--brand-2);
 
-        font-size: 16px;
-        line-height: 26px;
-        font-weight: 500;
+    border: none;
+    border-radius: 27px;
 
-        cursor: pointer;
-        transition: .2s;
+    cursor: pointer;
 
-        @media (min-width: 762px){
-            :hover {
-            filter: brightness(0.7);
-            }
-        }
-    `,
-}
+    &:hover {
+      padding: 12px 35px;
+      background-color: var(--brand-2-clear);
+    }
+  `,
+  ButtonSecondary: css`
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 700;
+
+    color: var(--white);
+    background-color: var(--brand-2-clear);
+
+    border: none;
+    border-radius: 27px;
+
+    cursor: pointer;
+
+    &:hover {
+      padding: 12px 35px;
+      color: var(--grey-1);
+      background-color: var(--grey-5);
+    }
+  `,
+  ButtonTertiary: css`
+    padding: 10px 30px;
+    font-size: 1rem;
+    font-weight: 700;
+
+    color: var(--grey-1);
+    background-color: var(--grey-5);
+
+    border: none;
+    border-radius: 27px;
+
+    cursor: pointer;
+
+    &:hover {
+      padding: 12px 35px;
+      color: var(--white);
+      background-color: var(--brand-2-clear);
+    }
+  `,
+};
 
 export const Container = styled.button<iButtonProps>`
-
-    ${({variant}) => {return buttonVariants[variant || "testButton"]}}
-`
+  ${({ variant }) => {
+    return buttonVariants[variant || "ButtonPrimary"];
+  }}
+`;
