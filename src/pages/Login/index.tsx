@@ -4,9 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import { loginSchema } from "../../validations/Loginschema";
 import { useContext, useState } from "react";
 import { FormLogin } from "./styled";
-import  { UserContext } from "../../contexts/UserContext";
-
-
+import { UserContext } from "../../contexts/UserContext";
 
 export interface iLoginFormData {
   email: string;
@@ -27,7 +25,6 @@ const Login = () => {
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
     loginFunction(data, setLoading);
-    console.log(data);
   };
 
   return (
