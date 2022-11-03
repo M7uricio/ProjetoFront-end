@@ -15,5 +15,3 @@ const RoutesMain = () => {
         </Routes>
     )
 }
-
-export default RoutesMain
