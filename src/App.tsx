@@ -12,9 +12,7 @@ const App = () => {
       <Global />
       <StyledToast />
       <UserProvider>
-        <ServiceProvider>
-          <Routes />
-        </ServiceProvider>
+        <Routes />
       </UserProvider>
     </>
   );
