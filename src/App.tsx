@@ -1,9 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { ServiceMenu } from "./components/ServiceMenu/serviceMenu";
 
 function App() {
   return (
     <>
+      <ServiceMenu />
     </>
   );
 }
