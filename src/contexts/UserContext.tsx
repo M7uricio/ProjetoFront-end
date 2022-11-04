@@ -16,8 +16,8 @@ interface iUserContext {
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
-  user: iUser | any;
-  setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
+  user: iUser | null;
+  
 }
 
 interface iUser {
@@ -124,7 +124,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     },[]) */
 
   return (
-    <UserContext.Provider value={{ registerUserFunction, loginFunction }}>
+    <UserContext.Provider value={{ registerUserFunction, loginFunction, user }}>
       {children}
     </UserContext.Provider>
   );
