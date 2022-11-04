@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
+import { createContext, useEffect, useState } from "react";
+interface iServiceContextProps {
+  children: React.ReactNode;
+}
 interface iDataCategory {
   cnpj: string;
   description: string;
@@ -12,13 +14,39 @@ interface iDataCategory {
   typeofservice: string;
   userId: number;
 }
-export const ServiceMenu = () => {
+interface iServiceContext {
+  dataValueInput: string;
+  setDataValueInput: React.Dispatch<React.SetStateAction<string>>;
+  servicesSearchBar: iDataCategory[];
+  searchResults: iDataCategory[];
+  setSearchResults: React.Dispatch<React.SetStateAction<iDataCategory[]>>;
+  serviceClick: iDataCategory[];
+  setServiceClick: React.Dispatch<React.SetStateAction<iDataCategory[]>>;
+  filtredItems: iDataCategory[];
+}
+interface iDataCategory {
+  cnpj: string;
+  description: string;
+  id: number;
+  images: string[];
+  logo: string;
+  phone: string;
+  servicename: string;
+  typeofservice: string;
+  userId: number;
+}
+export const ServiceContext = createContext<iServiceContext>(
+  {} as iServiceContext
+);
+
+const ServiceProvider = ({ children }: iServiceContextProps) => {
   const [servicesSearchBar, setServicesSearchBar] = useState<iDataCategory[]>(
     []
   );
   const [dataValueInput, setDataValueInput] = useState("");
   const [searchResults, setSearchResults] = useState<iDataCategory[]>([]);
   const [serviceClick, setServiceClick] = useState<iDataCategory[]>([]);
+
   const filtredItems = servicesSearchBar.filter((element) => {
     const value = element.servicename
       .toLowerCase()
@@ -51,53 +79,22 @@ export const ServiceMenu = () => {
         .then((res) => setServicesSearchBar(res.data));
     } catch (error) {}
   }, []);
-  // console.log(serviceClick);
-  // console.log(searchResults);
   return (
-    <main>
-      <div>
-        <input
-          type="text"
-          onChange={(event) => {
-            setDataValueInput(event.target.value);
-          }}
-        />
-      </div>
-
-      {servicesSearchBar.map((element, index) => {
-        return (
-          <button
-            key={index}
-            onClick={() => {
-              setSearchResults(
-                servicesSearchBar.filter(
-                  (elementCategory) =>
-                    elementCategory.typeofservice === element.typeofservice
-                )
-              );
-            }}
-          >
-            {element.typeofservice}
-          </button>
-        );
-      })}
-
-      <br />
-      <br />
-
-      {filtredItems.length < 0
-        ? servicesSearchBar.map((element, index) => {
-            return <link key={index}>{element.servicename}</link>;
-          })
-        : filtredItems.map((element, index) => {
-            return (
-              <button onClick={() => setServiceClick([element])} key={index}>
-                {element.servicename}
-              </button>
-            );
-          })}
-    </main>
+    <ServiceContext.Provider
+      value={{
+        dataValueInput,
+        setDataValueInput,
+        servicesSearchBar,
+        searchResults,
+        setSearchResults,
+        serviceClick,
+        setServiceClick,
+        filtredItems,
+      }}
+    >
+      {children}
+    </ServiceContext.Provider>
   );
 };
 
-// onClick={() => setServiceClick(element)}
+export default ServiceProvider;
