@@ -7,18 +7,23 @@ const LandingPage = () => {
   return (
     <DivLandingPage>
       <div className="navLandinPage">
-        <Link to="/login">Login</Link>
+        <Link to="/login" className="loginDesk">
+          Login
+        </Link>
         <div className="logo">
           <div className="writeLogo">
-            <Title variant="title1" color="var(--grey-2)">
+            <Title variant="title1" color="var(--grey-2)" className="nameLogo">
               Net
             </Title>
-            <Title variant="title1" color="var(--brand-2)">
+            <Title variant="title1" color="var(--brand-2)" className="nameLogo">
               Pet
             </Title>
           </div>
           <img src={logo} alt="" />
         </div>
+        <Link to="/login" className="loginMobile">
+          Login
+        </Link>
         <Link to="/register">Registre-se</Link>
       </div>
       <div className="registerServices">
