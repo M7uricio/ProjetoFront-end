@@ -1,13 +1,20 @@
 import React from "react";
-import "./App.css";
-import { ServiceMenu } from "./components/ServiceMenu/serviceMenu";
+import Global from "./styles/global";
+import Routes from "./routes";
+import UserProvider from "./contexts/UserContext";
+import { StyledToast } from "./components/Toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+const App = () => {
   return (
     <>
-      <ServiceMenu />
+      <Global />
+      <StyledToast />
+      <UserProvider>
+        <Routes />
+      </UserProvider>
     </>
   );
-}
+};
 
 export default App;
