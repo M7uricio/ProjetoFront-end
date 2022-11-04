@@ -29,12 +29,42 @@ export const DivLandingPage = styled.div`
     display: flex;
   }
 
+  .nameLogo {
+    font-size: 32px !important;
+  }
+
   img {
     width: 300px;
+  }
+
+  .loginMobile {
+    display: none;
   }
 
   .registerServices {
     display: flex;
     gap: 5px;
+  }
+
+  @media (max-width: 758px) {
+    .loginDesk {
+      display: none;
+    }
+
+    .loginMobile {
+      display: flex;
+    }
+
+    .navLandinPage {
+      margin-top: 100px;
+      flex-direction: column;
+      gap: 70px;
+    }
+
+    .registerServices {
+      margin-bottom: 100px;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 `;

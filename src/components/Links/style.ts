@@ -4,6 +4,7 @@ import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 interface iLinkProps {
   variant?: string;
   children: React.ReactNode;
+  classname?: string;
 }
 
 interface iLinkVariants {
