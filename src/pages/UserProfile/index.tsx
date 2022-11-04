@@ -18,7 +18,7 @@ const Profile = () => {
     <>
       <div>
         <div>
-          <link>HOME TESTE</link>
+          {/* <link>HOME TESTE</link> */}
           <img src="Logo Pet 5" alt="" />
         </div>
         <div>

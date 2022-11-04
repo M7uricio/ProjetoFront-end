@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from "react-router";
+import { RegisterPage } from "../pages/register";
 import Login from "../pages/Login";
 import Profile from "../pages/UserProfile";
+import LandingPage from "../pages/landingPage";
 
 const RoutesMain = () => {
   return (
@@ -17,3 +19,4 @@ const RoutesMain = () => {
 };
 
 export default RoutesMain;
+
