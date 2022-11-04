@@ -13,10 +13,15 @@ interface iUserContext {
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
+  user: iUser | any;
+  setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
 }
 
 interface iUser {
-  user: iUser | null;
+  email: string;
+  name: string;
+  phone: string;
+  type: string;
 }
 interface iApiError {
   error: string;
@@ -28,7 +33,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const navigate = useNavigate();
   const registerFunction = async () => {};
-
+   
   const loginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -43,6 +48,8 @@ const UserProvider = ({ children }: iUserContextProps) => {
       } else {
         navigate("/landing");
       }
+      
+      console.log(user)
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError)
@@ -54,6 +61,9 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
 
   const logoutFunctio = async () => {};
+  
+  
+  
 
   /* EXEMPLO DE AUTOLOGIN
     
@@ -85,6 +95,8 @@ const UserProvider = ({ children }: iUserContextProps) => {
     <UserContext.Provider
       value={{
         loginFunction,
+        user,
+        setUser
       }}
     >
       {children}
