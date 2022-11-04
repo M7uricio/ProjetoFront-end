@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { iRegisterUser } from "../pages/register";
 import { instance } from "../services/api";
@@ -20,6 +20,7 @@ interface iUserContext {
 }
 
 interface iUser {
+  id: number;
   email: string;
   name: string;
   phone: string;

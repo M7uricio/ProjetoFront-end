@@ -7,6 +7,7 @@ import ServiceProvider from "../../contexts/ServicesContext";
 export const ProtectedRoutes = () => {
   const { user } = useContext(UserContext);
   const location = useLocation();
+  // const token = localStorage.getItem("@TOKEN")
 
   if (user !== null) {
     return null;
