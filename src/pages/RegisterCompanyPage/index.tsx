@@ -1,58 +1,63 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import gatinho from "../../assets/img/gatinho.png";
+import { useForm } from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup"
+import { registerSchema } from "../../validations/registerSchema";
+import { UserContext } from "../../contexts/UserContext";
+import { iRegisterUser } from "../register";
+
 import { RegisterDiv } from "./style";
+import { Title } from "../../styles/title";
+import { Text } from "../../styles/text";
+import { Input } from "../../styles/Input";
+import Button from "../../components/Button";
+import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 
 
 const RegisterCompanyPage = () => {
 
+    const {register, handleSubmit, formState: {errors}} = useForm<iRegisterUser>({
+        resolver: yupResolver(registerSchema)
+    })
+
+    const {registerCompanyFunction} = useContext(UserContext)
+
     return (
         <RegisterDiv>
             <div className="imgDiv">
-                <img src="" alt="" />
+                <img src={gatinho} alt="" />
             </div>
-            <div>
-                {/* <form onSubmit={handleSubmit(registerUserFunction)}>
+            <div className="formDiv">
+                <div>
+                    <Title variant="title1" color="black">Registre-se</Title>
+                    <Text variant="text2">Expanda os horizontes do seu negócio</Text>
+                </div>
+                <form /* onSubmit={handleSubmit(registerUserFunction)} */>
                     <label htmlFor="name">Nome</label>
-                    <input
-                    id="name"
-                    type="text"
-                    {...register("name")}
-                    placeholder="Digite o seu Nome"
-                    ></input>
-                    <p>{errors.name?.message}</p>
+                    <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui">
+                    </Input>
+                    {/* <p>{errors.name?.message}</p> */}
                     <label htmlFor="email">E-Mail</label>
-                    <input
-                    id="email"
-                    type="text"
-                    {...register("email")}
-                    placeholder="Digite o seu E-Mail"
-                    ></input>
-                    <p>{errors.email?.message}</p>
+                    <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui">
+                    </Input>
+                    {/* <p>{errors.email?.message}</p> */}
                     <label htmlFor="password">Senha</label>
-                    <input
-                    id="password"
-                    type="text"
-                    {...register("password")}
-                    placeholder="Digite a senha"
-                    ></input>
-                    <p>{errors.password?.message}</p>
+                    <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" type="password">
+                    </Input>
+                    {/* <p>{errors.password?.message}</p> */}
                     <label htmlFor="confirm-password">Confirme sua Senha</label>
-                    <input
-                    id="confirm-password"
-                    type="text"
-                    {...register("confirm-password")}
-                    placeholder="Digite a senha novamente"
-                    ></input>
-                    <p>{errors["confirm-password"]?.message}</p>
+                    <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" type="password">
+                    </Input>
+                    {/* <p>{errors["confirm-password"]?.message}</p> */}
                     <label htmlFor="phone">Telefone</label>
-                    <input
-                    id="phone"
-                    type="text"
-                    {...register("phone")}
-                    placeholder="Digite o seu Telefone"
-                    ></input>
-                    <p>{errors.phone?.message}</p>
-                    <button type="submit">Cadastrar</button>
-                </form> */}
+                    <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui">
+                    </Input>
+                    {/* <p>{errors.phone?.message}</p> */}
+                    <Button variant="ButtonPrimary">Cadastrar</Button>
+                </form>
+                <Link to="/landing"><AiFillHome/></Link>
             </div>
         </RegisterDiv>
     )

@@ -1,4 +1,4 @@
-import { schema } from "../../validations/registeruser";
+import { registerSchema } from "../../validations/registerSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
@@ -18,7 +18,7 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iRegisterUser>({ resolver: yupResolver(schema) });
+  } = useForm<iRegisterUser>({ resolver: yupResolver(registerSchema) });
 
   return (
     <>

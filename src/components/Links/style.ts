@@ -1,22 +1,21 @@
+import { Link } from "react-router-dom";
 import styled, { css, FlattenSimpleInterpolation } from "styled-components";
 
-interface iButtonProps {
+interface iLinkProps {
   variant?: string;
-  onClick?: () => void;
-  type?: "button" | "submit" | "reset" | undefined;
   children: React.ReactNode;
-  classname?: string;
 }
 
-interface iButtonVariants {
-  ButtonPrimary: FlattenSimpleInterpolation;
-  ButtonSecondary: FlattenSimpleInterpolation;
-  ButtonTertiary: FlattenSimpleInterpolation;
+interface iLinkVariants {
+  LinkPrimary: FlattenSimpleInterpolation;
+  LinkSecondary: FlattenSimpleInterpolation;
+  LinkTertiary: FlattenSimpleInterpolation;
+  LinkWrite: FlattenSimpleInterpolation;
   [key: string]: any;
 }
 
-const buttonVariants: iButtonVariants = {
-  ButtonPrimary: css`
+const linkVariants: iLinkVariants = {
+  LinkPrimary: css`
     height: 60px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -28,13 +27,16 @@ const buttonVariants: iButtonVariants = {
     border: none;
     border-radius: 27px;
 
+    display: flex;
+    align-items: center;
+
     cursor: pointer;
 
     &:hover {
       background-color: var(--brand-2-clear);
     }
   `,
-  ButtonSecondary: css`
+  LinkSecondary: css`
     height: 60px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -46,6 +48,9 @@ const buttonVariants: iButtonVariants = {
     border: none;
     border-radius: 27px;
 
+    display: flex;
+    align-items: center;
+
     cursor: pointer;
 
     &:hover {
@@ -53,7 +58,7 @@ const buttonVariants: iButtonVariants = {
       background-color: var(--grey-5);
     }
   `,
-  ButtonTertiary: css`
+  LinkTertiary: css`
     height: 60px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -65,6 +70,9 @@ const buttonVariants: iButtonVariants = {
     border: none;
     border-radius: 27px;
 
+    display: flex;
+    align-items: center;
+
     cursor: pointer;
 
     &:hover {
@@ -72,10 +80,16 @@ const buttonVariants: iButtonVariants = {
       background-color: var(--brand-2-clear);
     }
   `,
+  LinkWrite: css`
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--brand-2);
+  `,
 };
 
-export const Container = styled.button<iButtonProps>`
+export const Links = styled(Link)<iLinkProps>`
   ${({ variant }) => {
-    return buttonVariants[variant || "ButtonPrimary"];
+    return linkVariants[variant || "LinkPrimary"];
   }}
 `;
