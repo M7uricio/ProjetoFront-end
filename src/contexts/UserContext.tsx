@@ -17,6 +17,7 @@ interface iUserContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
+  
 }
 
 interface iUser {
@@ -77,10 +78,12 @@ const UserProvider = ({ children }: iUserContextProps) => {
       setUser(response.data.user);
       localStorage.setItem("@TOKEN", response.data.accessToken);
       if (response.data.user.type === "user") {
-        navigate("/register");
+        navigate("/userProfile");
       } else {
         navigate("/landing");
       }
+      
+      console.log(user)
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -90,6 +93,9 @@ const UserProvider = ({ children }: iUserContextProps) => {
   };
 
   const logoutFunctio = async () => {};
+  
+  
+  
 
   /* EXEMPLO DE AUTOLOGIN
     

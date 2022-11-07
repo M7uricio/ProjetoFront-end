@@ -25,6 +25,7 @@ const Login = () => {
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
     loginFunction(data, setLoading);
+    
   };
 
   return (
