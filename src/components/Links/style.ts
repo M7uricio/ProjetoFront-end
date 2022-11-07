@@ -12,6 +12,7 @@ interface iLinkVariants {
   LinkSecondary: FlattenSimpleInterpolation;
   LinkTertiary: FlattenSimpleInterpolation;
   LinkWrite: FlattenSimpleInterpolation;
+  LinkRegisterHome: FlattenSimpleInterpolation;
   [key: string]: any;
 }
 
@@ -86,6 +87,29 @@ const linkVariants: iLinkVariants = {
     font-weight: 700;
     font-size: 22px;
     color: var(--brand-2);
+  `,
+  LinkRegisterHome: css`
+    width: 61px;
+    height: 61px;
+    background-color: var(--brand-1);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `,
+  LinkReturnLogin: css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 50px;
+    margin: 10px 0px;
+    font-weight: 700;
+    background-color: var(--brand-1);
+    color: var(--white);
+    font-size: 16px;
+    border-radius: 10px;
   `,
 };
 
