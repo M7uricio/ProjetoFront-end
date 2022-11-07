@@ -104,6 +104,8 @@ const UserProvider = ({ children }: iUserContextProps) => {
       } else {
         navigate("/landing");
       }
+
+      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -112,7 +114,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  // const logoutFunction = async () => {};
+  const logoutFunctio = async () => {};
 
   /* EXEMPLO DE AUTOLOGIN
     
