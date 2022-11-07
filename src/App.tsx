@@ -4,6 +4,7 @@ import Routes from "./routes";
 import UserProvider from "./contexts/UserContext";
 import { StyledToast } from "./components/Toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RenderProvider } from "./contexts/RenderContext";
 
 const App = () => {
   return (
@@ -11,7 +12,9 @@ const App = () => {
       <Global />
       <StyledToast />
       <UserProvider>
-        <Routes />
+        <RenderProvider>
+          <Routes />
+        </RenderProvider>
       </UserProvider>
     </>
   );
