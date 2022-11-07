@@ -1,25 +1,21 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { CommentProvider } from "../../contexts/CommentContext";
 import ServiceProvider from "../../contexts/ServicesContext";
 
 export const ProtectedRoutes = () => {
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
   const location = useLocation();
-  // const token = localStorage.getItem("@TOKEN")
 
-  if (user !== null) {
+  if (loading) {
     return null;
   }
 
-  return user !== null ? (
+  return user ? (
     <ServiceProvider>
-      <CommentProvider>
-        <Outlet />
-      </CommentProvider>
+      <Outlet />
     </ServiceProvider>
   ) : (
-    <Navigate to="*" replace state={{ from: location }} />
+    <Navigate to="/login" replace state={{ from: location }} />
   );
 };

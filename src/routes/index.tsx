@@ -1,26 +1,28 @@
 import { Routes, Route, Navigate } from "react-router";
 import { RegisterPage } from "../pages/register";
-import Login from "../pages/Login";
-import Profile from "../pages/UserProfile";
+import { Login } from "../pages/Login";
 import LandingPage from "../pages/landingPage";
 import { ProtectedRoutes } from "../components/ProtectedRoutes";
-import { ServiceMenu } from "../pages/ServiceMenu/serviceMenu";
+import { UserDashBoard } from "../pages/UserDashBoard";
+import { useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 const RoutesMain = () => {
+  const { user } = useContext(UserContext);
   return (
     <Routes>
-      <Route path="*" element={<Navigate to="/landing" />} />
+      <Route
+        path="*"
+        element={user === null ? <Navigate to="/landing" /> : <UserDashBoard />}
+      />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/landing" element={<LandingPage />} />
       <Route element={<ProtectedRoutes />}>
-        <Route path="/dashboard" element={<h1>dash</h1>}></Route>
-        <Route path="/servicesMenu" element={<ServiceMenu />} />
-        <Route path="/userProfile" element={<Profile />} />
+        <Route path="/dashboard" element={<UserDashBoard />} />
       </Route>
     </Routes>
   );
 };
 
 export default RoutesMain;
-

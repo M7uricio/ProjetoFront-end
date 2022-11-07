@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { iRegisterUser } from "../pages/register";
 import { instance } from "../services/api";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ interface iUserContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
-  
+  loading: boolean;
 }
 
 interface iUser {
@@ -35,7 +35,27 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 
 const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const userProfile = async () => {
+      const token = localStorage.getItem("@NetPetToken:");
+      const tokenId = localStorage.getItem("@NetPetId:");
+      try {
+        instance.defaults.headers.common.authorization = `Bearer ${token}`;
+        const { data } = await instance.get(`/users/${tokenId}`);
+        setUser(data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error(error);
+        }
+      }
+      setLoading(false);
+    };
+    userProfile();
+  }, []);
 
   const registerUserFunction = async (data: iRegisterUser) => {
     const newData = {
@@ -68,7 +88,6 @@ const UserProvider = ({ children }: iUserContextProps) => {
       }
     }
   };
-
   const loginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -77,14 +96,16 @@ const UserProvider = ({ children }: iUserContextProps) => {
       setLoading(true);
       const response = await instance.post("/login", data);
       setUser(response.data.user);
-      localStorage.setItem("@TOKEN", response.data.accessToken);
+      localStorage.setItem("@NetPetToken:", response.data.accessToken);
+      localStorage.setItem("@NetPetId:", response.data.user.id);
+      const toNavigate = location.state?.from.pathname || "dashboard";
       if (response.data.user.type === "user") {
-        navigate("/userProfile");
+        navigate(toNavigate, { replace: true });
       } else {
         navigate("/landing");
       }
-      
-      console.log(user)
+
+      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -94,9 +115,6 @@ const UserProvider = ({ children }: iUserContextProps) => {
   };
 
   const logoutFunctio = async () => {};
-  
-  
-  
 
   /* EXEMPLO DE AUTOLOGIN
     
@@ -125,7 +143,9 @@ const UserProvider = ({ children }: iUserContextProps) => {
     },[]) */
 
   return (
-    <UserContext.Provider value={{ registerUserFunction, loginFunction, user }}>
+    <UserContext.Provider
+      value={{ registerUserFunction, loginFunction, user, loading }}
+    >
       {children}
     </UserContext.Provider>
   );
