@@ -5,16 +5,17 @@ import { StyledUl } from "../../../styles/ListBody";
 import { StyledLi } from "../../../styles/ListItems";
 
 export const ServiceList = () => {
-  const { renderList, setServiceClick } = useContext(ServiceContext);
+  const { renderList, setServiceClick, openModal } = useContext(ServiceContext);
   return (
     <StyledUl>
       {renderList.map((element, index) => (
-        <StyledLi key={index} onClick={() => setServiceClick([element])}>
+        <StyledLi key={index} onClick={() => setServiceClick(element)}>
           <StyledDiv variant="serviceCard">
             <img src={element.logo} alt="logo"></img>
             <h2>{element.servicename}</h2>
             <p>{element.typeofservice}</p>
             <p>{element.phone}</p>
+            <button onClick={openModal}>Open Modal</button>
           </StyledDiv>
         </StyledLi>
       ))}

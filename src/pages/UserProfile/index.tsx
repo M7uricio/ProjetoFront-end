@@ -2,7 +2,6 @@ import userEvent from "@testing-library/user-event";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-
 export interface iAddPet {
   userId: number;
   name: string;
@@ -13,7 +12,7 @@ export interface iAddPet {
 
 const Profile = () => {
   const { user } = useContext(UserContext);
-  console.log(user)
+  console.log(user);
   return (
     <>
       <div>
@@ -24,19 +23,15 @@ const Profile = () => {
         <div>
           <div>
             <img src="" alt="" />
-            <p>{user.name}</p>
+            <p>{user?.name}</p>
             <button>Editar Perfil</button>
             <button>Adicionar Pet</button>
           </div>
         </div>
       </div>
-     <div>
-        <ul>
-            {}
-        </ul>
-     </div>
-
-      
+      <div>
+        <ul>{}</ul>
+      </div>
     </>
   );
 };
