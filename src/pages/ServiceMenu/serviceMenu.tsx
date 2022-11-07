@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 
 import { ServiceContext } from "../../contexts/ServicesContext";
+import { ServiceMenuPage } from "./styled";
+import logo from "../../assets/img/logoPet.png";
 export const ServiceMenu = () => {
   const {
     dataValueInput,
@@ -15,15 +17,28 @@ export const ServiceMenu = () => {
   console.log(serviceClick);
   console.log(searchResults);
   return (
-    <main>
-      <div>
-        <input
-          type="text"
-          onChange={(event) => {
-            setDataValueInput(event.target.value);
-          }}
-        />
-      </div>
+    <ServiceMenuPage>
+      <header>
+        <div>
+          <button>☺</button>
+          <img
+            className="imgRoundShape"
+            src={logo}
+            alt="logo formato de coração com cachorro e gato"
+          />
+          <img className="imgRoundShape" alt="" />
+        </div>
+
+        <div>
+          <input
+            type="text"
+            onChange={(event) => {
+              setDataValueInput(event.target.value);
+            }}
+          />
+        </div>
+      </header>
+
       <ul>
         {servicesSearchBar.map((element) => {
           return (
@@ -67,6 +82,6 @@ export const ServiceMenu = () => {
               );
             })}
       </ul>
-    </main>
+    </ServiceMenuPage>
   );
 };

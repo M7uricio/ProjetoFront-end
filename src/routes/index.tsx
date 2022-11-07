@@ -8,13 +8,14 @@ import { ServiceMenu } from "../pages/ServiceMenu/serviceMenu";
 const RoutesMain = () => {
   return (
     <Routes>
+      <Route path="/serviceMenu" element={<ServiceMenu />} />
       <Route path="*" element={<Navigate to="/landing" />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/landing" element={<LandingPage />} />
+
       <Route element={<ProtectedRoutes />}>
         <Route path="/dashboard" element={<h1>dash</h1>}></Route>
-        <Route path="/servicesMenu" element={<ServiceMenu />} />
       </Route>
     </Routes>
   );

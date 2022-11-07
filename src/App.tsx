@@ -11,11 +11,11 @@ const App = () => {
     <>
       <Global />
       <StyledToast />
-      <UserProvider>
-        <ServiceProvider>
+      <ServiceProvider>
+        <UserProvider>
           <Routes />
-        </ServiceProvider>
-      </UserProvider>
+        </UserProvider>
+      </ServiceProvider>
     </>
   );
 };
