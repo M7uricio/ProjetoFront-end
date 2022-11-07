@@ -26,7 +26,7 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iRegisterUser>({ resolver: yupResolver(schema) });
+  } = useForm<iRegisterUser>({ resolver: yupResolver(registerSchema) });
   useEffect(() => {
     setSize(window.innerWidth);
   }, []);

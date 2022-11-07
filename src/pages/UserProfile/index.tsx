@@ -24,7 +24,7 @@ const Profile = () => {
         <div>
           <div>
             <img src="" alt="" />
-            <p>{user.name}</p>
+            <p>{user?.name}</p>
             <button>Editar Perfil</button>
             <button>Adicionar Pet</button>
           </div>
