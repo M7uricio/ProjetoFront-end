@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { iRegisterUser } from "../pages/register";
 import { instance } from "../services/api";
@@ -18,9 +18,11 @@ interface iUserContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
+  
 }
 
 interface iUser {
+  id: number;
   email: string;
   name: string;
   phone: string;
@@ -110,10 +112,12 @@ const UserProvider = ({ children }: iUserContextProps) => {
       setUser(response.data.user);
       localStorage.setItem("@TOKEN", response.data.accessToken);
       if (response.data.user.type === "user") {
-        navigate("/register");
+        navigate("/userProfile");
       } else {
         navigate("/landing");
       }
+      
+      console.log(user)
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -123,6 +127,9 @@ const UserProvider = ({ children }: iUserContextProps) => {
   };
 
   const logoutFunctio = async () => {};
+  
+  
+  
 
   /* EXEMPLO DE AUTOLOGIN
     
