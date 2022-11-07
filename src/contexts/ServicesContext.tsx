@@ -30,8 +30,11 @@ interface iServiceContext {
   setDataValueInput: React.Dispatch<React.SetStateAction<string>>;
   searchResults: iDataCategory[];
   setSearchResults: React.Dispatch<React.SetStateAction<iDataCategory[]>>;
-  serviceClick: iDataCategory[];
-  setServiceClick: React.Dispatch<React.SetStateAction<iDataCategory[]>>;
+  serviceClick: iDataCategory;
+  setServiceClick: React.Dispatch<React.SetStateAction<iDataCategory>>;
+  modal: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  openModal: () => void;
 }
 
 export const ServiceContext = createContext<iServiceContext>(
@@ -41,11 +44,12 @@ export const ServiceContext = createContext<iServiceContext>(
 const ServiceProvider = ({ children }: iServiceContextProps) => {
   const [dataValueInput, setDataValueInput] = useState("");
   const [searchResults, setSearchResults] = useState<iDataCategory[]>([]);
-  const [serviceClick, setServiceClick] = useState<iDataCategory[]>([]);
+  const [serviceClick, setServiceClick] = useState({} as iDataCategory);
   const [servicesList, setServicesList] = useState<iDataCategory[]>([]);
   const [searchBtn, setSearchBtn] = useState("");
   const [renderList, setRenderList] = useState<iDataCategory[]>([]);
   const { user } = useContext(UserContext);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const getServices = async () => {
@@ -97,6 +101,10 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
           .replace(/[\u0300-\u036f]/g, "")
           .includes(dataValueInput.toLowerCase())
   );
+
+  function openModal() {
+    setModal(true);
+  }
   console.log(serviceClick);
   return (
     <ServiceContext.Provider
@@ -115,6 +123,9 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
         setSearchResults,
         serviceClick,
         setServiceClick,
+        openModal,
+        setModal,
+        modal,
       }}
     >
       {children}

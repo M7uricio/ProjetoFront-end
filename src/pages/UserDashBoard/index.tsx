@@ -8,6 +8,7 @@ import { StyledDiv } from "../../styles/Divs/style";
 import { StyledHeader } from "../../components/Header/style";
 import { ButtonExit } from "../../styles/buttonsIcons";
 import { RenderContext } from "../../contexts/RenderContext";
+import ModalInfo from "../../components/ModalInfo";
 
 export const UserDashBoard = () => {
   // const { user } = useContext(UserContext);
@@ -56,6 +57,8 @@ export const UserDashBoard = () => {
       />
 
       <Main />
+
+      <ModalInfo />
     </>
   );
 };
