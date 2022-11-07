@@ -33,14 +33,13 @@ export const Login = () => {
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
     loginFunction(data, setLoading);
-    
   };
 
   return (
     <StyledDiv variant="DivPrimary">
       {size < 720 ? (
         <>
-          <Link to="/landing" variant="LinkRegisterHome">
+          <Link to="/" variant="LinkRegisterHome">
             <ButtonHome />
           </Link>
         </>
@@ -56,7 +55,7 @@ export const Login = () => {
             {size < 720 ? (
               <></>
             ) : (
-              <Link to="/landing" variant="LinkRegisterHome">
+              <Link to="/" variant="LinkRegisterHome">
                 <ButtonHome />
               </Link>
             )}
