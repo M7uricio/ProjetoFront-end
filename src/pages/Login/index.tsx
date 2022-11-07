@@ -1,18 +1,26 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, Outlet } from "react-router-dom";
 import { loginSchema } from "../../validations/Loginschema";
-import { useContext, useState } from "react";
-import { FormLogin } from "./styled";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import { StyledForm } from "../../styles/Form/style";
+import { PassWord } from "../../components/Inputs/Password";
+import { StyledDiv } from "../../styles/Divs/style";
+import { ButtonHome, StyledPaw } from "../../styles/buttonsIcons";
+import LogoLogin from "../../assets/img/Doginho 1.svg";
+import Link from "../../components/Links";
+import { Input } from "../../styles/Input";
+import Button from "../../components/Button";
+import { RenderContext } from "../../contexts/RenderContext";
 
 export interface iLoginFormData {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }
 
-const Login = () => {
+export const Login = () => {
   const { loginFunction } = useContext(UserContext);
+  const { size } = useContext(RenderContext);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -25,40 +33,57 @@ const Login = () => {
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
     loginFunction(data, setLoading);
-    
   };
 
   return (
-    <>
-      <Outlet />
+    <StyledDiv variant="DivPrimary">
+      {size < 720 ? (
+        <>
+          <Link to="/" variant="LinkRegisterHome">
+            <ButtonHome />
+          </Link>
+        </>
+      ) : (
+        <StyledDiv variant="DivSecondary">
+          <img src={LogoLogin} alt="" />
+        </StyledDiv>
+      )}
 
-      <FormLogin onSubmit={handleSubmit(submit)}>
-        <h1>Login</h1>
-        <label htmlFor="Email">Email</label>
-        <input
-          id="Email"
-          type="email"
-          placeholder="Digite seu e-mail"
-          {...register("email")}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
-        <label htmlFor="Password">Senha</label>
-        <input
-          id="Password"
-          type="password"
-          placeholder="Digite sua senha"
-          {...register("password")}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
-        <button type="submit">Entrar</button>
-        <p>Ainda não possui uma conta?</p>
+      <StyledDiv variant="DivTertiary">
+        <StyledForm onSubmit={handleSubmit(submit)}>
+          <StyledDiv variant="DivInnerForm">
+            {size < 720 ? (
+              <></>
+            ) : (
+              <Link to="/" variant="LinkRegisterHome">
+                <ButtonHome />
+              </Link>
+            )}
+            <h1>Login</h1>
+            <span>Seja muito bem vindo a nossa comunidade!</span>
+          </StyledDiv>
+          <label htmlFor="Email">Email</label>
+          <Input
+            variant="inputPrimary"
+            id="Email"
+            type="email"
+            placeholder="Digite seu e-mail"
+            {...register("email")}
+          />
+          <p>{errors.email?.message}</p>
+          <label htmlFor="Password">Senha</label>
+          <PassWord register={register} />
+          <p>{errors.password?.message}</p>
+          <Button type="submit">
+            Entrar <StyledPaw variant="paw" font="#FFD7A8" />
+          </Button>
+          <h3>Ainda não possui uma conta?</h3>
 
-        <Link className="Link" to="/register">
-          Cadastra-se
-        </Link>
-      </FormLogin>
-    </>
+          <Link variant="LinkReturnLogin" to="/register">
+            Cadastre-se <StyledPaw variant="paw" font="#D77127" />
+          </Link>
+        </StyledForm>
+      </StyledDiv>
+    </StyledDiv>
   );
 };
-
-export default Login;

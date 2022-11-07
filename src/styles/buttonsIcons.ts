@@ -59,12 +59,18 @@ export const ButtonSeach = styled(BiSearchAlt)`
 `;
 export const StyledEye = styled(AiFillEye)`
   position: absolute;
-  margin: 13px;
-  left: 88%;
+  margin: 17px;
+  left: 80%;
+  @media (min-width: 425px) {
+    left: 85%;
+  }
 `;
 
 export const StyledClosedEye = styled(AiFillEyeInvisible)`
   position: absolute;
-  margin: 13px;
-  left: 88%;
+  margin: 17px;
+  left: 80%;
+  @media (min-width: 425px) {
+    left: 85%;
+  }
 `;

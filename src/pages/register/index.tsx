@@ -1,44 +1,43 @@
 import { registerSchema } from "../../validations/registerSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm, UseFormRegister } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import LogoReg from "../../assets/img/Ramister 1.svg";
 import { UserContext } from "../../contexts/UserContext";
-import { StyledDiv } from "../../components/Divs/style";
+import { StyledDiv } from "../../styles/Divs/style";
 import Link from "../../components/Links";
-import { StyledForm } from "../../components/Form/style";
+import { StyledForm } from "../../styles/Form/style";
 import { ButtonHome, StyledPaw } from "../../styles/buttonsIcons";
 import { Input } from "../../styles/Input";
 import Button from "../../components/Button";
+import { PassWord } from "../../components/Inputs/Password";
+import { ConfirmPassWord } from "../../components/Inputs/ConfirmPassword";
+import { RenderContext } from "../../contexts/RenderContext";
 
 export type iRegisterUser = {
-  name: string;
-  password: string;
-  "confirm-password": string;
-  email: string;
-  phone: string;
+  name?: string;
+  password?: string;
+  "confirm-password"?: string;
+  email?: string;
+  phone?: string;
   type?: string;
+  register?: UseFormRegister<FieldValues>;
 };
+
 export const RegisterPage = () => {
   const { registerUserFunction } = useContext(UserContext);
-  const [size, setSize] = useState(0);
+  const { size } = useContext(RenderContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iRegisterUser>({ resolver: yupResolver(registerSchema) });
-  useEffect(() => {
-    setSize(window.innerWidth);
-  }, []);
-  window.addEventListener("resize", () => {
-    setSize(window.innerWidth);
-  });
+  } = useForm<iRegisterUser>({ resolver: yupResolver(schema) });
 
   return (
     <StyledDiv variant="DivPrimary">
       {size < 720 ? (
         <>
-          <Link to="/landing" variant="LinkRegisterHome">
+          <Link to="/" variant="LinkRegisterHome">
             <ButtonHome />
           </Link>
         </>
@@ -54,7 +53,7 @@ export const RegisterPage = () => {
             {size < 720 ? (
               <></>
             ) : (
-              <Link to="/landing" variant="LinkRegisterHome">
+              <Link to="/" variant="LinkRegisterHome">
                 <ButtonHome />
               </Link>
             )}
@@ -80,22 +79,10 @@ export const RegisterPage = () => {
           ></Input>
           <p>{errors.email?.message}</p>
           <label htmlFor="password">Senha</label>
-          <Input
-            variant="inputPrimary"
-            id="password"
-            type="text"
-            {...register("password")}
-            placeholder="Digite a senha"
-          ></Input>
+          <PassWord register={register} />
           <p>{errors.password?.message}</p>
           <label htmlFor="confirm-password">Confirme sua Senha</label>
-          <Input
-            variant="inputPrimary"
-            id="confirm-password"
-            type="text"
-            {...register("confirm-password")}
-            placeholder="Digite a senha novamente"
-          ></Input>
+          <ConfirmPassWord register={register} />
           <p>{errors["confirm-password"]?.message}</p>
           <label htmlFor="phone">Telefone</label>
           <Input
