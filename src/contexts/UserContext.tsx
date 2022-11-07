@@ -102,7 +102,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
       if (response.data.user.type === "user") {
         navigate(toNavigate, { replace: true });
       } else {
-        navigate("/landing");
+        navigate("/");
       }
 
       console.log(user);

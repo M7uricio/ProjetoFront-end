@@ -37,7 +37,7 @@ export const RegisterPage = () => {
     <StyledDiv variant="DivPrimary">
       {size < 720 ? (
         <>
-          <Link to="/landing" variant="LinkRegisterHome">
+          <Link to="/" variant="LinkRegisterHome">
             <ButtonHome />
           </Link>
         </>
@@ -53,7 +53,7 @@ export const RegisterPage = () => {
             {size < 720 ? (
               <></>
             ) : (
-              <Link to="/landing" variant="LinkRegisterHome">
+              <Link to="/" variant="LinkRegisterHome">
                 <ButtonHome />
               </Link>
             )}
