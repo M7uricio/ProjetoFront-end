@@ -73,10 +73,10 @@ export const EditServiceForm = () => {
         {errors.description?.message}
         <label htmlFor="">Tipo de serviço</label>
         <select id="" placeholder="Em qual categoría o seu serviço se encaixa?" {...register("typeofservice")}>
-          <option value="veterinaria">Veterinária</option>
-          <option value="hotel">Hotel</option>
-          <option value="petshop">PetShop</option>
-          <option value="outros">Outros</option>
+          <option value="Veterinaria">Veterinária</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Petshop">PetShop</option>
+          <option value="Outros">Outros</option>
         </select>
         {errors.typeofservice?.message}
         <label htmlFor="">Imagens do serviço</label>
