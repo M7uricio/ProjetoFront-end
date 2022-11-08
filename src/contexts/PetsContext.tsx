@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { iEditFormPet } from "../components/Modal/EditPetsProfile";
 import { instance } from "../services/api";
+import { ModalContext } from "./ModalContext";
 import { UserContext } from "./UserContext";
 
 export interface iPetContext {
@@ -45,6 +46,7 @@ export const petsContext = createContext<iPetContext>({} as iPetContext);
 
 const PetProvider = ({ children }: iPetContextProps) => {
   const { user } = useContext(UserContext);
+  const {closeModaladdpet} = useContext(ModalContext)
   const [petsList, setPetsList] = useState([] as iPetList[]);
   const [petsInfo, setPetsInfo] = useState<iEditFormPet | null>(null);
 
@@ -56,6 +58,8 @@ const PetProvider = ({ children }: iPetContextProps) => {
       const response = await instance.post("/pets", data, {
         
       });
+      userPetsList()
+      closeModaladdpet()
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -102,6 +106,7 @@ const PetProvider = ({ children }: iPetContextProps) => {
       const response = await instance.patch(`/pets/${petsInfo?.id}`, newData, {
         
       });
+      userPetsList()
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -115,11 +120,16 @@ const PetProvider = ({ children }: iPetContextProps) => {
       const response = await instance.delete(`/pets/${petsInfo?.id}`, {
         
       });
+      userPetsList()
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
     }
   };
+
+  /* const updatePetList = async () => {
+
+  } */
 
   return (
     <petsContext.Provider

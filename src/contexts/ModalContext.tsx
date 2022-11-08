@@ -33,6 +33,7 @@ const ModalProvider = ({ children }: iModalContextProps) => {
 
   const closeModaladdpet = (): void => {
     setIsOpen(false);
+    console.log("oi")
   };
 
   const openModalEditUser = (): void => {
