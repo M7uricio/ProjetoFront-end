@@ -4,7 +4,6 @@ import Routes from "./routes";
 import UserProvider from "./contexts/UserContext";
 import { StyledToast } from "./components/Toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { RenderProvider } from "./contexts/RenderContext";
 import ModalProvider from "./contexts/ModalContext";
 
 import ReactDOM from "react-dom";
