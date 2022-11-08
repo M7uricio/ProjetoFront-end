@@ -26,7 +26,7 @@ export const ModalProfile = () => {
   } = useForm<ieditForm>({
     // defaultValues: {
     //   name: user?.name,
-    //   email: user?.email,
+    //   email: user?.email,""
     //   phone: user?.phone,
     //   password: user?.password,
     // },
