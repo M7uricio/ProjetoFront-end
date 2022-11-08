@@ -18,6 +18,7 @@ interface iUserContext {
   ) => void;
   user: iUser | null;
   loading: boolean;
+  size: number;
 }
 
 interface iUser {
@@ -36,26 +37,33 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [size, setSize] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const userProfile = async () => {
-      const token = localStorage.getItem("@NetPetToken:");
-      const tokenId = localStorage.getItem("@NetPetId:");
-      try {
-        instance.defaults.headers.common.authorization = `Bearer ${token}`;
-        const { data } = await instance.get(`/users/${tokenId}`);
-        setUser(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error);
-        }
+  const userProfile = async () => {
+    const token = localStorage.getItem("@NetPetToken:");
+    const tokenId = localStorage.getItem("@NetPetId:");
+    try {
+      instance.defaults.headers.common.authorization = `Bearer ${token}`;
+      const { data } = await instance.get(`/users/${tokenId}`);
+      setUser(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
       }
-      setLoading(false);
-    };
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setSize(window.innerWidth);
     userProfile();
   }, []);
+
+  window.addEventListener("resize", () => {
+    setSize(window.innerWidth);
+  });
 
   const registerUserFunction = async (data: iRegisterUser) => {
     const newData = {
@@ -144,7 +152,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
   return (
     <UserContext.Provider
-      value={{ registerUserFunction, loginFunction, user, loading }}
+      value={{ registerUserFunction, loginFunction, user, loading, size }}
     >
       {children}
     </UserContext.Provider>

@@ -1,16 +1,15 @@
 import { useContext, useEffect } from "react";
 import { ServiceContext } from "../../contexts/ServicesContext";
-// import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
 import { Main } from "../../components/Main";
 import { StyledDiv } from "../../styles/Divs/style";
 import { StyledHeader } from "../../components/Header/style";
 import { ButtonExit } from "../../styles/buttonsIcons";
-import { RenderContext } from "../../contexts/RenderContext";
 
 export const UserDashBoard = () => {
-  // const { user } = useContext(UserContext);
+  const { user, size } = useContext(UserContext);
   const {
     newNavBar,
     setDataValueInput,
@@ -21,7 +20,6 @@ export const UserDashBoard = () => {
     setRenderList,
     searchBtn,
   } = useContext(ServiceContext);
-  const { size } = useContext(RenderContext);
 
   useEffect(() => {
     if (dataValueInput === "") {

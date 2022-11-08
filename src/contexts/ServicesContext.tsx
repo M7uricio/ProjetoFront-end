@@ -97,6 +97,7 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
           .replace(/[\u0300-\u036f]/g, "")
           .includes(dataValueInput.toLowerCase())
   );
+
   console.log(serviceClick);
   return (
     <ServiceContext.Provider

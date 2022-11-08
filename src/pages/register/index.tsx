@@ -12,7 +12,6 @@ import { Input } from "../../styles/Input";
 import Button from "../../components/Button";
 import { PassWord } from "../../components/Inputs/Password";
 import { ConfirmPassWord } from "../../components/Inputs/ConfirmPassword";
-import { RenderContext } from "../../contexts/RenderContext";
 
 export type iRegisterUser = {
   name?: string;
@@ -25,8 +24,7 @@ export type iRegisterUser = {
 };
 
 export const RegisterPage = () => {
-  const { registerUserFunction } = useContext(UserContext);
-  const { size } = useContext(RenderContext);
+  const { registerUserFunction, size } = useContext(UserContext);
   const {
     register,
     handleSubmit,

@@ -11,7 +11,6 @@ import LogoLogin from "../../assets/img/Doginho 1.svg";
 import Link from "../../components/Links";
 import { Input } from "../../styles/Input";
 import Button from "../../components/Button";
-import { RenderContext } from "../../contexts/RenderContext";
 
 export interface iLoginFormData {
   email?: string;
@@ -19,8 +18,7 @@ export interface iLoginFormData {
 }
 
 export const Login = () => {
-  const { loginFunction } = useContext(UserContext);
-  const { size } = useContext(RenderContext);
+  const { loginFunction, size } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const {
