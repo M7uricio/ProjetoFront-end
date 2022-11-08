@@ -6,7 +6,9 @@ import { NavBar } from "../../components/NavBar";
 import { StyledHeader } from "../../components/Header/style";
 import { StyledButtonExit } from "../../components/Icons";
 import ModalInfo from "../../components/ModalInfo";
+import Link from "../../components/Links";
 import { StyledDivUserDashBoard } from "./style";
+import { StyledDiv } from "../../components/Divs/style";
 
 export const UserDashBoard = () => {
   const { user, size } = useContext(UserContext);
@@ -45,9 +47,10 @@ export const UserDashBoard = () => {
           <div className="headerDiv">
             <img src="" alt="Avatar" />
 
-            <button>Profile</button>
+            <Link to="/userProfile">Profile</Link>
+            
           </div>
-        </div>
+         </div> 
       </StyledHeader>
 
       <NavBar

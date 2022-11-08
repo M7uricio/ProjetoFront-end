@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import ServiceProvider from "../../contexts/ServicesContext";
+import ModalProvider from "../../contexts/ModalContext";
+import PetProvider from "../../contexts/PetsContext";
 
 export const ProtectedRoutes = () => {
   const { user, loading } = useContext(UserContext);
@@ -13,7 +15,11 @@ export const ProtectedRoutes = () => {
 
   return user ? (
     <ServiceProvider>
-      <Outlet />
+      <PetProvider>
+        <ModalProvider>
+          <Outlet />
+        </ModalProvider>
+      </PetProvider>
     </ServiceProvider>
   ) : (
     <Navigate to="/login" replace state={{ from: location }} />

@@ -5,6 +5,7 @@ import { instance } from "../services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { iLoginFormData } from "../pages/Login";
+import { ieditForm } from "../components/Modal/EditProfileUser";
 
 interface iUserContextProps {
   children: React.ReactNode;
@@ -20,6 +21,8 @@ interface iUserContext {
   user: iUser | null;
   loading: boolean;
   size: number;
+  userEditProfile: (data: ieditForm) => void;
+  
 }
 
 interface iUser {
@@ -29,6 +32,7 @@ interface iUser {
   phone: string;
   password: string;
   type: string;
+  
 }
 interface iApiError {
   error: string;
@@ -69,10 +73,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
   const userRegisterFunction = async (data: iRegisterUser) => {
     const newData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      phone: data.phone,
+      ...data,
       type: "user",
     };
     const id = toast.loading("Please wait...");
@@ -155,18 +156,41 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
+  const logoutFunctio = async () => {};
+
+  const userEditProfile = async (data: any) => {
+    let newData : any = {
+              
+    };
+   let arrayUser : string []  = [];
+
+   Object.keys(data).forEach((key) => {
+    const category = data[key];
+    if (category !== "") {
+      arrayUser.push(key);
+    }
+  });
+  arrayUser.forEach((key) => {
+    newData[key] = data[key];
+  });
+
+    try {
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`;
+      const response = await instance.patch(`/users/${user?.id}`, newData, {
+        
+      });
+    } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      console.log(requestError);
+    }
+  };
+
   const userLogoutFunction = async () => {};
 
   return (
     <UserContext.Provider
-      value={{
-        userRegisterFunction,
-        userLoginFunction,
-        userRegisterCompanyFunction,
-        user,
-        loading,
-        size,
-      }}
+      value={{ userRegisterFunction, userLoginFunction, user, userEditProfile,userRegisterCompanyFunction, loading,size }}
     >
       {children}
     </UserContext.Provider>
