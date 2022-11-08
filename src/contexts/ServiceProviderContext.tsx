@@ -15,6 +15,10 @@ interface iProviderContext {
   closeModalEditService: () => void;
   serviceId: number;
   setServiceId: React.Dispatch<React.SetStateAction<number>>;
+  modalEditProfile: boolean,
+  setModalEditProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  openModalEditProfile: () => void;
+  closeModalEditProfile: () => void;
 }
 
 export const ProviderContext = createContext<iProviderContext>({} as iProviderContext);
@@ -27,6 +31,9 @@ const ProviderService = ({ children }: iCouterContextProps) => {
   const openModalEditService = () => setModalEdit(true);
   const closeModalEditService = () => setModalEdit(false);
   const [serviceId, setServiceId] = useState(0)
+  const [modalEditProfile, setModalEditProfile] = useState(false)
+  const openModalEditProfile = () => setModalEdit(true);
+  const closeModalEditProfile = () => setModalEdit(false);
 
 
   return (
@@ -41,6 +48,10 @@ const ProviderService = ({ children }: iCouterContextProps) => {
       closeModalEditService,
       serviceId,
       setServiceId,
+      modalEditProfile,
+      setModalEditProfile,
+      openModalEditProfile,
+      closeModalEditProfile,
       }}>
         {children}
     </ProviderContext.Provider>

@@ -10,6 +10,8 @@ import { ModalCreateService } from "../../components/ModalCreateService";
 import { CreateServiceForm } from "../../components/CreateServiceForm";
 import { ModalEditService } from "../../components/ModalEditService";
 import { EditServiceForm } from "../../components/EditServiceForm";
+import { ModalContext } from "../../contexts/ModalContext";
+import { ModalProfile } from "../../components/Modal/EditProfileUser";
 // import logo from "../../assets/img/logoPet.png";
 
 export interface iServiceData {
@@ -25,8 +27,9 @@ export interface iServiceData {
 }
 
 export function ServiceProvider() {
-  const { user } = useContext(UserContext);
-  const { openModalCreateService, openModalEditService, setServiceId } = useContext(ProviderContext);
+  const { user , userEditProfile} = useContext(UserContext);
+  const { openModalCreateService, openModalEditService, setServiceId} = useContext(ProviderContext);
+  const {openModalEditUser, closeModalEditUser } = useContext(ModalContext)
   const [services, setServices] = useState<iServiceData[]>([]);
   const [servicesUser, setServicesUser] = useState<iServiceData[]>([]);
 
@@ -85,6 +88,9 @@ export function ServiceProvider() {
             <Button onClick={() => openModalCreateService()}>
               cadastrar novo serviço
             </Button>
+            <Button onClick={() => openModalEditUser()}>
+              Editar perfil
+            </Button>
           </div>
         </section>
       </nav>
@@ -95,6 +101,7 @@ export function ServiceProvider() {
         <ModalEditService>
           <EditServiceForm />
         </ModalEditService>
+        <ModalProfile/>
         <ul>
           {servicesUser.map((service) => {
             return (
