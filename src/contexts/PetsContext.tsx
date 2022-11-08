@@ -51,7 +51,6 @@ const PetProvider = ({ children }: iPetContextProps) => {
   const [petsInfo, setPetsInfo] = useState<iEditFormPet | null>(null);
 
   const addPet = async (data: iAddPet): Promise<void> => {
-    console.log(data);
     try {
       const token = localStorage.getItem("@NetPetToken:");
       instance.defaults.headers.authorization = `Bearer ${token}`; 
@@ -59,7 +58,6 @@ const PetProvider = ({ children }: iPetContextProps) => {
         
       });
       userPetsList()
-      closeModaladdpet()
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -99,7 +97,6 @@ const PetProvider = ({ children }: iPetContextProps) => {
   arrayPets.forEach((key) => {
     newData[key] = data[key];
   });
- console.log(newData)
     try {
       const token = localStorage.getItem("@NetPetToken:");
       instance.defaults.headers.authorization = `Bearer ${token}`;
