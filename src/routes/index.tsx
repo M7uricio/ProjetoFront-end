@@ -13,14 +13,13 @@ const RoutesMain = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/landing" element={<LandingPage />} />
+      <Route path="/userProfile" element={<Profile />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/dashboard" element={<h1>dash</h1>}></Route>
         <Route path="/servicesMenu" element={<ServiceMenu />} />
-        <Route path="/userProfile" element={<Profile />} />
       </Route>
     </Routes>
   );
 };
 
 export default RoutesMain;
-

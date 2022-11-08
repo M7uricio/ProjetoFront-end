@@ -12,7 +12,7 @@ export type iRegisterUser = {
   type?: string;
 };
 export const RegisterPage = () => {
-  const { registerUserFunction } = useContext(UserContext);
+  const { userRegisterFunction } = useContext(UserContext);
 
   const {
     register,
@@ -22,7 +22,7 @@ export const RegisterPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(registerUserFunction)}>
+      <form onSubmit={handleSubmit(userRegisterFunction)}>
         <label htmlFor="name">Nome</label>
         <input
           id="name"

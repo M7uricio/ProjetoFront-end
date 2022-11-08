@@ -5,26 +5,29 @@ import { instance } from "../services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { iLoginFormData } from "../pages/Login";
+import { ieditForm } from "../components/Modal/EditProfileUser";
 
 interface iUserContextProps {
   children: React.ReactNode;
 }
 
 interface iUserContext {
-  registerUserFunction: (data: iRegisterUser) => void;
-  loginFunction: (
+  userRegisterFunction: (data: iRegisterUser) => void;
+  userLoginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
-  
+  userEditProfile: (data: ieditForm) => void;
 }
 
 interface iUser {
+  id: number;
   email: string;
   name: string;
   phone: string;
   type: string;
+  password: string;
 }
 interface iApiError {
   error: string;
@@ -36,12 +39,9 @@ const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const navigate = useNavigate();
 
-  const registerUserFunction = async (data: iRegisterUser) => {
+  const userRegisterFunction = async (data: iRegisterUser) => {
     const newData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      phone: data.phone,
+      ...data,
       type: "user",
     };
     const id = toast.loading("Please wait...");
@@ -68,7 +68,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const loginFunction = async (
+  const userLoginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -82,8 +82,8 @@ const UserProvider = ({ children }: iUserContextProps) => {
       } else {
         navigate("/landing");
       }
-      
-      console.log(user)
+
+      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -93,38 +93,31 @@ const UserProvider = ({ children }: iUserContextProps) => {
   };
 
   const logoutFunctio = async () => {};
-  
-  
-  
 
-  /* EXEMPLO DE AUTOLOGIN
-    
-    useEffect(() => {
+  const userEditProfile = async (data: ieditForm) => {
+    const newData = {
+      ...data,
+      type: user?.type,
+      
+    };
 
-        async function loginUser(){
-            const token = localStorage.getItem("@kenziehub:TOKEN")
-
-            if(token){
-                try {
-                    const profile = await api.get("/profile", {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    setUser(profile.data)
-                    setToken(token)
-                } catch {
-                    localStorage.removeItem("@kenziehub:TOKEN")
-                }
-            }
-
-            setLoading(false)
-        }
-        loginUser()
-    },[]) */
+    try {
+      const token = localStorage.getItem("@TOKEN");
+      const response = await instance.patch(`/users/${user?.id}`, newData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      console.log(requestError);
+    }
+  };
 
   return (
-    <UserContext.Provider value={{ registerUserFunction, loginFunction, user }}>
+    <UserContext.Provider
+      value={{ userRegisterFunction, userLoginFunction, user, userEditProfile }}
+    >
       {children}
     </UserContext.Provider>
   );

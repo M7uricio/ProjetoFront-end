@@ -12,7 +12,7 @@ export interface iLoginFormData {
 }
 
 const Login = () => {
-  const { loginFunction } = useContext(UserContext);
+  const { userLoginFunction } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -24,8 +24,7 @@ const Login = () => {
   });
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
-    loginFunction(data, setLoading);
-    
+    userLoginFunction(data, setLoading);
   };
 
   return (
