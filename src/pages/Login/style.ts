@@ -144,13 +144,54 @@ export const LoginMain = styled.div`
       top: 120px;
       left: 10%;
 
-      width: 17px;
-      height: 17px;
+      width: 35px;
+      height: 35px;
       padding: 5px;
 
       background-color: var(--grey-5);
       color: var(--brand-2);
       border-radius: 5px;
+    }
+
+    @media (max-width: 762px) {
+      flex-direction: column;
+
+      height: max-content;
+
+      background-color: var(--brand-1);
+
+      .imgDiv {
+        display: none;
+      }
+
+      .formDiv {
+        width: 100%;
+        height: unset;
+
+        overflow-y: unset;
+      }
+
+      .toLogin {
+        margin-top: 25px;
+      }
+
+      .toLogin a {
+        color: var(--brand-2);
+      }
+
+      .formDiv > a > svg {
+        position: absolute;
+        top: 120px;
+        left: 10%;
+
+        width: 27px;
+        height: 27px;
+        padding: 5px;
+
+        background-color: var(--grey-5);
+        color: var(--brand-2);
+        border-radius: 5px;
+      }
     }
   }
 `;

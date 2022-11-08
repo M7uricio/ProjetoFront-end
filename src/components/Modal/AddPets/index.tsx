@@ -27,6 +27,7 @@ export const ModalAddPets = () => {
 
   const submit: SubmitHandler<iaddFormPet> = (data) => {
     addPet(data);
+    closeModaladdpet()
   };
 
   return(

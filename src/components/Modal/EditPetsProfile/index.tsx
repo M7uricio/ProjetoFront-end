@@ -32,6 +32,7 @@ export const ModalEditPets = () => {
 
   const submitEditPet: SubmitHandler<iEditFormPet> = (data) => {
     editPets(data);
+    closeModalEditPet()
   };
   return (
     <Modal isOpen={modalEditPetOpen} onRequestClose={closeModalEditPet}>
