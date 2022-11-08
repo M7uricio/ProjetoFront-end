@@ -10,6 +10,7 @@ export const StyledRegisterMain = styled.main`
   @media (min-width: 720px) {
     flex-direction: row;
   }
+
   .DivSecondary {
     max-width: 300px;
     width: 100vw;
@@ -27,6 +28,7 @@ export const StyledRegisterMain = styled.main`
       margin: 0 auto;
     }
   }
+
   .DivTertiary {
     max-width: 500px;
     width: 100vw;
