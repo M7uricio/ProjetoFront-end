@@ -6,6 +6,7 @@ import LandingPage from "../pages/landingPage";
 import { ProtectedRoutes } from "../components/ProtectedRoutes";
 import { UserDashBoard } from "../pages/UserDashBoard";
 import { NotFound } from "../pages/NotFound";
+import Profile from "../pages/UserProfile";
 
 const RoutesMain = () => {
   return (
@@ -14,8 +15,9 @@ const RoutesMain = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/registerCompany" element={<RegisterCompanyPage/>}/>
+      <Route path="/registerCompany" element={<RegisterCompanyPage />} />
       <Route element={<ProtectedRoutes />}>
+        <Route path="/userProfile" element={<Profile />} />
         <Route path="/dashboard" element={<UserDashBoard />} />
       </Route>
     </Routes>
