@@ -5,6 +5,7 @@ import UserProvider from "./contexts/UserContext";
 import { StyledToast } from "./components/Toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 import ReactDOM from "react-dom";
 import Modal from "react-modal";
 
