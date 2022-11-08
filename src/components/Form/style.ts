@@ -9,7 +9,7 @@ export const StyledForm = styled.form`
   font-size: 16px;
   background: var(--white);
   max-width: 440px;
-  width: 100%;
+  width: 100%; 
 
   label {
     align-self: flex-start;

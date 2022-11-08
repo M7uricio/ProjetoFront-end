@@ -1,6 +1,6 @@
-import { ButtonSeach } from "../../../styles/buttonsIcons";
-import { StyledDiv } from "../../../styles/Divs/style";
-import { Input } from "../../../styles/Input";
+import { StyledButtonSeach } from "../../Icons";
+import { StyledDiv } from "../../Divs/style";
+import { Input } from "../style";
 interface iResearch {
   setDataValueInput: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -15,6 +15,6 @@ export const Research = ({ setDataValueInput }: iResearch) => (
       placeholder="Digite aqui ..."
       onChange={(event) => setDataValueInput(event.target.value)}
     />
-    <ButtonSeach className="buttonSeach" />
+    <StyledButtonSeach className="buttonSeach" />
   </StyledDiv>
 );

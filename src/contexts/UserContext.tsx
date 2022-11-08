@@ -11,8 +11,9 @@ interface iUserContextProps {
 }
 
 interface iUserContext {
-  registerUserFunction: (data: iRegisterUser) => void;
-  loginFunction: (
+  userRegisterFunction: (data: iRegisterUser) => void;
+  userRegisterCompanyFunction: (data: iRegisterUser) => void;
+  userLoginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
@@ -26,6 +27,7 @@ interface iUser {
   email: string;
   name: string;
   phone: string;
+  password: string;
   type: string;
 }
 interface iApiError {
@@ -65,7 +67,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     setSize(window.innerWidth);
   });
 
-  const registerUserFunction = async (data: iRegisterUser) => {
+  const userRegisterFunction = async (data: iRegisterUser) => {
     const newData = {
       name: data.name,
       email: data.email,
@@ -80,7 +82,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
         render: `Cadastro realizado com sucesso`,
         type: "success",
         isLoading: false,
-        autoClose: 1000,
+        autoClose: 1500,
       });
       navigate("/login", { replace: true });
     } catch (error) {
@@ -90,13 +92,46 @@ const UserProvider = ({ children }: iUserContextProps) => {
             render: `E-mail já existe`,
             type: "error",
             isLoading: false,
-            autoClose: 1000,
+            autoClose: 1500,
           });
         console.error(error);
       }
     }
   };
-  const loginFunction = async (
+
+  const userRegisterCompanyFunction = async (data: iRegisterUser) => {
+    const newData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      type: "service",
+    };
+
+    const id = toast.loading("Please wait...");
+    try {
+      await instance.post("/register", newData);
+      toast.update(id, {
+        render: `Cadastro realizado com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1500,
+      });
+      navigate("/login", { replace: true });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data === "Email already exists")
+          toast.update(id, {
+            render: `E-mail já existe`,
+            type: "error",
+            isLoading: false,
+            autoClose: 1500,
+          });
+        console.error(error);
+      }
+    }
+  };
+  const userLoginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -112,8 +147,6 @@ const UserProvider = ({ children }: iUserContextProps) => {
       } else {
         navigate("/");
       }
-
-      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -122,37 +155,18 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const logoutFunctio = async () => {};
-
-  /* EXEMPLO DE AUTOLOGIN
-    
-    useEffect(() => {
-
-        async function loginUser(){
-            const token = localStorage.getItem("@kenziehub:TOKEN")
-
-            if(token){
-                try {
-                    const profile = await api.get("/profile", {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    setUser(profile.data)
-                    setToken(token)
-                } catch {
-                    localStorage.removeItem("@kenziehub:TOKEN")
-                }
-            }
-
-            setLoading(false)
-        }
-        loginUser()
-    },[]) */
+  const userLogoutFunction = async () => {};
 
   return (
     <UserContext.Provider
-      value={{ registerUserFunction, loginFunction, user, loading, size }}
+      value={{
+        userRegisterFunction,
+        userLoginFunction,
+        userRegisterCompanyFunction,
+        user,
+        loading,
+        size,
+      }}
     >
       {children}
     </UserContext.Provider>

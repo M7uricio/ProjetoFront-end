@@ -30,7 +30,7 @@ const LandingPage = () => {
         <Title variant="title2" color="var(--grey-1)">
           Caso queria registrar a sua empresa
         </Title>
-        <Link to="/register" variant="LinkWrite">
+        <Link to="/registerCompany" variant="LinkWrite">
           clique aqui !
         </Link>
       </div>

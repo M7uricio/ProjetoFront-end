@@ -1,16 +1,17 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validations/Loginschema";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import { StyledForm } from "../../styles/Form/style";
+import { StyledForm } from "../../components/Form/style";
 import { PassWord } from "../../components/Inputs/Password";
-import { StyledDiv } from "../../styles/Divs/style";
-import { ButtonHome, StyledPaw } from "../../styles/buttonsIcons";
+import { StyledDiv } from "../../components/Divs/style";
+import { StyledButtonHome, StyledPaw } from "../../components/Icons";
 import LogoLogin from "../../assets/img/Doginho 1.svg";
 import Link from "../../components/Links";
-import { Input } from "../../styles/Input";
+import { Input } from "../../components/Inputs/style";
 import Button from "../../components/Button";
+import { StyledRegisterMain } from "./style";
 
 export interface iLoginFormData {
   email?: string;
@@ -18,7 +19,7 @@ export interface iLoginFormData {
 }
 
 export const Login = () => {
-  const { loginFunction, size } = useContext(UserContext);
+  const { userLoginFunction, size } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -30,31 +31,31 @@ export const Login = () => {
   });
 
   const submit: SubmitHandler<iLoginFormData> = (data) => {
-    loginFunction(data, setLoading);
+    userLoginFunction(data, setLoading);
   };
 
   return (
-    <StyledDiv variant="DivPrimary">
+    <StyledRegisterMain>
       {size < 720 ? (
         <>
           <Link to="/" variant="LinkRegisterHome">
-            <ButtonHome />
+            <StyledButtonHome />
           </Link>
         </>
       ) : (
-        <StyledDiv variant="DivSecondary">
+        <div className="DivSecondary">
           <img src={LogoLogin} alt="" />
-        </StyledDiv>
+        </div>
       )}
 
-      <StyledDiv variant="DivTertiary">
+      <div className="DivTertiary">
         <StyledForm onSubmit={handleSubmit(submit)}>
           <StyledDiv variant="DivInnerForm">
             {size < 720 ? (
               <></>
             ) : (
               <Link to="/" variant="LinkRegisterHome">
-                <ButtonHome />
+                <StyledButtonHome />
               </Link>
             )}
             <h1>Login</h1>
@@ -81,7 +82,7 @@ export const Login = () => {
             Cadastre-se <StyledPaw variant="paw" font="#D77127" />
           </Link>
         </StyledForm>
-      </StyledDiv>
-    </StyledDiv>
+      </div>
+    </StyledRegisterMain>
   );
 };

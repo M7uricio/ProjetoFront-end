@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router";
 import { RegisterPage } from "../pages/register";
 import { Login } from "../pages/Login";
+import RegisterCompanyPage from "../pages/RegisterCompanyPage";
 import LandingPage from "../pages/landingPage";
 import { ProtectedRoutes } from "../components/ProtectedRoutes";
 import { UserDashBoard } from "../pages/UserDashBoard";
@@ -13,6 +14,7 @@ const RoutesMain = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/registerCompany" element={<RegisterCompanyPage/>}/>
       <Route element={<ProtectedRoutes />}>
         <Route path="/dashboard" element={<UserDashBoard />} />
       </Route>

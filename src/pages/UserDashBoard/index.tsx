@@ -3,10 +3,10 @@ import { ServiceContext } from "../../contexts/ServicesContext";
 import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
-import { Main } from "../../components/Main";
-import { StyledDiv } from "../../styles/Divs/style";
 import { StyledHeader } from "../../components/Header/style";
-import { ButtonExit } from "../../styles/buttonsIcons";
+import { StyledButtonExit } from "../../components/Icons";
+import ModalInfo from "../../components/ModalInfo";
+import { StyledDivUserDashBoard } from "./style";
 
 export const UserDashBoard = () => {
   const { user, size } = useContext(UserContext);
@@ -19,6 +19,9 @@ export const UserDashBoard = () => {
     dataValueInput,
     setRenderList,
     searchBtn,
+    renderList,
+    setServiceClick,
+    openModal,
   } = useContext(ServiceContext);
 
   useEffect(() => {
@@ -30,21 +33,21 @@ export const UserDashBoard = () => {
   }, [dataValueInput || searchBtn]);
 
   return (
-    <>
+    <StyledDivUserDashBoard>
       <StyledHeader>
         <button>
-          <ButtonExit />
+          <StyledButtonExit />
         </button>
-        <StyledDiv variant="headerLogo">
+        <div className="headerLogo">
           {size < 720 ? <></> : <img src={logo} alt="Logo" />}
           <h2>NetPet</h2>
 
-          <StyledDiv variant="headerDiv">
+          <div className="headerDiv">
             <img src="" alt="Avatar" />
 
             <button>Profile</button>
-          </StyledDiv>
-        </StyledDiv>
+          </div>
+        </div>
       </StyledHeader>
 
       <NavBar
@@ -53,7 +56,23 @@ export const UserDashBoard = () => {
         setDataValueInput={setDataValueInput}
       />
 
-      <Main />
-    </>
+      <main>
+        <ul>
+          {renderList.map((element, index) => (
+            <li key={index} onClick={() => setServiceClick(element)}>
+              <div className="serviceCard">
+                <img src={element.logo} alt="logo"></img>
+                <h2>{element.servicename}</h2>
+                <p>{element.typeofservice}</p>
+                <p>{element.phone}</p>
+                <button onClick={openModal}>Open Modal</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
+
+      <ModalInfo />
+    </StyledDivUserDashBoard>
   );
 };

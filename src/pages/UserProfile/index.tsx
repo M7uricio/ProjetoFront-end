@@ -12,7 +12,6 @@ export interface iAddPet {
 
 const Profile = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <>
       <div>
