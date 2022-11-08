@@ -12,6 +12,7 @@ interface iUserContextProps {
 
 interface iUserContext {
   registerUserFunction: (data: iRegisterUser) => void;
+  registerCompanyFunction: (data: iRegisterUser) => void
   loginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -72,7 +73,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
         render: `Cadastro realizado com sucesso`,
         type: "success",
         isLoading: false,
-        autoClose: 1000,
+        autoClose: 1500,
       });
       navigate("/login", { replace: true });
     } catch (error) {
@@ -82,7 +83,39 @@ const UserProvider = ({ children }: iUserContextProps) => {
             render: `E-mail já existe`,
             type: "error",
             isLoading: false,
-            autoClose: 1000,
+            autoClose: 1500,
+          });
+        console.error(error);
+      }
+    }
+  };
+
+  const registerCompanyFunction = async (data: iRegisterUser) => {
+    const newData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      type: "service",
+    };
+    const id = toast.loading("Please wait...");
+    try {
+      await instance.post("/register", newData);
+      toast.update(id, {
+        render: `Cadastro realizado com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1500,
+      });
+      navigate("/login", { replace: true });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data === "Email already exists")
+          toast.update(id, {
+            render: `E-mail já existe`,
+            type: "error",
+            isLoading: false,
+            autoClose: 1500,
           });
         console.error(error);
       }
@@ -144,7 +177,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
   return (
     <UserContext.Provider
-      value={{ registerUserFunction, loginFunction, user, loading }}
+      value={{ registerUserFunction, loginFunction, registerCompanyFunction, user, loading }}
     >
       {children}
     </UserContext.Provider>

@@ -8,10 +8,15 @@ import { PassWord } from "../../components/Inputs/Password";
 import { StyledDiv } from "../../styles/Divs/style";
 import { ButtonHome, StyledPaw } from "../../styles/buttonsIcons";
 import LogoLogin from "../../assets/img/Doginho 1.svg";
-import Link from "../../components/Links";
 import { Input } from "../../styles/Input";
 import Button from "../../components/Button";
 import { RenderContext } from "../../contexts/RenderContext";
+import { Title } from "../../styles/title";
+import { Text } from "../../styles/text";
+import { RegisterDiv } from "./style";
+import { AiFillHome } from "react-icons/ai";
+import { Link } from "react-router-dom";
+
 
 export interface iLoginFormData {
   email?: string;
@@ -36,54 +41,34 @@ export const Login = () => {
   };
 
   return (
-    <StyledDiv variant="DivPrimary">
-      {size < 720 ? (
-        <>
-          <Link to="/" variant="LinkRegisterHome">
-            <ButtonHome />
-          </Link>
-        </>
-      ) : (
-        <StyledDiv variant="DivSecondary">
-          <img src={LogoLogin} alt="" />
-        </StyledDiv>
-      )}
+    <RegisterDiv>
+      <div className="imgDiv">
+        <img src={LogoLogin} alt="" />
+      </div>
+      <div className="formDiv">
+        <div className="titleDiv">
+          <Title variant="title1" color="black">Login</Title>
+          <Text variant="text2">Seja bem-vindo a nossa comunidade!</Text>
+        </div>
+        <form onSubmit={handleSubmit(submit)}>
+          <label htmlFor="email">Email</label>
+          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("email")}>
+          </Input>
+          {<p>{errors.email?.message}</p>}
 
-      <StyledDiv variant="DivTertiary">
-        <StyledForm onSubmit={handleSubmit(submit)}>
-          <StyledDiv variant="DivInnerForm">
-            {size < 720 ? (
-              <></>
-            ) : (
-              <Link to="/" variant="LinkRegisterHome">
-                <ButtonHome />
-              </Link>
-            )}
-            <h1>Login</h1>
-            <span>Seja muito bem vindo a nossa comunidade!</span>
-          </StyledDiv>
-          <label htmlFor="Email">Email</label>
-          <Input
-            variant="inputPrimary"
-            id="Email"
-            type="email"
-            placeholder="Digite seu e-mail"
-            {...register("email")}
-          />
-          <p>{errors.email?.message}</p>
-          <label htmlFor="Password">Senha</label>
-          <PassWord register={register} />
-          <p>{errors.password?.message}</p>
-          <Button type="submit">
-            Entrar <StyledPaw variant="paw" font="#FFD7A8" />
-          </Button>
-          <h3>Ainda não possui uma conta?</h3>
+          <label htmlFor="password">Senha</label>
+          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("password")}>
+          </Input>
+          {<p>{errors.password?.message}</p>}
 
-          <Link variant="LinkReturnLogin" to="/register">
-            Cadastre-se <StyledPaw variant="paw" font="#D77127" />
-          </Link>
-        </StyledForm>
-      </StyledDiv>
-    </StyledDiv>
+          <Button type="submit">Cadastrar <StyledPaw variant="paw" font="#FFD7A8" /></Button>
+                </form>
+                <div className="toLogin">
+                    <Text variant="text2">Ainda não possui cadastro?</Text>
+                    <Link to="/login">Clique aqui</Link>
+                </div>
+                <Link to="/"><AiFillHome/></Link>
+            </div>
+        </RegisterDiv>
   );
 };
