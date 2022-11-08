@@ -31,7 +31,7 @@ export const RegisterDiv = styled.div`
         position: relative;
 
         width: 55%;
-        padding: 30px 10% 0;
+        padding: 120px 10% 0;
         height: 100vh;
 
         overflow-y: auto;
@@ -106,7 +106,7 @@ export const RegisterDiv = styled.div`
 
     .formDiv > a > svg{
         position: absolute;
-        top: 30px;
+        top: 120px;
         left: 20%;
 
         width: 25px;
@@ -147,7 +147,7 @@ export const RegisterDiv = styled.div`
 
         .formDiv > a > svg{
             position: absolute;
-            top: 30px;
+            top: 120px;
             left: 10%;
 
             width: 17px;

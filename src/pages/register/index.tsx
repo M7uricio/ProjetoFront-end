@@ -1,18 +1,18 @@
 import { registerSchema } from "../../validations/registerSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FieldValues, useForm, UseFormRegister } from "react-hook-form";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import LogoReg from "../../assets/img/Ramister 1.svg";
 import { UserContext } from "../../contexts/UserContext";
-import { StyledDiv } from "../../styles/Divs/style";
-import Link from "../../components/Links";
-import { StyledForm } from "../../styles/Form/style";
-import { ButtonHome, StyledPaw } from "../../styles/buttonsIcons";
+import { StyledPaw } from "../../styles/buttonsIcons";
 import { Input } from "../../styles/Input";
 import Button from "../../components/Button";
-import { PassWord } from "../../components/Inputs/Password";
-import { ConfirmPassWord } from "../../components/Inputs/ConfirmPassword";
 import { RenderContext } from "../../contexts/RenderContext";
+import { Title } from "../../styles/title";
+import { RegisterDiv } from "./style";
+import { Text } from "../../styles/text";
+import { AiFillHome } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 export type iRegisterUser = {
   name?: string;
@@ -31,77 +31,51 @@ export const RegisterPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iRegisterUser>({ resolver: yupResolver(schema) });
+  } = useForm<iRegisterUser>({ resolver: yupResolver(registerSchema) });
 
   return (
-    <StyledDiv variant="DivPrimary">
-      {size < 720 ? (
-        <>
-          <Link to="/" variant="LinkRegisterHome">
-            <ButtonHome />
-          </Link>
-        </>
-      ) : (
-        <StyledDiv variant="DivSecondary">
-          <img src={LogoReg} alt="" />
-        </StyledDiv>
-      )}
-
-      <StyledDiv variant="DivTertiary">
-        <StyledForm onSubmit={handleSubmit(registerUserFunction)}>
-          <StyledDiv variant="DivInnerForm">
-            {size < 720 ? (
-              <></>
-            ) : (
-              <Link to="/" variant="LinkRegisterHome">
-                <ButtonHome />
-              </Link>
-            )}
-            <h2>Registre-se</h2>
-            <p>Seja muito bem vindo a nossa comunidade!</p>
-          </StyledDiv>
+    <RegisterDiv>
+      <div className="imgDiv">
+        <img src={LogoReg} alt="" />
+      </div>
+      <div className="formDiv">
+        <div className="titleDiv">
+          <Title variant="title1" color="black">Registre-se</Title>
+          <Text variant="text2">Seja bem-vindo a nossa comunidade!</Text>
+        </div>
+        <form onSubmit={handleSubmit(registerUserFunction)}>
           <label htmlFor="name">Nome</label>
-          <Input
-            variant="inputPrimary"
-            id="name"
-            type="text"
-            {...register("name")}
-            placeholder="Digite o seu Nome"
-          ></Input>
-          <p>{errors.name?.message}</p>
-          <label htmlFor="email">E-Mail</label>
-          <Input
-            variant="inputPrimary"
-            id="email"
-            type="text"
-            {...register("email")}
-            placeholder="Digite o seu E-Mail"
-          ></Input>
-          <p>{errors.email?.message}</p>
-          <label htmlFor="password">Senha</label>
-          <PassWord register={register} />
-          <p>{errors.password?.message}</p>
-          <label htmlFor="confirm-password">Confirme sua Senha</label>
-          <ConfirmPassWord register={register} />
-          <p>{errors["confirm-password"]?.message}</p>
-          <label htmlFor="phone">Telefone</label>
-          <Input
-            variant="inputPrimary"
-            id="phone"
-            type="text"
-            {...register("phone")}
-            placeholder="Digite o seu Telefone"
-          ></Input>
-          <p>{errors.phone?.message}</p>
-          <Button type="submit">
-            Cadastrar <StyledPaw variant="paw" font="#FFD7A8" />
-          </Button>
+          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("name")}>
+          </Input>
+          {<p>{errors.name?.message}</p>}
 
-          <Link to="/login" variant="LinkReturnLogin">
-            Login <StyledPaw variant="paw" font="#D77127" />
-          </Link>
-        </StyledForm>
-      </StyledDiv>
-    </StyledDiv>
+          <label htmlFor="email">E-Mail</label>
+          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("email")}>
+          </Input>
+          {<p>{errors.email?.message}</p>}
+
+          <label htmlFor="password">Senha</label>
+          {<Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" type="password" {...register("password")}/>}
+          {<p>{errors.password?.message}</p>}
+
+          <label htmlFor="confirm-password">Confirme sua Senha</label>
+          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" type="password" {...register("confirm-password")}>
+          </Input>
+          {<p>{errors["confirm-password"]?.message}</p>}
+
+          <label htmlFor="phone">Telefone</label>
+          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("phone")}>
+          </Input>
+          {<p>{errors.phone?.message}</p>}
+
+          <Button type="submit">Cadastrar <StyledPaw variant="paw" font="#FFD7A8" /></Button>
+                </form>
+                <div className="toLogin">
+                    <Text variant="text2">Já possui cadastro?</Text>
+                    <Link to="/login">Clique aqui</Link>
+                </div>
+                <Link to="/"><AiFillHome/></Link>
+            </div>
+        </RegisterDiv>
   );
 };
