@@ -105,7 +105,6 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
   function openModal() {
     setModal(true);
   }
-  console.log(serviceClick);
   return (
     <ServiceContext.Provider
       value={{

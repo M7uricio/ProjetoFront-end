@@ -11,14 +11,15 @@ interface iUserContextProps {
 }
 
 interface iUserContext {
-  registerUserFunction: (data: iRegisterUser) => void;
-  registerCompanyFunction: (data: iRegisterUser) => void
-  loginFunction: (
+  userRegisterFunction: (data: iRegisterUser) => void;
+  userRegisterCompanyFunction: (data: iRegisterUser) => void;
+  userLoginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
   loading: boolean;
+  size: number;
 }
 
 interface iUser {
@@ -26,6 +27,7 @@ interface iUser {
   email: string;
   name: string;
   phone: string;
+  password: string;
   type: string;
 }
 interface iApiError {
@@ -37,28 +39,35 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [size, setSize] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const userProfile = async () => {
-      const token = localStorage.getItem("@NetPetToken:");
-      const tokenId = localStorage.getItem("@NetPetId:");
-      try {
-        instance.defaults.headers.common.authorization = `Bearer ${token}`;
-        const { data } = await instance.get(`/users/${tokenId}`);
-        setUser(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error);
-        }
+  const userProfile = async () => {
+    const token = localStorage.getItem("@NetPetToken:");
+    const tokenId = localStorage.getItem("@NetPetId:");
+    try {
+      instance.defaults.headers.common.authorization = `Bearer ${token}`;
+      const { data } = await instance.get(`/users/${tokenId}`);
+      setUser(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
       }
-      setLoading(false);
-    };
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setSize(window.innerWidth);
     userProfile();
   }, []);
 
-  const registerUserFunction = async (data: iRegisterUser) => {
+  window.addEventListener("resize", () => {
+    setSize(window.innerWidth);
+  });
+
+  const userRegisterFunction = async (data: iRegisterUser) => {
     const newData = {
       name: data.name,
       email: data.email,
@@ -90,7 +99,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const registerCompanyFunction = async (data: iRegisterUser) => {
+  const userRegisterCompanyFunction = async (data: iRegisterUser) => {
     const newData = {
       name: data.name,
       email: data.email,
@@ -98,6 +107,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
       phone: data.phone,
       type: "service",
     };
+
     const id = toast.loading("Please wait...");
     try {
       await instance.post("/register", newData);
@@ -121,7 +131,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
       }
     }
   };
-  const loginFunction = async (
+  const userLoginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -137,8 +147,6 @@ const UserProvider = ({ children }: iUserContextProps) => {
       } else {
         navigate("/");
       }
-
-      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -147,37 +155,18 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const logoutFunctio = async () => {};
-
-  /* EXEMPLO DE AUTOLOGIN
-    
-    useEffect(() => {
-
-        async function loginUser(){
-            const token = localStorage.getItem("@kenziehub:TOKEN")
-
-            if(token){
-                try {
-                    const profile = await api.get("/profile", {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    setUser(profile.data)
-                    setToken(token)
-                } catch {
-                    localStorage.removeItem("@kenziehub:TOKEN")
-                }
-            }
-
-            setLoading(false)
-        }
-        loginUser()
-    },[]) */
+  const userLogoutFunction = async () => {};
 
   return (
     <UserContext.Provider
-      value={{ registerUserFunction, loginFunction, registerCompanyFunction, user, loading }}
+      value={{
+        userRegisterFunction,
+        userLoginFunction,
+        userRegisterCompanyFunction,
+        user,
+        loading,
+        size,
+      }}
     >
       {children}
     </UserContext.Provider>
