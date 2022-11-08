@@ -11,7 +11,7 @@ import { StyledDivUserDashBoard } from "./style";
 import { StyledDiv } from "../../components/Divs/style";
 
 export const UserDashBoard = () => {
-  const { user, size } = useContext(UserContext);
+  const { user, size, logoutFunction } = useContext(UserContext);
   const {
     newNavBar,
     setDataValueInput,
@@ -37,7 +37,7 @@ export const UserDashBoard = () => {
   return (
     <StyledDivUserDashBoard>
       <StyledHeader>
-        <button>
+        <button onClick={() => logoutFunction()}>
           <StyledButtonExit />
         </button>
         <div className="headerLogo">
@@ -48,9 +48,8 @@ export const UserDashBoard = () => {
             <img src="" alt="Avatar" />
 
             <Link to="/userProfile">Profile</Link>
-            
           </div>
-         </div> 
+        </div>
       </StyledHeader>
 
       <NavBar

@@ -22,6 +22,7 @@ interface iUserContext {
   loading: boolean;
   size: number;
   userEditProfile: (data: ieditForm) => void;
+  logoutFunction: () => void;
 }
 
 interface iUser {
@@ -155,7 +156,13 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const logoutFunctio = async () => {};
+  const logoutFunction = async () => {
+    localStorage.removeItem("@NetPetToken:");
+    localStorage.removeItem("@NetPetId:");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
 
   const userEditProfile = async (data: any) => {
     let newData: any = {};
@@ -193,6 +200,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
         userRegisterCompanyFunction,
         loading,
         size,
+        logoutFunction,
       }}
     >
       {children}

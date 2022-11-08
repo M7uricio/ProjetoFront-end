@@ -19,6 +19,17 @@ export interface iDataCategory {
   typeofservice: string;
   userId: number;
 }
+
+export interface iNewServiceData {
+  cnpj: string;
+  description: string;
+  images: string[];
+  logo: string;
+  phone: string;
+  servicename: string;
+  typeofservice: string;
+  userId?: number;
+}
 interface iServiceContext {
   newNavBar: () => iDataCategory[];
   servicesList: iDataCategory[];
@@ -37,8 +48,15 @@ interface iServiceContext {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   openModal: () => void;
-  deleteService: (id: number) => void;
+  deleteService: (service: iServiceData) => void;
   servicesUser: iServiceData[];
+  setServicesUser: React.Dispatch<React.SetStateAction<iServiceData[]>>;
+  createService: (
+    newData: iNewServiceData,
+    setModalCreate: React.Dispatch<React.SetStateAction<boolean>>
+  ) => void;
+  setService: React.Dispatch<React.SetStateAction<iServiceData | null>>;
+  service: iServiceData | null;
 }
 
 export const ServiceContext = createContext<iServiceContext>(
@@ -53,6 +71,7 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
   const [searchBtn, setSearchBtn] = useState("");
   const [renderList, setRenderList] = useState<iDataCategory[]>([]);
   const [servicesUser, setServicesUser] = useState<iServiceData[]>([]);
+  const [service, setService] = useState<iServiceData | null>(null);
   const { user } = useContext(UserContext);
   const [modal, setModal] = useState(false);
 
@@ -85,12 +104,43 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
       }
     }
   };
+  const createService = async (
+    newData: iNewServiceData,
+    setModalCreate: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`;
+      const { data } = await instance.post("/services", newData);
+      toast.success("Seviço cadastrado com sucesso", {
+        isLoading: false,
+        autoClose: 1000,
+      });
+      // const newEntrie = {
+      //   cnpj: data.cnpj,
+      //   description: data.description,
+      //   images: data.images,
+      //   logo: data.logo,
+      //   phone: data.phone,
+      //   servicename: data.servicename,
+      //   typeofservice: data.typeofservice,
+      // };
+      setServicesUser([...servicesUser, data]);
+      setModalCreate(false);
+    } catch (error) {
+      console.log(error);
+      toast.error(`${error}`, {
+        isLoading: false,
+        autoClose: 1000,
+      });
+    }
+  };
 
-  const deleteService = async (id: number) => {
+  const deleteService = async (service: iServiceData) => {
     const token = localStorage.getItem("@NetPetToken:");
     try {
       instance.defaults.headers.authorization = `Bearer ${token}`;
-      await instance.delete(`/services/${id}`);
+      const resp = await instance.delete(`/services/${service.id}`);
       toast.success("Serviço excluido com sucesso!", {
         autoClose: 1000,
       });
@@ -102,6 +152,13 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
         });
       }
     }
+    setTimeout(() => {
+      setServicesUser(
+        servicesUser.filter(
+          (element) => element.servicename !== service?.servicename
+        )
+      );
+    }, 1000);
   };
 
   const newNavBar = () =>
@@ -162,6 +219,10 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
         modal,
         deleteService,
         servicesUser,
+        setServicesUser,
+        createService,
+        setService,
+        service,
       }}
     >
       {children}

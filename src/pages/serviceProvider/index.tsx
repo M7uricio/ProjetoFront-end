@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { BiArrowToLeft } from "react-icons/bi";
 import Button from "../../components/Button";
 import { UserContext } from "../../contexts/UserContext";
-import { ProviderContext } from "../../contexts/ServiceProviderContext";
 import { ModalCreateService } from "../../components/ModalCreateService";
 import { CreateServiceForm } from "../../components/CreateServiceForm";
 import { ModalEditService } from "../../components/ModalEditService";
@@ -26,10 +25,10 @@ export interface iServiceData {
 
 export function ServiceProvider() {
   const { user } = useContext(UserContext);
-  const { deleteService, servicesUser } = useContext(ServiceContext);
-  const { openModalCreateService, openModalEditService, setServiceId } =
-    useContext(ProviderContext);
-  const { openModalEditUser } = useContext(ModalContext);
+  const { deleteService, servicesUser, setService } =
+    useContext(ServiceContext);
+  const { openModalCreateService, openModalEditService, openModalEditUser } =
+    useContext(ModalContext);
 
   return (
     <>
@@ -71,12 +70,12 @@ export function ServiceProvider() {
                 <Button
                   onClick={() => {
                     openModalEditService();
-                    setServiceId(service.id);
+                    setService(service);
                   }}
                 >
                   Editar serviço
                 </Button>
-                <Button onClick={() => deleteService(service.id)}>
+                <Button onClick={() => deleteService(service)}>
                   Excluir serviço
                 </Button>
               </li>
