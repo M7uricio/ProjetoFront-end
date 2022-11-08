@@ -109,8 +109,8 @@ export const LoginMain = styled.div`
         top: 120px;
         left: 20%;
 
-        width: 25px;
-        height: 25px;
+        width: 35px;
+        height: 35px;
         padding: 5px;
 
         background-color: var(--brand-1);
@@ -150,8 +150,8 @@ export const LoginMain = styled.div`
             top: 120px;
             left: 10%;
 
-            width: 17px;
-            height: 17px;
+            width: 27px;
+            height: 27px;
             padding: 5px;
 
             background-color: var(--grey-5);

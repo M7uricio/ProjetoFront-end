@@ -34,6 +34,7 @@ export const ModalProfile = () => {
 
   const submit: SubmitHandler<ieditForm> = (data) => {
     userEditProfile(data);
+    closeModalEditUser()
   };
 console.log(user)
   return (
