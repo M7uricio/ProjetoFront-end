@@ -35,7 +35,6 @@ export const ModalProfile = () => {
   const submit: SubmitHandler<ieditForm> = (data) => {
     userEditProfile(data);
   };
-console.log(user)
   return (
     <>
       <Modal isOpen={modalEditOpen} onRequestClose={closeModalEditUser}>

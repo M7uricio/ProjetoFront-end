@@ -1,5 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { iServiceData } from "../pages/serviceProvider";
 import { instance } from "../services/api";
 import { UserContext } from "./UserContext";
 
@@ -35,6 +37,8 @@ interface iServiceContext {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   openModal: () => void;
+  deleteService: (id: number) => void;
+  servicesUser: iServiceData[];
 }
 
 export const ServiceContext = createContext<iServiceContext>(
@@ -48,26 +52,57 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
   const [servicesList, setServicesList] = useState<iDataCategory[]>([]);
   const [searchBtn, setSearchBtn] = useState("");
   const [renderList, setRenderList] = useState<iDataCategory[]>([]);
+  const [servicesUser, setServicesUser] = useState<iServiceData[]>([]);
   const { user } = useContext(UserContext);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    const getServices = async () => {
-      try {
-        const { data } = await instance.get(`/services/`);
-        setServicesList(data);
-        setRenderList(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error);
-        }
-      }
-    };
-
     if (user !== null) {
       getServices();
+      filterUserService();
     }
   }, [user]);
+
+  const getServices = async () => {
+    try {
+      const { data } = await instance.get(`/services/`);
+      setServicesList(data);
+      setRenderList(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
+      }
+    }
+  };
+
+  const filterUserService = async () => {
+    try {
+      const { data } = await instance.get(`users/${user?.id}/services`);
+      setServicesUser(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
+      }
+    }
+  };
+
+  const deleteService = async (id: number) => {
+    const token = localStorage.getItem("@NetPetToken:");
+    try {
+      instance.defaults.headers.authorization = `Bearer ${token}`;
+      await instance.delete(`/services/${id}`);
+      toast.success("Serviço excluido com sucesso!", {
+        autoClose: 1000,
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.message);
+        toast.error(error.message, {
+          autoClose: 2000,
+        });
+      }
+    }
+  };
 
   const newNavBar = () =>
     servicesList.filter(
@@ -125,6 +160,8 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
         openModal,
         setModal,
         modal,
+        deleteService,
+        servicesUser,
       }}
     >
       {children}

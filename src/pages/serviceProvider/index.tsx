@@ -1,10 +1,7 @@
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { BiArrowToLeft } from "react-icons/bi";
 import Button from "../../components/Button";
 import { UserContext } from "../../contexts/UserContext";
-import { instance } from "../../services/api";
-import { toast } from "react-toastify";
 import { ProviderContext } from "../../contexts/ServiceProviderContext";
 import { ModalCreateService } from "../../components/ModalCreateService";
 import { CreateServiceForm } from "../../components/CreateServiceForm";
@@ -12,6 +9,7 @@ import { ModalEditService } from "../../components/ModalEditService";
 import { EditServiceForm } from "../../components/EditServiceForm";
 import { ModalContext } from "../../contexts/ModalContext";
 import { ModalProfile } from "../../components/Modal/EditProfileUser";
+import { ServiceContext } from "../../contexts/ServicesContext";
 // import logo from "../../assets/img/logoPet.png";
 
 export interface iServiceData {
@@ -27,52 +25,11 @@ export interface iServiceData {
 }
 
 export function ServiceProvider() {
-  const { user , userEditProfile} = useContext(UserContext);
-  const { openModalCreateService, openModalEditService, setServiceId} = useContext(ProviderContext);
-  const {openModalEditUser, closeModalEditUser } = useContext(ModalContext)
-  const [services, setServices] = useState<iServiceData[]>([]);
-  const [servicesUser, setServicesUser] = useState<iServiceData[]>([]);
-
-  useEffect(() => {
-    const filterUserService = () => {
-      let userServices = services.filter((service) => {
-        return service.userId === user?.id;
-      });
-
-      setServicesUser(userServices);
-    };
-    try {
-      axios
-        .get(`https://pets-json-server-m3.herokuapp.com/services`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => {
-          setServices(res.data);
-          filterUserService();
-        });
-    } catch (error) {}
-  }, [services, user?.id]);
-
-  const deleteService = async (id: number) => {
-    const token = localStorage.getItem("@NetPetToken:")
-    try {
-      instance.defaults.headers.authorization = `Bearer ${token}`;
-      await
-      instance.delete(`/services/${id}`);
-      toast.success("Tecnologia excluída com sucesso!", {
-        autoClose: 1000,
-      });
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log(error.message);
-        toast.error(error.message, {
-          autoClose: 2000,
-        });
-      }
-    }
-  };
+  const { user } = useContext(UserContext);
+  const { deleteService, servicesUser } = useContext(ServiceContext);
+  const { openModalCreateService, openModalEditService, setServiceId } =
+    useContext(ProviderContext);
+  const { openModalEditUser } = useContext(ModalContext);
 
   return (
     <>
@@ -88,9 +45,7 @@ export function ServiceProvider() {
             <Button onClick={() => openModalCreateService()}>
               cadastrar novo serviço
             </Button>
-            <Button onClick={() => openModalEditUser()}>
-              Editar perfil
-            </Button>
+            <Button onClick={() => openModalEditUser()}>Editar perfil</Button>
           </div>
         </section>
       </nav>
@@ -101,7 +56,7 @@ export function ServiceProvider() {
         <ModalEditService>
           <EditServiceForm />
         </ModalEditService>
-        <ModalProfile/>
+        <ModalProfile />
         <ul>
           {servicesUser.map((service) => {
             return (

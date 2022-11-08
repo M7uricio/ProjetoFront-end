@@ -15,7 +15,7 @@ export interface iEditFormPet {
 
 export const ModalEditPets = () => {
   const { closeModalEditPet, modalEditPetOpen } = useContext(ModalContext);
-  const { editPets, petsInfo, deletePet,petsList } = useContext(petsContext);
+  const { editPets, petsInfo, deletePet, petsList } = useContext(petsContext);
 
   const {
     register,
@@ -33,19 +33,14 @@ export const ModalEditPets = () => {
   const submitEditPet: SubmitHandler<iEditFormPet> = (data) => {
     editPets(data);
   };
- console.log(petsList);
   return (
     <Modal isOpen={modalEditPetOpen} onRequestClose={closeModalEditPet}>
       <form onSubmit={handleSubmit(submitEditPet)}>
         <button onClick={() => closeModalEditPet()}>Fechar</button>
 
-        <input type="name" placeholder={"Nome"}   {...register("name")} />
-        <input type="type" placeholder={"Tipo"}   {...register("type")} />
-        <input
-          type="picture"
-          placeholder={"Foto"}
-          {...register("picture")}
-        />
+        <input type="name" placeholder={"Nome"} {...register("name")} />
+        <input type="type" placeholder={"Tipo"} {...register("type")} />
+        <input type="picture" placeholder={"Foto"} {...register("picture")} />
         <input type="race" placeholder={"Raça"} {...register("race")} />
         <button type="submit">Editar Pet</button>
         <button onClick={deletePet}> Deletar </button>
