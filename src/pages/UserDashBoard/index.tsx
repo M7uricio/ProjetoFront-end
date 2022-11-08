@@ -1,18 +1,17 @@
 import { useContext, useEffect } from "react";
 import { ServiceContext } from "../../contexts/ServicesContext";
-// import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
-import { Main } from "../../components/Main";
-import { StyledDiv } from "../../styles/Divs/style";
 import { StyledHeader } from "../../components/Header/style";
-import { ButtonExit } from "../../styles/buttonsIcons";
-import { RenderContext } from "../../contexts/RenderContext";
+import { StyledButtonExit } from "../../components/Icons";
 import ModalInfo from "../../components/ModalInfo";
 import Link from "../../components/Links";
+import { StyledDivUserDashBoard } from "./style";
+import { StyledDiv } from "../../components/Divs/style";
 
 export const UserDashBoard = () => {
-  // const { user } = useContext(UserContext);
+  const { user, size } = useContext(UserContext);
   const {
     newNavBar,
     setDataValueInput,
@@ -22,8 +21,10 @@ export const UserDashBoard = () => {
     dataValueInput,
     setRenderList,
     searchBtn,
+    renderList,
+    setServiceClick,
+    openModal,
   } = useContext(ServiceContext);
-  const { size } = useContext(RenderContext);
 
   useEffect(() => {
     if (dataValueInput === "") {
@@ -34,21 +35,22 @@ export const UserDashBoard = () => {
   }, [dataValueInput || searchBtn]);
 
   return (
-    <>
+    <StyledDivUserDashBoard>
       <StyledHeader>
         <button>
-          <ButtonExit />
+          <StyledButtonExit />
         </button>
-        <StyledDiv variant="headerLogo">
+        <div className="headerLogo">
           {size < 720 ? <></> : <img src={logo} alt="Logo" />}
           <h2>NetPet</h2>
 
-          <StyledDiv variant="headerDiv">
+          <div className="headerDiv">
             <img src="" alt="Avatar" />
 
             <Link to="/userProfile">Profile</Link>
-          </StyledDiv>
-        </StyledDiv>
+            
+          </div>
+         </div> 
       </StyledHeader>
 
       <NavBar
@@ -57,9 +59,23 @@ export const UserDashBoard = () => {
         setDataValueInput={setDataValueInput}
       />
 
-      <Main />
+      <main>
+        <ul>
+          {renderList.map((element, index) => (
+            <li key={index} onClick={() => setServiceClick(element)}>
+              <div className="serviceCard">
+                <img src={element.logo} alt="logo"></img>
+                <h2>{element.servicename}</h2>
+                <p>{element.typeofservice}</p>
+                <p>{element.phone}</p>
+                <button onClick={openModal}>Open Modal</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
 
       <ModalInfo />
-    </>
+    </StyledDivUserDashBoard>
   );
 };

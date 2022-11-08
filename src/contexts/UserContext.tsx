@@ -13,14 +13,16 @@ interface iUserContextProps {
 
 interface iUserContext {
   userRegisterFunction: (data: iRegisterUser) => void;
-  registerCompanyFunction: (data: iRegisterUser) => void
+  userRegisterCompanyFunction: (data: iRegisterUser) => void;
   userLoginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
   loading: boolean;
+  size: number;
   userEditProfile: (data: ieditForm) => void;
+  
 }
 
 interface iUser {
@@ -28,8 +30,9 @@ interface iUser {
   email: string;
   name: string;
   phone: string;
-  type: string;
   password: string;
+  type: string;
+  
 }
 interface iApiError {
   error: string;
@@ -40,26 +43,33 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [size, setSize] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const userProfile = async () => {
-      const token = localStorage.getItem("@NetPetToken:");
-      const tokenId = localStorage.getItem("@NetPetId:");
-      try {
-        instance.defaults.headers.common.authorization = `Bearer ${token}`;
-        const { data } = await instance.get(`/users/${tokenId}`);
-        setUser(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error);
-        }
+  const userProfile = async () => {
+    const token = localStorage.getItem("@NetPetToken:");
+    const tokenId = localStorage.getItem("@NetPetId:");
+    try {
+      instance.defaults.headers.common.authorization = `Bearer ${token}`;
+      const { data } = await instance.get(`/users/${tokenId}`);
+      setUser(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
       }
-      setLoading(false);
-    };
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setSize(window.innerWidth);
     userProfile();
   }, []);
+
+  window.addEventListener("resize", () => {
+    setSize(window.innerWidth);
+  });
 
   const userRegisterFunction = async (data: iRegisterUser) => {
     const newData = {
@@ -90,7 +100,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const registerCompanyFunction = async (data: iRegisterUser) => {
+  const userRegisterCompanyFunction = async (data: iRegisterUser) => {
     const newData = {
       name: data.name,
       email: data.email,
@@ -98,6 +108,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
       phone: data.phone,
       type: "service",
     };
+
     const id = toast.loading("Please wait...");
     try {
       await instance.post("/register", newData);
@@ -137,8 +148,6 @@ const UserProvider = ({ children }: iUserContextProps) => {
       } else {
         navigate("/");
       }
-
-      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -177,9 +186,11 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
+  const userLogoutFunction = async () => {};
+
   return (
     <UserContext.Provider
-      value={{ userRegisterFunction, userLoginFunction, user, userEditProfile,registerCompanyFunction, loading }}
+      value={{ userRegisterFunction, userLoginFunction, user, userEditProfile,userRegisterCompanyFunction, loading,size }}
     >
       {children}
     </UserContext.Provider>

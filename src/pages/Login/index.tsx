@@ -1,22 +1,17 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validations/Loginschema";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import { StyledForm } from "../../styles/Form/style";
+import { StyledForm } from "../../components/Form/style";
 import { PassWord } from "../../components/Inputs/Password";
-import { StyledDiv } from "../../styles/Divs/style";
-import { ButtonHome, StyledPaw } from "../../styles/buttonsIcons";
+import { StyledDiv } from "../../components/Divs/style";
+import { StyledButtonHome, StyledPaw } from "../../components/Icons";
 import LogoLogin from "../../assets/img/Doginho 1.svg";
-import { Input } from "../../styles/Input";
+import Link from "../../components/Links";
+import { Input } from "../../components/Inputs/style";
 import Button from "../../components/Button";
-import { RenderContext } from "../../contexts/RenderContext";
-import { Title } from "../../styles/title";
-import { Text } from "../../styles/text";
-import { RegisterDiv } from "./style";
-import { AiFillHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
-
+import { StyledRegisterMain } from "./style";
 
 export interface iLoginFormData {
   email?: string;
@@ -24,9 +19,9 @@ export interface iLoginFormData {
 }
 
 export const Login = () => {
-  const { userLoginFunction } = useContext(UserContext);
+  const { userLoginFunction, size } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const { size } = useContext(RenderContext);
+  
 
   const {
     register,
@@ -41,34 +36,54 @@ export const Login = () => {
   };
 
   return (
-    <RegisterDiv>
-      <div className="imgDiv">
-        <img src={LogoLogin} alt="" />
-      </div>
-      <div className="formDiv">
-        <div className="titleDiv">
-          <Title variant="title1" color="black">Login</Title>
-          <Text variant="text2">Seja bem-vindo a nossa comunidade!</Text>
+    <StyledRegisterMain>
+      {size < 720 ? (
+        <>
+          <Link to="/" variant="LinkRegisterHome">
+            <StyledButtonHome />
+          </Link>
+        </>
+      ) : (
+        <div className="DivSecondary">
+          <img src={LogoLogin} alt="" />
         </div>
-        <form onSubmit={handleSubmit(submit)}>
-          <label htmlFor="email">Email</label>
-          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("email")}>
-          </Input>
-          {<p>{errors.email?.message}</p>}
+      )}
 
-          <label htmlFor="password">Senha</label>
-          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("password")}>
-          </Input>
-          {<p>{errors.password?.message}</p>}
+      <div className="DivTertiary">
+        <StyledForm onSubmit={handleSubmit(submit)}>
+          <StyledDiv variant="DivInnerForm">
+            {size < 720 ? (
+              <></>
+            ) : (
+              <Link to="/" variant="LinkRegisterHome">
+                <StyledButtonHome />
+              </Link>
+            )}
+            <h1>Login</h1>
+            <span>Seja muito bem vindo a nossa comunidade!</span>
+          </StyledDiv>
+          <label htmlFor="Email">Email</label>
+          <Input
+            variant="inputPrimary"
+            id="Email"
+            type="email"
+            placeholder="Digite seu e-mail"
+            {...register("email")}
+          />
+          <p>{errors.email?.message}</p>
+          <label htmlFor="Password">Senha</label>
+          <PassWord register={register} />
+          <p>{errors.password?.message}</p>
+          <Button type="submit">
+            Entrar <StyledPaw variant="paw" font="#FFD7A8" />
+          </Button>
+          <h3>Ainda não possui uma conta?</h3>
 
-          <Button type="submit">Cadastrar <StyledPaw variant="paw" font="#FFD7A8" /></Button>
-                </form>
-                <div className="toLogin">
-                    <Text variant="text2">Ainda não possui cadastro?</Text>
-                    <Link to="/login">Clique aqui</Link>
-                </div>
-                <Link to="/"><AiFillHome/></Link>
-            </div>
-        </RegisterDiv>
+          <Link variant="LinkReturnLogin" to="/register">
+            Cadastre-se <StyledPaw variant="paw" font="#D77127" />
+          </Link>
+        </StyledForm>
+      </div>
+    </StyledRegisterMain>
   );
 };
