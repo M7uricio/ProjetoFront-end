@@ -24,18 +24,18 @@ export const ModalProfile = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ieditForm>({
-    defaultValues: {
-      name: user?.name,
-      email: user?.email,
-      phone: user?.phone,
-      password: user?.password,
-    },
+    // defaultValues: {
+    //   name: user?.name,
+    //   email: user?.email,
+    //   phone: user?.phone,
+    //   password: user?.password,
+    // },
   });
 
   const submit: SubmitHandler<ieditForm> = (data) => {
     userEditProfile(data);
   };
-
+console.log(user)
   return (
     <>
       <Modal isOpen={modalEditOpen} onRequestClose={closeModalEditUser}>

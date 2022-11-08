@@ -52,5 +52,6 @@ html, body, div, span, applet, object, iframe,
         --grey-4: #D9DEE6;
         --grey-5: #FFF7EE;
         --white: #FFFFFF;
+        --black:#000000;
     }
 `;

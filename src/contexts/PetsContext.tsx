@@ -51,12 +51,10 @@ const PetProvider = ({ children }: iPetContextProps) => {
   const addPet = async (data: iAddPet): Promise<void> => {
     console.log(data);
     try {
-      const token = localStorage.getItem("@TOKEN");
-
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`; 
       const response = await instance.post("/pets", data, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
+        
       });
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
@@ -66,12 +64,10 @@ const PetProvider = ({ children }: iPetContextProps) => {
 
   const userPetsList = async (): Promise<void> => {
     try {
-      const token = localStorage.getItem("@TOKEN");
-
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`; 
       const response = await instance.get(`/users/${user?.id}/pets`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
+        
       });
       setPetsList(response.data);
     } catch (error) {
@@ -84,18 +80,27 @@ const PetProvider = ({ children }: iPetContextProps) => {
     userPetsList();
   }, [user]);
 
-  const editPets = async (data: iEditFormPet) => {
-    const newData = {
-      ...data,
+  const editPets = async (data: any) => {
+    let newData : any = {
+              
     };
+   let arrayPets : string []  = [];
 
+   Object.keys(data).forEach((key) => {
+    const category = data[key];
+    if (category !== "") {
+      arrayPets.push(key);
+    }
+  });
+  arrayPets.forEach((key) => {
+    newData[key] = data[key];
+  });
+ console.log(newData)
     try {
-      const token = localStorage.getItem("@TOKEN");
-
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`;
       const response = await instance.patch(`/pets/${petsInfo?.id}`, newData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        
       });
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
@@ -105,12 +110,10 @@ const PetProvider = ({ children }: iPetContextProps) => {
 
   const deletePet = async (): Promise<void> => {
     try {
-      const token = localStorage.getItem("@TOKEN");
-
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`;
       const response = await instance.delete(`/pets/${petsInfo?.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        
       });
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;

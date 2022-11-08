@@ -1,22 +1,24 @@
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 import { RegisterPage } from "../pages/register";
-import Login from "../pages/Login";
-import Profile from "../pages/UserProfile";
+import { Login } from "../pages/Login";
+import RegisterCompanyPage from "../pages/RegisterCompanyPage";
 import LandingPage from "../pages/landingPage";
 import { ProtectedRoutes } from "../components/ProtectedRoutes";
-import { ServiceMenu } from "../pages/ServiceMenu/serviceMenu";
+import { UserDashBoard } from "../pages/UserDashBoard";
+import { NotFound } from "../pages/NotFound";
+import Profile from "../pages/UserProfile";
 
 const RoutesMain = () => {
   return (
     <Routes>
-      <Route path="*" element={<Navigate to="/landing" />} />
+      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/landing" element={<LandingPage />} />
-      <Route path="/userProfile" element={<Profile />} />
+      <Route path="/registerCompany" element={<RegisterCompanyPage />} />
       <Route element={<ProtectedRoutes />}>
-        <Route path="/dashboard" element={<h1>dash</h1>}></Route>
-        <Route path="/servicesMenu" element={<ServiceMenu />} />
+        <Route path="/userProfile" element={<Profile />} />
+        <Route path="/dashboard" element={<UserDashBoard />} />
       </Route>
     </Routes>
   );

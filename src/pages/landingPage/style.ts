@@ -65,6 +65,7 @@ export const DivLandingPage = styled.div`
       margin-bottom: 100px;
       flex-direction: column;
       align-items: center;
+      text-align: center;
     }
   }
 `;

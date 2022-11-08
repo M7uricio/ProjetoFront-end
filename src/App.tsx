@@ -4,7 +4,7 @@ import Routes from "./routes";
 import UserProvider from "./contexts/UserContext";
 import { StyledToast } from "./components/Toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ServiceProvider from "./contexts/ServicesContext";
+import { RenderProvider } from "./contexts/RenderContext";
 import ModalProvider from "./contexts/ModalContext";
 
 import ReactDOM from "react-dom";
@@ -18,11 +18,7 @@ const App = () => {
       <Global />
       <StyledToast />
       <UserProvider>
-        <PetProvider>
-          <ModalProvider>
-            <Routes />
-          </ModalProvider>
-        </PetProvider>
+        <Routes/>
       </UserProvider>
     </>
   );

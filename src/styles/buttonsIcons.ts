@@ -1,7 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { AiFillHome } from "react-icons/ai";
 import { BiArrowBack, BiSearchAlt } from "react-icons/bi";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { FaPaw } from "react-icons/fa";
+
+interface iIconsProps {
+  variant: string;
+  font: string;
+}
+export const StyledPaw = styled(FaPaw)<iIconsProps>`
+  ${({ variant, font }) => {
+    switch (variant) {
+      case "paw":
+        return css`
+          color: ${font};
+        `;
+    }
+  }}
+`;
 
 export const ButtonHome = styled(AiFillHome)`
   padding: 10px;
@@ -38,5 +55,22 @@ export const ButtonSeach = styled(BiSearchAlt)`
 
   &:hover {
     font-size: 36px;
+  }
+`;
+export const StyledEye = styled(AiFillEye)`
+  position: absolute;
+  margin: 17px;
+  left: 80%;
+  @media (min-width: 425px) {
+    left: 85%;
+  }
+`;
+
+export const StyledClosedEye = styled(AiFillEyeInvisible)`
+  position: absolute;
+  margin: 17px;
+  left: 80%;
+  @media (min-width: 425px) {
+    left: 85%;
   }
 `;

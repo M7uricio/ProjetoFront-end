@@ -2,14 +2,15 @@ import styled, { css } from "styled-components";
 
 interface iInputProps {
   variant: string;
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
 }
 
 export const Input = styled.input<iInputProps>`
   ${({ variant, width, height }) => {
-    if (variant === "inputPrimary") {
-      return css`
+    switch (variant) {
+      case "inputPrimary": {
+        return css`
         width: ${width};
         height: ${height};
         padding-left: 15px;
@@ -31,6 +32,7 @@ export const Input = styled.input<iInputProps>`
             color: var(--grey-1);
             }
             `;
+      }
     }
   }}
 `;
