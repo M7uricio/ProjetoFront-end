@@ -96,7 +96,7 @@ export const StyledRegisterMain = styled.main`
 
     width: 100%;
 
-    margin-bottom: 25px;
+    margin: 25px 0;
   }
 
   .toLogin a {

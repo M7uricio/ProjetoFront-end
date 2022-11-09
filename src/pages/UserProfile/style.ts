@@ -90,12 +90,16 @@ export const ProfileMain = styled.main`
     }
 
     .petItem .imgDiv img {
-        height: 150px;
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
         transition: 0.2s;
+
+        border-radius: 50%;
     }
 
     .petItem .imgDiv img:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
     
     .petItem .descriptionDiv {

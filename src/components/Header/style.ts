@@ -40,6 +40,12 @@ export const StyledHeader = styled.header`
       max-width: 100px;
       max-height: 100px;
     }
+
+    a svg {
+      height: 50px;
+      width: 50px;
+      color: #C18461;
+    }
   }
   @media (max-width: 720px) {
     .buttondAndLogo {
