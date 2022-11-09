@@ -40,7 +40,7 @@ const ModalInfo = () => {
         </ModalHeader>
 
         <CarouselImages>
-          <li>
+          {/*       <li>
             <img src={serviceClick?.images[0]} alt="" />
           </li>
           <li>
@@ -48,7 +48,7 @@ const ModalInfo = () => {
           </li>
           <li>
             <img src={serviceClick?.images[2]} alt="" />
-          </li>
+          </li> */}
         </CarouselImages>
         <ModalFooter>
           <p>Telefone: {serviceClick.phone}</p>

@@ -1,5 +1,5 @@
+/* import { ModalStyle } from './style'; */
 import styled from "styled-components";
-
 import { IoCloseOutline } from "react-icons/io5";
 
 export const CarouselImages = styled.ul`
@@ -33,8 +33,8 @@ export const ModalStyle = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    /*   maxheight: "90%",
-    maxwidth: "80%", */
+    height: "90%",
+    width: "80%",
   },
 };
 

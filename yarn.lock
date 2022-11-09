@@ -2205,7 +2205,7 @@
   "resolved" "https://registry.npmjs.org/@types/stack-utils/-/stack-utils-2.0.1.tgz"
   "version" "2.0.1"
 
-"@types/styled-components@^5.1.26":
+"@types/styled-components@*", "@types/styled-components@^5.1.26":
   "integrity" "sha512-KuKJ9Z6xb93uJiIyxo/+ksS7yLjS1KzG6iv5i78dhVg/X3u5t1H7juRWqVmodIdz6wGVaIApo1u01kmFRdJHVw=="
   "resolved" "https://registry.npmjs.org/@types/styled-components/-/styled-components-5.1.26.tgz"
   "version" "5.1.26"
@@ -2213,6 +2213,14 @@
     "@types/hoist-non-react-statics" "*"
     "@types/react" "*"
     "csstype" "^3.0.2"
+
+"@types/styled-react-modal@^1.2.2":
+  "integrity" "sha512-Xiqdh6Wi0yegOK98rjO1Yrsy4bC+eMVkd6n2i23GSh8lgYCicZaMDYgX7vEil5LQuOBkfnyh+W6R+G0eIoTAbw=="
+  "resolved" "https://registry.npmjs.org/@types/styled-react-modal/-/styled-react-modal-1.2.2.tgz"
+  "version" "1.2.2"
+  dependencies:
+    "@types/react" "*"
+    "@types/styled-components" "*"
 
 "@types/testing-library__jest-dom@^5.9.1":
   "integrity" "sha512-SBwbxYoyPIvxHbeHxTZX2Pe/74F/tX2/D3mMvzabdeJ25bBojfW0TyB8BHrbq/9zaaKICJZjLP+8r6AeZMFCuQ=="
@@ -8805,7 +8813,7 @@
     "hey-listen" "^1.0.8"
     "tslib" "2.4.0"
 
-"styled-components@^5.3.6", "styled-components@>= 2":
+"styled-components@^5.3.5", "styled-components@^5.3.6", "styled-components@>= 2":
   "integrity" "sha512-hGTZquGAaTqhGWldX7hhfzjnIYBZ0IXQXkCYdvF1Sq3DsUaLx6+NTHC5Jj1ooM2F68sBiVz3lvhfwQs/S3l6qg=="
   "resolved" "https://registry.npmjs.org/styled-components/-/styled-components-5.3.6.tgz"
   "version" "5.3.6"
@@ -8820,6 +8828,13 @@
     "hoist-non-react-statics" "^3.0.0"
     "shallowequal" "^1.1.0"
     "supports-color" "^5.5.0"
+
+"styled-react-modal@^3.0.1":
+  "integrity" "sha512-3Wg/pyeGR5edhr15OqD8gq8ZFt+kceyTfe0smXxRf5vyonYCsGfSB0mJG4g8lPFrxQzM3F7CP9VAUkuYR+ybQw=="
+  "resolved" "https://registry.npmjs.org/styled-react-modal/-/styled-react-modal-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+    "prop-types" "^15.8.1"
 
 "stylehacks@^5.1.1":
   "integrity" "sha512-sBpcd5Hx7G6seo7b1LkpttvTz7ikD0LlH5RmdcBNb6fFR0Fl7LQwHDFr300q4cwUqi+IYrFGmsIHieMBfnN/Bw=="
