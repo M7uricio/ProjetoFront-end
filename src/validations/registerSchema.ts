@@ -6,7 +6,7 @@ export const registerSchema = yup.object({
   "confirm-password": yup
     .string()
     .oneOf(
-      [yup.ref("password")],
+      [yup.ref("password"), null],
       "Confirmação de senha deve ser igual a senha"
     ),
   email: yup.string().required("Email é necessário"),

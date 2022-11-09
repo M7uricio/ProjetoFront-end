@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const NavDashProvider = styled.nav`
   padding: 20px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,7 +34,7 @@ export const NavDashProvider = styled.nav`
       gap: 10px;
 
       button {
-        height: 30px !important;
+        height: 50px !important;
         padding: 10px !important;
         display: flex;
         align-items: center;
@@ -51,7 +50,7 @@ export const NavDashProvider = styled.nav`
     .infoProvider > svg {
       height: 50px;
       width: 50px;
-      color: #C18461;
+      color: #c18461;
     }
   }
 
@@ -69,7 +68,6 @@ export const NavDashProvider = styled.nav`
 export const MainDashProvider = styled.main`
   width: 90vw;
   margin: 20px auto;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,12 +140,13 @@ export const ButtonsMobileDashProvider = styled.div`
   margin: 0 auto;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
 
   button {
-    height: 30px !important;
+    height: 50px !important;
     padding: 10px !important;
     display: flex;
     align-items: center;
