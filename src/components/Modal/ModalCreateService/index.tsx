@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Modal from "react-modal";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { Title } from "../../../styles/title";
+import { CreateServiceForm } from "../../CreateServiceForm";
 import { StyledCloseModal } from "../../Icons";
 import "../style.css";
 
@@ -18,11 +19,7 @@ export const customStyles = {
   },
 };
 
-interface iModalProps {
-  children: React.ReactNode;
-}
-
-export const ModalCreateService = ({ children }: iModalProps) => {
+export const ModalCreateService = () => {
   const { modalCreate, closeModalCreateService } = useContext(ModalContext);
 
   return (
@@ -38,7 +35,7 @@ export const ModalCreateService = ({ children }: iModalProps) => {
       <Title variant="title2" color="var(--grey-1)">
         Cadastre seu serviço
       </Title>
-      {children}
+      <CreateServiceForm />
     </Modal>
   );
 };

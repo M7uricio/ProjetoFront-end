@@ -8,10 +8,13 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  width: 100vw;
+  max-width: 600px;
 }
 .modalOverlay {
   width: 100vw;
   height: 100vh;
+  padding: 0px 10px;
   display: flex;
   align-items: center;
   justify-content: center;

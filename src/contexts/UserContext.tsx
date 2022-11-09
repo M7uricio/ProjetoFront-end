@@ -142,17 +142,22 @@ const UserProvider = ({ children }: iUserContextProps) => {
       localStorage.setItem("@NetPetToken:", response.data.accessToken);
       localStorage.setItem("@NetPetId:", response.data.user.id);
       const toNavigate = location.state?.from.pathname || "dashboard";
-      toast.update(id, {
-        render: `Seja Bem Vindo ${response.data.user.name}`,
-        type: "success",
-        isLoading: false,
-        autoClose: 1500,
-      });
       if (response.data.user.type === "user") {
-        console.log("OI");
         navigate("/dashboard");
+        toast.update(id, {
+          render: `Seja Bem Vindo ${response.data.user.name}`,
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+        });
       } else {
         navigate("/dashboardProviderService");
+        toast.update(id, {
+          render: `Seja Bem Vindo ${response.data.user.name}`,
+          type: "success",
+          isLoading: false,
+          autoClose: 1500,
+        });
       }
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
@@ -170,16 +175,18 @@ const UserProvider = ({ children }: iUserContextProps) => {
 
   const logoutFunction = async () => {
     const id = toast.loading("Please wait...");
-    localStorage.removeItem("@NetPetToken:");
-    localStorage.removeItem("@NetPetId:");
-    toast.update(id, {
-      render: `Até a Proxima`,
-      type: "warning",
-      isLoading: false,
-      autoClose: 1000,
-    });
+
     setTimeout(() => {
-      navigate("/");
+      toast.update(id, {
+        render: `Até a Proxima`,
+        type: "warning",
+        isLoading: false,
+        autoClose: 1000,
+      });
+      localStorage.removeItem("@NetPetToken:");
+      localStorage.removeItem("@NetPetId:");
+
+      setUser(null);
     }, 1000);
   };
 
