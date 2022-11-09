@@ -1,8 +1,10 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { petsContext } from "../../../contexts/PetsContext";
 import { UserContext } from "../../../contexts/UserContext";
+import { addPetSchema } from "../../../validations/createPetSchema";
 import Button from "../../Button";
 import { Input } from "../../Inputs/style";
 import { iaddFormPet } from "../../Modal/AddPets";
@@ -16,7 +18,9 @@ export const AddPetsForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iaddFormPet>({});
+  } = useForm<iaddFormPet>({
+    resolver: yupResolver(addPetSchema),
+  });
 
   const submit = (data: iaddFormPet) => {
     const newData = { ...data, userId: user?.id };
@@ -36,6 +40,7 @@ export const AddPetsForm = () => {
         placeholder="Nome"
         {...register("name")}
       ></Input>
+      {errors.name?.message}
       <label htmlFor="type">Tipo</label>
       <Input
         id="type"
@@ -46,6 +51,7 @@ export const AddPetsForm = () => {
         placeholder="Tipo"
         {...register("type")}
       ></Input>
+      {errors.type?.message}
       <label htmlFor="picture">Foto</label>
       <Input
         id="picture"
@@ -56,6 +62,7 @@ export const AddPetsForm = () => {
         placeholder="Foto"
         {...register("picture")}
       ></Input>
+      {errors.picture?.message}
       <label htmlFor="race">Raça</label>
       <Input
         id="race"
@@ -66,6 +73,7 @@ export const AddPetsForm = () => {
         placeholder="Raça"
         {...register("race")}
       ></Input>
+      {errors.race?.message}
       <Button type="submit">Criar novo pet</Button>
     </StyledForm>
   );
