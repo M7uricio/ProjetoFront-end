@@ -31,7 +31,7 @@ export interface iServiceData {
 }
 
 export function ServiceProvider() {
-  const { user, size } = useContext(UserContext);
+  const { user, size, logoutFunction } = useContext(UserContext);
   const { deleteService, servicesUser, setService } =
     useContext(ServiceContext);
   const { openModalCreateService, openModalEditService, openModalEditUser } =
@@ -41,7 +41,7 @@ export function ServiceProvider() {
     <>
       <NavDashProvider>
         <div className="divExitAndLogo">
-          <StyledButtonExit />
+          <StyledButtonExit onClick={() => logoutFunction()} />
           <img src={logo} alt="Logo NetPet" />
         </div>
         <section>

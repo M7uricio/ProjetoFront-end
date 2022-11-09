@@ -8,6 +8,9 @@ import { editServiceSchema } from "../../../validations/editServiceSchema";
 import { instance } from "../../../services/api";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { ServiceContext } from "../../../contexts/ServicesContext";
+import { StyledForm } from "../style";
+import { Input } from "../../Inputs/style";
+import { Select } from "../../Inputs/Select/style";
 
 export interface iServiceDataEdit {
   cnpj?: string;
@@ -23,7 +26,8 @@ export interface iServiceDataEdit {
 
 export const EditServiceForm = () => {
   const { setModalEdit } = useContext(ModalContext);
-  const { service, servicesUser, setServicesUser } = useContext(ServiceContext);
+  const { service, servicesUser, setServicesUser, deleteService } =
+    useContext(ServiceContext);
 
   const {
     register,
@@ -70,35 +74,50 @@ export const EditServiceForm = () => {
   };
 
   return (
-    <div>
+    <StyledForm>
       <form id="editService" onSubmit={handleSubmit(patchService)}>
-        <label htmlFor="">Nome do serviço</label>
-        <input
+        <label htmlFor="servicename">Nome do serviço</label>
+        <Input
+          id="servicename"
+          variant="inputPrimary"
           type="text"
           placeholder="nome do serviço"
           {...register("servicename")}
         />
         {errors.servicename?.message}
-        <label htmlFor="">CNPJ</label>
-        <input type="text" placeholder="CNPJ" {...register("cnpj")} />
+        <label htmlFor="cnpj">CNPJ</label>
+        <Input
+          id="cnpj"
+          variant="inputPrimary"
+          type="text"
+          placeholder="CNPJ"
+          {...register("cnpj")}
+        />
         {errors.cnpj?.message}
-        <label htmlFor="">Telefone</label>
-        <input
+        <label htmlFor="phone">Telefone</label>
+        <Input
+          id="phone"
+          variant="inputPrimary"
           type="number"
           placeholder="(00)0000-0000"
           {...register("phone")}
         />
         {errors.phone?.message}
-        <label htmlFor="">Descrição</label>
-        <input
+        <label htmlFor="description">Descrição</label>
+        <Input
+          id="description"
+          variant="inputPrimary"
           type="text"
           placeholder="Conte sobre o seu serviço"
           {...register("description")}
         />
         {errors.description?.message}
-        <label htmlFor="">Tipo de serviço</label>
-        <select
-          id=""
+        <label htmlFor="typeofservice">Tipo de serviço</label>
+        <Select
+          variant="selectPrimary"
+          height="30px"
+          width="100%"
+          id="typeofservice"
           placeholder="Em qual categoría o seu serviço se encaixa?"
           {...register("typeofservice")}
         >
@@ -106,20 +125,26 @@ export const EditServiceForm = () => {
           <option value="Hotel">Hotel</option>
           <option value="Petshop">PetShop</option>
           <option value="Outros">Outros</option>
-        </select>
+        </Select>
         {errors.typeofservice?.message}
         <label htmlFor="">Imagens do serviço</label>
-        <input
+        <Input
+          variant="inputPrimary"
           type="text"
           placeholder="url da imagem"
           {...register("images")}
         />
         {errors.images?.message}
         <label htmlFor="">Logo da empresa</label>
-        <input type="text" placeholder="url da imagem" {...register("logo")} />
+        <Input
+          variant="inputPrimary"
+          type="text"
+          placeholder="url da imagem"
+          {...register("logo")}
+        />
         {errors.logo?.message}
         <Button type="submit">Editar serviço</Button>
       </form>
-    </div>
+    </StyledForm>
   );
 };

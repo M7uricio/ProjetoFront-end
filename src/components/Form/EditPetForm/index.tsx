@@ -7,8 +7,10 @@ import { editPetSchema } from "../../../validations/editPetSchema";
 import { iEditFormPet } from "../../Modal/EditPetsProfile";
 import { Input } from "../../Inputs/style";
 import Button from "../../Button";
+import { StyledForm } from "../style";
 
 import ModalEditPetsStyle from "./style";
+import { StyledCloseModal } from "../../Icons";
 export const FormEditPet = () => {
   const { closeModalEditPet } = useContext(ModalContext);
   const { editPets, petsInfo, deletePet } = useContext(petsContext);
@@ -34,15 +36,7 @@ export const FormEditPet = () => {
 
   return (
     <ModalEditPetsStyle>
-      <div className="contantBtnClose">
-        <button onClick={() => closeModalEditPet()}>X</button>
-      </div>
-
-      <header>
-        <h3>Editar Pet</h3>
-        <span>Edite aqui as informações do seu pet.</span>
-      </header>
-      <form onSubmit={handleSubmit(submitEditPet)}>
+      <StyledForm onSubmit={handleSubmit(submitEditPet)}>
         <label htmlFor="">Nome</label>
         <Input
           variant="inputPrimary"
@@ -89,9 +83,10 @@ export const FormEditPet = () => {
         {errors.race?.message}
 
         <Button type="submit">Editar Pet</Button>
-
-        <Button onClick={deletePet}>Deletar Pet</Button>
-      </form>
+      </StyledForm>
+      <Button classname="btnRemovePet" onClick={() => deletePet()}>
+        Remover Pet
+      </Button>
     </ModalEditPetsStyle>
   );
 };
