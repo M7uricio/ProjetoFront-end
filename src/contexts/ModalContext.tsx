@@ -14,7 +14,7 @@ interface iModalContext {
   openModalEditUser: () => void;
   closeModalEditUser: () => void;
   modalEditPetOpen: boolean;
-  openModalEditPet: (data: iEditFormPet) => void;
+  openModalEditPet: () => void;
   closeModalEditPet: () => void;
   modalCreate: boolean;
   setModalCreate: React.Dispatch<React.SetStateAction<boolean>>;
@@ -71,9 +71,8 @@ const ModalProvider = ({ children }: iModalContextProps) => {
     setIsEditOpen(false);
   };
 
-  const openModalEditPet = (data: iEditFormPet): void => {
+  const openModalEditPet = (): void => {
     setIsEditPetOpen(true);
-    setPetsInfo(data);
   };
 
   const closeModalEditPet = (): void => {

@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { toast } from "react-toastify";
-import Button from "../Button";
+import Button from "../../Button";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { editServiceSchema } from "../../validations/editServiceSchema";
-import { instance } from "../../services/api";
-import { ModalContext } from "../../contexts/ModalContext";
-import { ServiceContext } from "../../contexts/ServicesContext";
+import { editServiceSchema } from "../../../validations/editServiceSchema";
+import { instance } from "../../../services/api";
+import { ModalContext } from "../../../contexts/ModalContext";
+import { ServiceContext } from "../../../contexts/ServicesContext";
 
 export interface iServiceDataEdit {
   cnpj?: string;

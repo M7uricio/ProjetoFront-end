@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Modal from "react-modal";
-import { ModalContext } from "../../contexts/ModalContext";
+import { ModalContext } from "../../../contexts/ModalContext";
 
 Modal.setAppElement("#root");
 
@@ -19,18 +19,18 @@ interface iModalProps {
   children: React.ReactNode;
 }
 
-export const ModalCreateService = ({ children }: iModalProps) => {
-  const { modalCreate, closeModalCreateService } = useContext(ModalContext);
+export const ModalEditService = ({ children }: iModalProps) => {
+  const { modalEdit, closeModalEditService } = useContext(ModalContext);
 
   return (
     <Modal
-      isOpen={modalCreate}
-      onRequestClose={closeModalCreateService}
+      isOpen={modalEdit}
+      onRequestClose={closeModalEditService}
       style={customStyles}
     >
-      <span onClick={() => closeModalCreateService()}>x</span>
-      <h1>Cadastro de serviço</h1>
-      <p>cadastre um novo serviço na sua página</p>
+      <span onClick={() => closeModalEditService()}>x</span>
+      <h1>Edição de serviço</h1>
+      <p>atualize as informações do serviço</p>
       {children}
     </Modal>
   );

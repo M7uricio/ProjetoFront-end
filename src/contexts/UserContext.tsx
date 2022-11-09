@@ -142,7 +142,6 @@ const UserProvider = ({ children }: iUserContextProps) => {
       localStorage.setItem("@NetPetToken:", response.data.accessToken);
       localStorage.setItem("@NetPetId:", response.data.user.id);
       const toNavigate = location.state?.from.pathname || "dashboard";
-      console.log(response);
       if (response.data.user.type === "user") {
         navigate("/dashboard");
       } else {
@@ -164,31 +163,17 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }, 1000);
   };
 
-  const userEditProfile = async (data: any) => {
-    let newData: any = {};
-    let arrayUser: string[] = [];
-
-    Object.keys(data).forEach((key) => {
-      const category = data[key];
-      if (category !== "") {
-        arrayUser.push(key);
-      }
-    });
-    arrayUser.forEach((key) => {
-      newData[key] = data[key];
-    });
-
+  const userEditProfile = async (data: ieditForm) => {
     try {
       const token = localStorage.getItem("@NetPetToken:");
       instance.defaults.headers.authorization = `Bearer ${token}`;
-      const response = await instance.patch(`/users/${user?.id}`, newData, {});
+      const response = await instance.patch(`/users/${user?.id}`, data);
+      setUser(response.data);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
     }
   };
-
-  const userLogoutFunction = async () => {};
 
   return (
     <UserContext.Provider

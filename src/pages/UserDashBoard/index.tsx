@@ -5,10 +5,10 @@ import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
 import { StyledHeader } from "../../components/Header/style";
 import { StyledButtonExit } from "../../components/Icons";
-import ModalInfo from "../../components/ModalInfo";
 import Link from "../../components/Links";
 import { StyledDivUserDashBoard } from "./style";
 import { StyledDiv } from "../../components/Divs/style";
+import ModalInfo from "../../components/Modal/ModalInfo";
 
 export const UserDashBoard = () => {
   const { user, size, logoutFunction } = useContext(UserContext);

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ServiceContext } from "../../contexts/ServicesContext";
+import { ServiceContext } from "../../../contexts/ServicesContext";
 import Modal from "react-modal";
 
 const ModalInfo = () => {
@@ -9,7 +9,6 @@ const ModalInfo = () => {
     setModal(false);
   }
   Modal.setAppElement("#root");
-  console.log(serviceClick);
   return (
     <div>
       <Modal
