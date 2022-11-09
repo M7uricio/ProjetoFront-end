@@ -23,7 +23,8 @@ export interface iServiceDataEdit {
 
 export const EditServiceForm = () => {
   const { setModalEdit } = useContext(ModalContext);
-  const { service, servicesUser, setServicesUser } = useContext(ServiceContext);
+  const { service, servicesUser, setServicesUser, deleteService } =
+    useContext(ServiceContext);
 
   const {
     register,

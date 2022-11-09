@@ -47,7 +47,6 @@ export const petsContext = createContext<iPetContext>({} as iPetContext);
 
 const PetProvider = ({ children }: iPetContextProps) => {
   const { user } = useContext(UserContext);
-  const { closeModaladdpet } = useContext(ModalContext);
   const [petsList, setPetsList] = useState([] as iPetList[]);
   const [petsInfo, setPetsInfo] = useState<iEditFormPet | null>(null);
 
@@ -79,7 +78,6 @@ const PetProvider = ({ children }: iPetContextProps) => {
         isLoading: false,
         autoClose: 1500,
       });
-      closeModaladdpet();
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       toast.update(id, {
