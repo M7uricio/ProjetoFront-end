@@ -21,7 +21,6 @@ export interface iLoginFormData {
 export const Login = () => {
   const { userLoginFunction, size } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  
 
   const {
     register,
