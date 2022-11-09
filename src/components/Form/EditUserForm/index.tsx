@@ -4,7 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { UserContext } from "../../../contexts/UserContext";
 import { EditUserSchema } from "../../../validations/editProfileSchema";
+import { Input } from "../../Inputs/style";
 import { ieditForm } from "../../Modal/EditProfileUser";
+import { StyledForm } from "../style";
 
 export const FormEditProfile = () => {
   const { user, userEditProfile } = useContext(UserContext);
@@ -22,27 +24,47 @@ export const FormEditProfile = () => {
       phone: user?.phone,
     },
   });
+
   const submit: SubmitHandler<ieditForm> = (data) => {
     userEditProfile(data);
     closeModalEditUser();
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(submit)}>
-        <button onClick={() => closeModalEditUser()}>Fechar</button>
+    <StyledForm onSubmit={handleSubmit(submit)}>
+      <label htmlFor="name">Nome</label>
+      <Input
+        id="name"
+        variant="inputPrimary"
+        type="name"
+        placeholder="Nome"
+        {...register("name")}
+      />
+      <label htmlFor="email">E-mail</label>
+      <Input
+        id="email"
+        variant="inputPrimary"
+        type="email"
+        placeholder="Email"
+        {...register("email")}
+      />
+      <label htmlFor="phone">Telefone</label>
+      <Input
+        id="phone"
+        variant="inputPrimary"
+        type="phone"
+        placeholder="Telefone"
+        {...register("phone")}
+      />
+      <label htmlFor="password">Senha</label>
+      <Input
+        id="password"
+        variant="inputPrimary"
+        type="password"
+        placeholder="password"
+        {...register("password")}
+      ></Input>
 
-        <input type="name" placeholder="Nome" {...register("name")} />
-        <input type="email" placeholder="Email" {...register("email")} />
-        <input type="phone" placeholder="Telefone" {...register("phone")} />
-        <input
-          type="password"
-          placeholder="password"
-          {...register("password")}
-        />
-        <p>{errors.password?.message}</p>
-
-        <button type="submit">Editar Perfil</button>
-      </form>
-    </>
+      <button type="submit">Editar Perfil</button>
+    </StyledForm>
   );
 };

@@ -9,7 +9,7 @@ export const StyledForm = styled.form`
   font-size: 16px;
   background: var(--white);
   max-width: 440px;
-  width: 100%; 
+  width: 100%;
 
   label {
     align-self: flex-start;
@@ -19,6 +19,11 @@ export const StyledForm = styled.form`
     margin-bottom: 3px;
   }
   input {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 5px;
+  }
+  select {
     width: 100%;
     height: 50px;
     margin-bottom: 5px;

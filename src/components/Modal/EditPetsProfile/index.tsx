@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormEditPet } from "../../Form/EditPetForm";
 import styled from "styled-components";
 import "../style.css";
+import { StyledCloseModal } from "../../Icons";
+import { Title } from "../../../styles/title";
 
 export interface iEditFormPet {
   id?: number;
@@ -28,6 +30,14 @@ export const ModalEditPets = () => {
       className="modalContent"
       overlayClassName="modalOverlay"
     >
+      <div className="divButtonClose">
+        <StyledCloseModal onClick={() => closeModalEditPet()} />
+      </div>
+
+      <Title variant="title2" color="var(--grey-1)">
+        Editar Pet
+      </Title>
+
       <FormEditPet />
     </Modal>
   );
