@@ -6,6 +6,7 @@ import Modal from "react-modal";
 import React from "react";
 import ReactDOM from "react-dom";
 import { FormEditProfile } from "../../Form/EditUserForm";
+import "../style.css";
 
 export interface ieditForm {
   id: number;
@@ -21,7 +22,12 @@ export const ModalProfile = () => {
 
   return (
     <>
-      <Modal isOpen={modalEditOpen} onRequestClose={closeModalEditUser}>
+      <Modal
+        isOpen={modalEditOpen}
+        onRequestClose={closeModalEditUser}
+        className="modalContent"
+        overlayClassName="modalOverlay"
+      >
         <FormEditProfile />
       </Modal>
     </>

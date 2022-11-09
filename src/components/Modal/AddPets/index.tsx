@@ -4,6 +4,9 @@ import { ModalContext } from "../../../contexts/ModalContext";
 import { petsContext } from "../../../contexts/PetsContext";
 import Modal from "react-modal";
 import { UserContext } from "../../../contexts/UserContext";
+import { Input } from "../../Inputs/style";
+import Button from "../../Button";
+import ModalAddPetsStyle from "./style";
 
 interface iaddFormPet {
   id: number;
@@ -32,17 +35,57 @@ export const ModalAddPets = () => {
   };
 
   return (
-    <>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModaladdpet}>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModaladdpet}
+      className="modalContent"
+      overlayClassName="modalOverlay"
+    >
+      <ModalAddPetsStyle>
+        <div className="contantBtnClose">
+          <button onClick={() => closeModaladdpet()}>X</button>
+        </div>
+
+        <header>
+          <h3>Adiocionar Pet</h3>
+          <span>Edite aqui as informações do seu pet.</span>
+        </header>
         <form onSubmit={handleSubmit(submit)}>
-          <button onClick={() => closeModaladdpet()}>Fechar</button>
-          <input type="name" placeholder="Nome" {...register("name")} />
-          <input type="type" placeholder="Tipo" {...register("type")} />
-          <input type="picture" placeholder="Foto" {...register("picture")} />
-          <input type="race" placeholder="Raça" {...register("race")} />
-          <button type="submit">Criar novo pet</button>
+          <Input
+            variant="inputPrimary"
+            height="60px"
+            width="100%"
+            type="name"
+            placeholder="Nome"
+            {...register("name")}
+          ></Input>
+          <Input
+            variant="inputPrimary"
+            height="60px"
+            width="100%"
+            type="type"
+            placeholder="Tipo"
+            {...register("type")}
+          ></Input>
+          <Input
+            variant="inputPrimary"
+            height="60px"
+            width="100%"
+            type="picture"
+            placeholder="Foto"
+            {...register("picture")}
+          ></Input>
+          <Input
+            variant="inputPrimary"
+            height="60px"
+            width="100%"
+            type="race"
+            placeholder="Raça"
+            {...register("race")}
+          ></Input>
+          <Button type="submit">Criar novo pet</Button>
         </form>
-      </Modal>
-    </>
+      </ModalAddPetsStyle>
+    </Modal>
   );
 };

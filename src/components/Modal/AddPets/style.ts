@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const ModalEditPetsStyle = styled.div`
+const ModalAddPetsStyle = styled.div`
   min-width: 300px;
   height: 80%;
   padding: 10px 0;
@@ -55,5 +55,4 @@ const ModalEditPetsStyle = styled.div`
     }
   }
 `;
-
-export default ModalEditPetsStyle;
+export default ModalAddPetsStyle;

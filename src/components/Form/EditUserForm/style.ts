@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-const ModalEditPetsStyle = styled.div`
+export const ModalEditProfileStyle = styled.div`
   min-width: 300px;
+
   height: 80%;
   padding: 10px 0;
   gap: 20px;
@@ -9,6 +10,8 @@ const ModalEditPetsStyle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  /* display: none; */
   .contantBtnClose {
     display: flex;
     flex-direction: row;
@@ -24,6 +27,7 @@ const ModalEditPetsStyle = styled.div`
       background-color: var(--brand-1);
     }
   }
+
   header {
     display: flex;
     flex-direction: column;
@@ -44,6 +48,7 @@ const ModalEditPetsStyle = styled.div`
       font-weight: 600;
     }
   }
+
   form {
     display: flex;
     flex-direction: column;
@@ -55,5 +60,3 @@ const ModalEditPetsStyle = styled.div`
     }
   }
 `;
-
-export default ModalEditPetsStyle;

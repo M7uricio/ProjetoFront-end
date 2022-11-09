@@ -34,19 +34,16 @@ export const FormEditPet = () => {
 
   return (
     <ModalEditPetsStyle>
+      <div className="contantBtnClose">
+        <button onClick={() => closeModalEditPet()}>X</button>
+      </div>
+
       <header>
         <h3>Editar Pet</h3>
-        <span>Frase de efeito sobre pets</span>
+        <span>Edite aqui as informações do seu pet.</span>
       </header>
       <form onSubmit={handleSubmit(submitEditPet)}>
-        <button
-          className="btnCloseModalEditPet"
-          onClick={() => closeModalEditPet()}
-        >
-          X
-        </button>
         <label htmlFor="">Nome</label>
-        {/* <input type="name" placeholder={"Nome"} {...register("name")} /> */}
         <Input
           variant="inputPrimary"
           height="60px"
@@ -65,10 +62,10 @@ export const FormEditPet = () => {
           placeholder={"Tipo"}
           {...register("type")}
         ></Input>
-        {/* <input type="type" placeholder={"Tipo"} {...register("type")} /> */}
+
         {errors.type?.message}
         <label htmlFor="">Foto</label>
-        {/* <input type="picture" placeholder={"Foto"} {...register("picture")} /> */}
+
         <Input
           variant="inputPrimary"
           height="60px"
@@ -79,7 +76,7 @@ export const FormEditPet = () => {
         ></Input>
         {errors.picture?.message}
         <label htmlFor="">Raça</label>
-        {/* <input type="race" placeholder={"Raça"} {...register("race")} /> */}
+
         <Input
           variant="inputPrimary"
           height="60px"
@@ -90,10 +87,10 @@ export const FormEditPet = () => {
         ></Input>
 
         {errors.race?.message}
-        {/* <button type="submit">Editar Pet</button> */}
+
         <Button type="submit">Editar Pet</Button>
-        {/* <button onClick={deletePet}> Deletar </button> */}
-        <Button onClick={deletePet}>Editar Pet</Button>
+
+        <Button onClick={deletePet}>Deletar Pet</Button>
       </form>
     </ModalEditPetsStyle>
   );
