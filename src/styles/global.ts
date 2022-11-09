@@ -13,7 +13,7 @@ html, body, div, span, applet, object, iframe,
     article, aside, canvas, details, embed, 
     figure, figcaption, footer, header, hgroup, 
     menu, nav, output, ruby, section, summary,
-    time, mark, audio, video ,input , button{
+    time, mark, audio, video ,input , button,svg{
         margin: 0;
         padding: 0;
         border: 0;
@@ -38,6 +38,16 @@ html, body, div, span, applet, object, iframe,
 
     a{
         text-decoration: none;
+    }
+
+    ::-webkit-scrollbar {
+        background-color: var(--grey-5);
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--grey-4);
+        border-radius: 8px;
     }
 
     :root {
