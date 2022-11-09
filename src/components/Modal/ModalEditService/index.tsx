@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import Modal from "react-modal";
 import { ModalContext } from "../../../contexts/ModalContext";
+import { Title } from "../../../styles/title";
+import { StyledCloseModal } from "../../Icons";
+import "../style.css";
 
 Modal.setAppElement("#root");
 
@@ -26,11 +29,15 @@ export const ModalEditService = ({ children }: iModalProps) => {
     <Modal
       isOpen={modalEdit}
       onRequestClose={closeModalEditService}
-      style={customStyles}
+      overlayClassName="modalOverlay"
+      className="modalContent"
     >
-      <span onClick={() => closeModalEditService()}>x</span>
-      <h1>Edição de serviço</h1>
-      <p>atualize as informações do serviço</p>
+      <div className="divButtonClose">
+        <StyledCloseModal onClick={() => closeModalEditService()} />
+      </div>
+      <Title variant="title2" color="var(--grey-1)">
+        Edite seu serviço
+      </Title>
       {children}
     </Modal>
   );
