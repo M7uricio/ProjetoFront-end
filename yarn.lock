@@ -2214,6 +2214,14 @@
     "@types/react" "*"
     csstype "^3.0.2"
 
+"@types/styled-react-modal@^1.2.2":
+  "integrity" "sha512-Xiqdh6Wi0yegOK98rjO1Yrsy4bC+eMVkd6n2i23GSh8lgYCicZaMDYgX7vEil5LQuOBkfnyh+W6R+G0eIoTAbw=="
+  "resolved" "https://registry.npmjs.org/@types/styled-react-modal/-/styled-react-modal-1.2.2.tgz"
+  "version" "1.2.2"
+  dependencies:
+    "@types/react" "*"
+    "@types/styled-components" "*"
+
 "@types/testing-library__jest-dom@^5.9.1":
   version "5.14.5"
   resolved "https://registry.npmjs.org/@types/testing-library__jest-dom/-/testing-library__jest-dom-5.14.5.tgz"

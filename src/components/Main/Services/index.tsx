@@ -13,7 +13,7 @@ export const ServiceList = () => {
             <h2>{element.servicename}</h2>
             <p>{element.typeofservice}</p>
             <p>{element.phone}</p>
-            <button onClick={openModal}>Open Modal</button>
+            <button onClick={openModal}>Saiba mais</button>
           </StyledDiv>
         </li>
       ))}
