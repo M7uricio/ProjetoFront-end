@@ -12,7 +12,7 @@ export const StyledHeader = styled.header`
 
   position: fixed;
   top: 0;
-  z-index: 5;
+  z-index: 2;
 
   .buttondAndLogo {
     display: flex;
