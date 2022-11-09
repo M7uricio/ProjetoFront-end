@@ -50,7 +50,7 @@ html, body, div, span, applet, object, iframe,
         --grey-2: #737885;
         --grey-3: #8A8B99;
         --grey-4: #D9DEE6;
-        --grey-5: #FFF7EE;
+        --grey-5: #FFEAD2;
         --white: #FFFFFF;
         --black:#000000;
     }

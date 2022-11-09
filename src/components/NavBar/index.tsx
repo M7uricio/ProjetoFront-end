@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { iDataCategory } from "../../contexts/ServicesContext";
+import { UserContext } from "../../contexts/UserContext";
 import Button from "../Button";
 import { Research } from "../Inputs/Research";
 import { StyledNav } from "./style";
@@ -13,16 +15,22 @@ export const NavBar = ({
   newNavBar,
   setDataValueInput,
 }: iNavBar) => {
+  const { size } = useContext(UserContext);
   return (
     <StyledNav>
-      <Research setDataValueInput={setDataValueInput} />
-      <ul>
+      {size > 720 ? <></> : <Research setDataValueInput={setDataValueInput} />}
+      <ul className="listFilter">
         <li key={0}>
-          <Button onClick={() => setSearchBtn("")}>Todos</Button>
+          <Button variant="ButtonTertiary" onClick={() => setSearchBtn("")}>
+            Todos
+          </Button>
         </li>
         {newNavBar().map((element, index) => (
           <li key={index + 1}>
-            <Button onClick={() => setSearchBtn(element.typeofservice)}>
+            <Button
+              variant="ButtonTertiary"
+              onClick={() => setSearchBtn(element.typeofservice)}
+            >
               {element.typeofservice}
             </Button>
           </li>
