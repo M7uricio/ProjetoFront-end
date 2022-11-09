@@ -1,51 +1,50 @@
-import { registerSchema } from "../../validations/registerSchema";
+import React, { useContext } from "react";
+
+import gatinho from "../../assets/img/gatinho.png";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FieldValues, useForm, UseFormRegister } from "react-hook-form";
-import { useContext } from "react";
-import LogoReg from "../../assets/img/Ramister 1.svg";
+import { registerSchema } from "../../validations/registerSchema";
 import { UserContext } from "../../contexts/UserContext";
-import { StyledPaw } from "../../components/Icons";
+import { iRegisterUser } from "../register";
+import { StyledRegisterMain } from "./style";
+import { Title } from "../../styles/title";
+import { Text } from "../../styles/text";
 import { Input } from "../../components/Inputs/style";
 import Button from "../../components/Button";
+import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
+import { StyledPaw } from "../../components/Icons";
 import { PassWord } from "../../components/Inputs/Password";
 import { ConfirmPassWord } from "../../components/Inputs/ConfirmPassword";
-import { Title } from "../../styles/title";
-import { StyledRegisterMain } from "./style";
-import { Text } from "../../styles/text";
-import { AiFillHome } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
-export type iRegisterUser = {
-  name?: string;
-  password?: string;
-  "confirm-password"?: string;
-  email?: string;
-  phone?: string;
-  type?: string;
-  register?: UseFormRegister<FieldValues>;
-};
-
-export const RegisterPage = () => {
-  const { userRegisterFunction } = useContext(UserContext);
+const RegisterCompanyPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iRegisterUser>({ resolver: yupResolver(registerSchema) });
+  } = useForm<iRegisterUser>({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const { userRegisterCompanyFunction } = useContext(UserContext);
+
+  const onSubmitFunction = (data: iRegisterUser) => {
+    userRegisterCompanyFunction(data);
+  };
 
   return (
     <StyledRegisterMain>
       <div className="imgDiv">
-        <img src={LogoReg} alt="" />
+        <img src={gatinho} alt="" />
       </div>
       <div className="formDiv">
         <div className="titleDiv">
           <Title variant="title1" color="black">
             Registre-se
           </Title>
-          <Text variant="text2">Seja bem-vindo a nossa comunidade!</Text>
+          <Text variant="text2">Expanda os horizontes do seu negócio</Text>
         </div>
-        <form onSubmit={handleSubmit(userRegisterFunction)}>
+        <form onSubmit={handleSubmit(onSubmitFunction)}>
           <label htmlFor="name">Nome</label>
           <Input
             variant="inputPrimary"
@@ -61,7 +60,7 @@ export const RegisterPage = () => {
             variant="inputPrimary"
             height="60px"
             width="100%"
-            placeholder="Digite seu nome aqui"
+            placeholder="Digite o seu email aqui"
             {...register("email")}
           ></Input>
           {<p>{errors.email?.message}</p>}
@@ -84,7 +83,7 @@ export const RegisterPage = () => {
           ></Input>
           {<p>{errors.phone?.message}</p>}
 
-          <Button type="submit">
+          <Button variant="ButtonPrimary">
             Cadastrar <StyledPaw variant="paw" font="#FFD7A8" />
           </Button>
         </form>
@@ -99,3 +98,5 @@ export const RegisterPage = () => {
     </StyledRegisterMain>
   );
 };
+
+export default RegisterCompanyPage;

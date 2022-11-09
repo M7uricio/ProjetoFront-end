@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const schema = yup.object({
+export const registerSchema = yup.object({
   name: yup.string().required("É necessário colocar um nome"),
   password: yup.string().min(8, "Minimo de 8 caracteres").required(),
   "confirm-password": yup

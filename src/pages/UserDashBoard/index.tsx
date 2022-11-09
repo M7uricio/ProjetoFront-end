@@ -1,17 +1,20 @@
 import { useContext, useEffect } from "react";
 import { ServiceContext } from "../../contexts/ServicesContext";
-// import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
-import { Main } from "../../components/Main";
-import { StyledDiv } from "../../styles/Divs/style";
 import { StyledHeader } from "../../components/Header/style";
-import { ButtonExit } from "../../styles/buttonsIcons";
-import { RenderContext } from "../../contexts/RenderContext";
-import ModalInfo from "../../components/ModalInfo";
+import { StyledButtonExit } from "../../components/Icons";
+import { StyledDivUserDashBoard } from "./style";
+import { Title } from "../../styles/title";
+import { Research } from "../../components/Inputs/Research";
+import { Link } from "react-router-dom";
+import peixe from "../../assets/img/Peixinho.png";
+import Button from "../../components/Button";
+import ModalInfo from "../../components/Modal/ModalInfo";
 
 export const UserDashBoard = () => {
-  // const { user } = useContext(UserContext);
+  const { size } = useContext(UserContext);
   const {
     newNavBar,
     setDataValueInput,
@@ -21,8 +24,10 @@ export const UserDashBoard = () => {
     dataValueInput,
     setRenderList,
     searchBtn,
+    renderList,
+    setServiceClick,
+    openModal,
   } = useContext(ServiceContext);
-  const { size } = useContext(RenderContext);
 
   useEffect(() => {
     if (dataValueInput === "") {
@@ -33,32 +38,85 @@ export const UserDashBoard = () => {
   }, [dataValueInput || searchBtn]);
 
   return (
-    <>
+    <StyledDivUserDashBoard>
       <StyledHeader>
-        <button>
-          <ButtonExit />
-        </button>
-        <StyledDiv variant="headerLogo">
-          {size < 720 ? <></> : <img src={logo} alt="Logo" />}
-          <h2>NetPet</h2>
+        <div className="buttondAndLogo">
+          <StyledButtonExit />
+          <div className="headerLogo">
+            <img src={logo} alt="Logo" />
+            {size < 720 ? (
+              <></>
+            ) : (
+              <>
+                <Title
+                  variant="title2"
+                  color="var(--grey-2)"
+                  className="nameLogo"
+                >
+                  Net
+                </Title>
+                <Title
+                  variant="title2"
+                  color="var(--brand-2)"
+                  className="nameLogo"
+                >
+                  Pet
+                </Title>
+              </>
+            )}
+          </div>
+        </div>
+        <div className="headerDiv">
+          {size < 720 ? (
+            <></>
+          ) : (
+            <Research setDataValueInput={setDataValueInput} />
+          )}
 
-          <StyledDiv variant="headerDiv">
+          <Link to="/userProfile">
             <img src="" alt="Avatar" />
-
-            <button>Profile</button>
-          </StyledDiv>
-        </StyledDiv>
+          </Link>
+        </div>
       </StyledHeader>
-
-      <NavBar
-        setSearchBtn={setSearchBtn}
-        newNavBar={newNavBar}
-        setDataValueInput={setDataValueInput}
-      />
-
-      <Main />
+      <main>
+        <div className="banerNetPet">
+          <img src={peixe} alt="Imagem de peixe no aquário" />
+          <div className="textBaner">
+            <Title variant="title1" color="var(--grey-1)">
+              A NetPet veio para melhorar e facilitar os cuidados com o seu
+              querido pet !
+            </Title>
+          </div>
+        </div>
+        <NavBar
+          setSearchBtn={setSearchBtn}
+          newNavBar={newNavBar}
+          setDataValueInput={setDataValueInput}
+        />
+        <ul className="listServices">
+          {renderList.map((element, index) => (
+            <li key={index} onClick={() => setServiceClick(element)}>
+              <div className="serviceCard">
+                <div className="logoService">
+                  <img src={element.logo} alt="logo"></img>
+                </div>
+                <div className="divNameService">
+                  <Title variant="title3" color="var(--grey-1)">
+                    {element.servicename}
+                  </Title>
+                </div>
+                <div className="divButtonService">
+                  <Button classname="buttonModal" onClick={openModal}>
+                    Ver mais
+                  </Button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
 
       <ModalInfo />
-    </>
+    </StyledDivUserDashBoard>
   );
 };

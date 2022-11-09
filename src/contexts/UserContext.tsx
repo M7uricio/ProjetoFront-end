@@ -5,19 +5,24 @@ import { instance } from "../services/api";
 import { toast } from "react-toastify";
 import axios, { AxiosError } from "axios";
 import { iLoginFormData } from "../pages/Login";
+import { ieditForm } from "../components/Modal/EditProfileUser";
 
 interface iUserContextProps {
   children: React.ReactNode;
 }
 
 interface iUserContext {
-  registerUserFunction: (data: iRegisterUser) => void;
-  loginFunction: (
+  userRegisterFunction: (data: iRegisterUser) => void;
+  userRegisterCompanyFunction: (data: iRegisterUser) => void;
+  userLoginFunction: (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => void;
   user: iUser | null;
   loading: boolean;
+  size: number;
+  userEditProfile: (data: ieditForm) => void;
+  logoutFunction: () => void;
 }
 
 interface iUser {
@@ -25,6 +30,7 @@ interface iUser {
   email: string;
   name: string;
   phone: string;
+  password: string;
   type: string;
 }
 interface iApiError {
@@ -36,33 +42,37 @@ export const UserContext = createContext<iUserContext>({} as iUserContext);
 const UserProvider = ({ children }: iUserContextProps) => {
   const [user, setUser] = useState<iUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [size, setSize] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    const userProfile = async () => {
-      const token = localStorage.getItem("@NetPetToken:");
-      const tokenId = localStorage.getItem("@NetPetId:");
-      try {
-        instance.defaults.headers.common.authorization = `Bearer ${token}`;
-        const { data } = await instance.get(`/users/${tokenId}`);
-        setUser(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error);
-        }
+  const userProfile = async () => {
+    const token = localStorage.getItem("@NetPetToken:");
+    const tokenId = localStorage.getItem("@NetPetId:");
+    try {
+      instance.defaults.headers.common.authorization = `Bearer ${token}`;
+      const { data } = await instance.get(`/users/${tokenId}`);
+      setUser(data);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(error);
       }
-      setLoading(false);
-    };
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setSize(window.innerWidth);
     userProfile();
   }, []);
 
-  const registerUserFunction = async (data: iRegisterUser) => {
+  window.addEventListener("resize", () => {
+    setSize(window.innerWidth);
+  });
+
+  const userRegisterFunction = async (data: iRegisterUser) => {
     const newData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      phone: data.phone,
+      ...data,
       type: "user",
     };
     const id = toast.loading("Please wait...");
@@ -72,7 +82,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
         render: `Cadastro realizado com sucesso`,
         type: "success",
         isLoading: false,
-        autoClose: 1000,
+        autoClose: 1500,
       });
       navigate("/login", { replace: true });
     } catch (error) {
@@ -82,13 +92,46 @@ const UserProvider = ({ children }: iUserContextProps) => {
             render: `E-mail já existe`,
             type: "error",
             isLoading: false,
-            autoClose: 1000,
+            autoClose: 1500,
           });
         console.error(error);
       }
     }
   };
-  const loginFunction = async (
+
+  const userRegisterCompanyFunction = async (data: iRegisterUser) => {
+    const newData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
+      type: "service",
+    };
+
+    const id = toast.loading("Please wait...");
+    try {
+      await instance.post("/register", newData);
+      toast.update(id, {
+        render: `Cadastro realizado com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1500,
+      });
+      navigate("/login", { replace: true });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data === "Email already exists")
+          toast.update(id, {
+            render: `E-mail já existe`,
+            type: "error",
+            isLoading: false,
+            autoClose: 1500,
+          });
+        console.error(error);
+      }
+    }
+  };
+  const userLoginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
@@ -100,12 +143,10 @@ const UserProvider = ({ children }: iUserContextProps) => {
       localStorage.setItem("@NetPetId:", response.data.user.id);
       const toNavigate = location.state?.from.pathname || "dashboard";
       if (response.data.user.type === "user") {
-        navigate(toNavigate, { replace: true });
+        navigate("/dashboard");
       } else {
-        navigate("/");
+        navigate("/dashboardProviderService");
       }
-
-      console.log(user);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
@@ -114,37 +155,38 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const logoutFunctio = async () => {};
+  const logoutFunction = async () => {
+    localStorage.removeItem("@NetPetToken:");
+    localStorage.removeItem("@NetPetId:");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
 
-  /* EXEMPLO DE AUTOLOGIN
-    
-    useEffect(() => {
-
-        async function loginUser(){
-            const token = localStorage.getItem("@kenziehub:TOKEN")
-
-            if(token){
-                try {
-                    const profile = await api.get("/profile", {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    setUser(profile.data)
-                    setToken(token)
-                } catch {
-                    localStorage.removeItem("@kenziehub:TOKEN")
-                }
-            }
-
-            setLoading(false)
-        }
-        loginUser()
-    },[]) */
+  const userEditProfile = async (data: ieditForm) => {
+    try {
+      const token = localStorage.getItem("@NetPetToken:");
+      instance.defaults.headers.authorization = `Bearer ${token}`;
+      const response = await instance.patch(`/users/${user?.id}`, data);
+      setUser(response.data);
+    } catch (error) {
+      const requestError = error as AxiosError<iApiError>;
+      console.log(requestError);
+    }
+  };
 
   return (
     <UserContext.Provider
-      value={{ registerUserFunction, loginFunction, user, loading }}
+      value={{
+        userRegisterFunction,
+        userLoginFunction,
+        user,
+        userEditProfile,
+        userRegisterCompanyFunction,
+        loading,
+        size,
+        logoutFunction,
+      }}
     >
       {children}
     </UserContext.Provider>

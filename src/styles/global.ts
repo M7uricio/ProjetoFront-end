@@ -13,7 +13,7 @@ html, body, div, span, applet, object, iframe,
     article, aside, canvas, details, embed, 
     figure, figcaption, footer, header, hgroup, 
     menu, nav, output, ruby, section, summary,
-    time, mark, audio, video ,input , button{
+    time, mark, audio, video ,input , button,svg{
         margin: 0;
         padding: 0;
         border: 0;
@@ -40,6 +40,16 @@ html, body, div, span, applet, object, iframe,
         text-decoration: none;
     }
 
+    ::-webkit-scrollbar {
+        background-color: var(--grey-5);
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--grey-4);
+        border-radius: 8px;
+    }
+
     :root {
         --brand-1: #FFD7A8;
         --brand-2: #D77127;
@@ -50,7 +60,7 @@ html, body, div, span, applet, object, iframe,
         --grey-2: #737885;
         --grey-3: #8A8B99;
         --grey-4: #D9DEE6;
-        --grey-5: #FFF7EE;
+        --grey-5: #FFEAD2;
         --white: #FFFFFF;
         --black:#000000;
     }

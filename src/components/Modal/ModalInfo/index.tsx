@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ServiceContext } from "../../contexts/ServicesContext";
+import { ServiceContext } from "../../../contexts/ServicesContext";
 import Modal from "react-modal";
 import {
   CarouselImages,

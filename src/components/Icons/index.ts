@@ -20,7 +20,7 @@ export const StyledPaw = styled(FaPaw)<iIconsProps>`
   }}
 `;
 
-export const ButtonHome = styled(AiFillHome)`
+export const StyledButtonHome = styled(AiFillHome)`
   padding: 10px;
   font-size: 35px;
   color: var(--brand-2);
@@ -34,7 +34,7 @@ export const ButtonHome = styled(AiFillHome)`
   }
 `;
 
-export const ButtonExit = styled(BiArrowBack)`
+export const StyledButtonExit = styled(BiArrowBack)`
   padding: 10px;
   font-size: 35px;
   color: var(--brand-2);
@@ -48,7 +48,7 @@ export const ButtonExit = styled(BiArrowBack)`
   }
 `;
 
-export const ButtonSeach = styled(BiSearchAlt)`
+export const StyledButtonSeach = styled(BiSearchAlt)`
   font-size: 35px;
   color: var(--brand-2);
   cursor: pointer;
@@ -59,7 +59,7 @@ export const ButtonSeach = styled(BiSearchAlt)`
 `;
 export const StyledEye = styled(AiFillEye)`
   position: absolute;
-  margin: 17px;
+  margin: 22px;
   left: 80%;
   @media (min-width: 425px) {
     left: 85%;
@@ -68,7 +68,7 @@ export const StyledEye = styled(AiFillEye)`
 
 export const StyledClosedEye = styled(AiFillEyeInvisible)`
   position: absolute;
-  margin: 17px;
+  margin: 22px;
   left: 80%;
   @media (min-width: 425px) {
     left: 85%;

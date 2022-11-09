@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { UseFormRegister, FieldValues } from "react-hook-form";
-import { StyledClosedEye, StyledEye } from "../../../styles/buttonsIcons";
-import { Input } from "../../../styles/Input";
-import { StyledDiv } from "../../../styles/Divs/style";
+import { StyledClosedEye, StyledEye } from "../../Icons";
+import { Input } from "../style";
+import { StyledDiv } from "../../Divs/style";
 
 interface iConfirmPassWord {
   register: UseFormRegister<FieldValues>;
@@ -19,6 +19,8 @@ export const ConfirmPassWord = ({ register }: iConfirmPassWord) => {
       <Input
         variant="inputPrimary"
         id="confirm-password"
+        height="60px"
+        width="100%"
         type={passwordShow ? "text" : "password"}
         placeholder="Digite aqui sua senha"
         {...register("password")}
