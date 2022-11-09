@@ -27,9 +27,12 @@ const ModalInfo = () => {
         contentLabel="Example Modal"
         style={ModalStyle}
       >
-        <ModalClose onClick={closeModal}>
-          <CloseIcon />
-        </ModalClose>
+        <div>
+          <ModalClose onClick={closeModal}>
+            <CloseIcon />
+          </ModalClose>
+        </div>
+
         <ModalHeader>
           <h1>{serviceClick.servicename}</h1>
           <figure>
@@ -40,15 +43,9 @@ const ModalInfo = () => {
         </ModalHeader>
 
         <CarouselImages>
-          {/*       <li>
-            <img src={serviceClick?.images[0]} alt="" />
-          </li>
           <li>
-            <img src={serviceClick?.images[1]} alt="" />
+            <img src={serviceClick?.images} alt="" />
           </li>
-          <li>
-            <img src={serviceClick?.images[2]} alt="" />
-          </li> */}
         </CarouselImages>
         <ModalFooter>
           <p>Telefone: {serviceClick.phone}</p>

@@ -7,8 +7,10 @@ import { editPetSchema } from "../../../validations/editPetSchema";
 import { iEditFormPet } from "../../Modal/EditPetsProfile";
 import { Input } from "../../Inputs/style";
 import Button from "../../Button";
+import { StyledForm } from "../style";
 
 import ModalEditPetsStyle from "./style";
+import { StyledCloseModal } from "../../Icons";
 export const FormEditPet = () => {
   const { closeModalEditPet } = useContext(ModalContext);
   const { editPets, petsInfo, deletePet } = useContext(petsContext);
@@ -34,19 +36,8 @@ export const FormEditPet = () => {
 
   return (
     <ModalEditPetsStyle>
-      <header>
-        <h3>Editar Pet</h3>
-        <span>Frase de efeito sobre pets</span>
-      </header>
-      <form onSubmit={handleSubmit(submitEditPet)}>
-        <button
-          className="btnCloseModalEditPet"
-          onClick={() => closeModalEditPet()}
-        >
-          X
-        </button>
+      <StyledForm onSubmit={handleSubmit(submitEditPet)}>
         <label htmlFor="">Nome</label>
-        {/* <input type="name" placeholder={"Nome"} {...register("name")} /> */}
         <Input
           variant="inputPrimary"
           height="60px"
@@ -65,10 +56,10 @@ export const FormEditPet = () => {
           placeholder={"Tipo"}
           {...register("type")}
         ></Input>
-        {/* <input type="type" placeholder={"Tipo"} {...register("type")} /> */}
+
         {errors.type?.message}
         <label htmlFor="">Foto</label>
-        {/* <input type="picture" placeholder={"Foto"} {...register("picture")} /> */}
+
         <Input
           variant="inputPrimary"
           height="60px"
@@ -79,7 +70,7 @@ export const FormEditPet = () => {
         ></Input>
         {errors.picture?.message}
         <label htmlFor="">Raça</label>
-        {/* <input type="race" placeholder={"Raça"} {...register("race")} /> */}
+
         <Input
           variant="inputPrimary"
           height="60px"
@@ -90,11 +81,12 @@ export const FormEditPet = () => {
         ></Input>
 
         {errors.race?.message}
-        {/* <button type="submit">Editar Pet</button> */}
+
         <Button type="submit">Editar Pet</Button>
-        {/* <button onClick={deletePet}> Deletar </button> */}
-        <Button onClick={deletePet}>Editar Pet</Button>
-      </form>
+      </StyledForm>
+      <Button classname="btnRemovePet" onClick={() => deletePet()}>
+        Remover Pet
+      </Button>
     </ModalEditPetsStyle>
   );
 };

@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalContext } from "../../../contexts/ModalContext";
-import { UserContext } from "../../../contexts/UserContext";
 import Modal from "react-modal";
-import React from "react";
-import ReactDOM from "react-dom";
 import { FormEditProfile } from "../../Form/EditUserForm";
+import { StyledCloseModal } from "../../Icons";
+import "../style.css";
+import { Title } from "../../../styles/title";
 
 export interface ieditForm {
   id: number;
@@ -21,7 +20,18 @@ export const ModalProfile = () => {
 
   return (
     <>
-      <Modal isOpen={modalEditOpen} onRequestClose={closeModalEditUser}>
+      <Modal
+        isOpen={modalEditOpen}
+        onRequestClose={closeModalEditUser}
+        overlayClassName="modalOverlay"
+        className="modalContent"
+      >
+        <div className="divButtonClose">
+          <StyledCloseModal onClick={() => closeModalEditUser()} />
+        </div>
+        <Title variant="title2" color="var(--grey-1)">
+          Edite seu perfil
+        </Title>
         <FormEditProfile />
       </Modal>
     </>
