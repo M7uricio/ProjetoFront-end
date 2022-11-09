@@ -1,92 +1,92 @@
 import styled from "styled-components";
 
 export const StyledDivUserDashBoard = styled.div`
-  .headerLogo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--brand-1);
-    width: 100vw;
-    padding: 5px 0px;
-    img {
-      width: 100vw;
-      max-width: 250px;
-    }
-    @media (min-width: 720px) {
-      flex-direction: row;
-      justify-content: space-around;
-    }
-    @media (min-width: 1024px) {
-      padding-right: 100px;
-    }
-  }
-
-  .headerDiv {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    border-radius: 10px;
-    width: 100vw;
-    max-width: 200px;
-    height: 100vh;
-    max-height: 200px;
-    background-color: var(--brand-2);
-    img {
-      border-radius: 50%;
-      width: 100vw;
-      max-width: 100px;
-      height: 100vh;
-      max-height: 100px;
-      background-color: red;
-    }
-    button {
-      width: 100px;
-      height: 45px;
-      border-radius: 10px;
-      background-color: var(--brand-1);
-    }
-  }
-
   main {
     width: 100vw;
     max-width: 1200px;
-    ul {
+    margin: 100px auto 10px auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .banerNetPet {
+      width: 98.5vw;
+      padding: 15px 0;
       background-color: var(--brand-1);
-      margin: 0 auto;
-      margin-top: 10px;
+      margin-bottom: 20px;
+
       display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 300px;
+
+      img {
+        width: 100px;
+      }
+
+      .textBaner {
+        width: 500px;
+      }
+    }
+    .listServices {
+      max-width: 90vw;
       padding: 5px;
-      gap: 5px;
-      border-radius: 10px;
-      max-width: 900px;
+
+      display: flex;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
     }
-    li {
-      background-color: var(--brand-2);
-      border-radius: 20px;
+    .logoService {
+      width: 200px;
+      height: 150px;
+      background-color: var(--brand-1);
+      border-radius: 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .serviceCard {
+      width: 200px;
+      height: 300px;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       gap: 10px;
-      width: 100vw;
-      max-width: 150px;
-      height: 100vh;
-      max-height: 200px;
-      h2 {
-        color: var(--white);
-        font-weight: 700;
-        font-size: 18px;
+
+      img {
+        max-width: 90%;
+        max-height: 90%;
       }
-      p {
-        color: var(--black);
-        font-weight: 700;
+
+      .divNameService {
+        width: 100%;
+        height: 40px;
+      }
+
+      .divButtonService {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+
+        .buttonModal {
+          height: 30px !important;
+          padding: 10px !important;
+
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    @media (max-width: 720px) {
+      .banerNetPet {
+        gap: 0px;
       }
     }
   }

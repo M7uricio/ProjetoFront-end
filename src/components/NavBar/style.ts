@@ -1,19 +1,25 @@
 import styled from "styled-components";
 
 export const StyledNav = styled.nav`
-  width: 100vw;
-  max-width: 500px;
-  gap: 10px;
-  margin: 0 auto;
+  width: 90vw;
+
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  ul {
+
+  margin-bottom: 30px;
+
+  .listFilter {
+    width: 90vw;
+    padding: 0 30px;
+    background-color: var(--grey-5);
+    border-radius: 25px;
+
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+
+    overflow-x: auto;
   }
   li {
     display: flex;
@@ -21,11 +27,18 @@ export const StyledNav = styled.nav`
     align-items: center;
     width: 159px;
   }
-  button {
-    text-align: center;
-    width: 100%;
-    height: 75px;
-  }
-  @media (min-width: 720px) {
+  @media (max-width: 720px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+
+    input {
+      max-width: 90vw;
+    }
+
+    .listFilter {
+      gap: 0px;
+    }
   }
 `;

@@ -5,13 +5,16 @@ import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
 import { StyledHeader } from "../../components/Header/style";
 import { StyledButtonExit } from "../../components/Icons";
-import Link from "../../components/Links";
 import { StyledDivUserDashBoard } from "./style";
-import { StyledDiv } from "../../components/Divs/style";
+import { Title } from "../../styles/title";
+import { Research } from "../../components/Inputs/Research";
+import { Link } from "react-router-dom";
+import peixe from "../../assets/img/Peixinho.png";
+import Button from "../../components/Button";
 import ModalInfo from "../../components/Modal/ModalInfo";
 
 export const UserDashBoard = () => {
-  const { user, size, logoutFunction } = useContext(UserContext);
+  const { size } = useContext(UserContext);
   const {
     newNavBar,
     setDataValueInput,
@@ -37,37 +40,76 @@ export const UserDashBoard = () => {
   return (
     <StyledDivUserDashBoard>
       <StyledHeader>
-        <button onClick={() => logoutFunction()}>
+        <div className="buttondAndLogo">
           <StyledButtonExit />
-        </button>
-        <div className="headerLogo">
-          {size < 720 ? <></> : <img src={logo} alt="Logo" />}
-          <h2>NetPet</h2>
-
-          <div className="headerDiv">
-            <img src="" alt="Avatar" />
-
-            <Link to="/userProfile">Profile</Link>
+          <div className="headerLogo">
+            <img src={logo} alt="Logo" />
+            {size < 720 ? (
+              <></>
+            ) : (
+              <>
+                <Title
+                  variant="title2"
+                  color="var(--grey-2)"
+                  className="nameLogo"
+                >
+                  Net
+                </Title>
+                <Title
+                  variant="title2"
+                  color="var(--brand-2)"
+                  className="nameLogo"
+                >
+                  Pet
+                </Title>
+              </>
+            )}
           </div>
         </div>
+        <div className="headerDiv">
+          {size < 720 ? (
+            <></>
+          ) : (
+            <Research setDataValueInput={setDataValueInput} />
+          )}
+
+          <Link to="/userProfile">
+            <img src="" alt="Avatar" />
+          </Link>
+        </div>
       </StyledHeader>
-
-      <NavBar
-        setSearchBtn={setSearchBtn}
-        newNavBar={newNavBar}
-        setDataValueInput={setDataValueInput}
-      />
-
       <main>
-        <ul>
+        <div className="banerNetPet">
+          <img src={peixe} alt="Imagem de peixe no aquário" />
+          <div className="textBaner">
+            <Title variant="title1" color="var(--grey-1)">
+              A NetPet veio para melhorar e facilitar os cuidados com o seu
+              querido pet !
+            </Title>
+          </div>
+        </div>
+        <NavBar
+          setSearchBtn={setSearchBtn}
+          newNavBar={newNavBar}
+          setDataValueInput={setDataValueInput}
+        />
+        <ul className="listServices">
           {renderList.map((element, index) => (
             <li key={index} onClick={() => setServiceClick(element)}>
               <div className="serviceCard">
-                <img src={element.logo} alt="logo"></img>
-                <h2>{element.servicename}</h2>
-                <p>{element.typeofservice}</p>
-                <p>{element.phone}</p>
-                <button onClick={openModal}>Open Modal</button>
+                <div className="logoService">
+                  <img src={element.logo} alt="logo"></img>
+                </div>
+                <div className="divNameService">
+                  <Title variant="title3" color="var(--grey-1)">
+                    {element.servicename}
+                  </Title>
+                </div>
+                <div className="divButtonService">
+                  <Button classname="buttonModal" onClick={openModal}>
+                    Ver mais
+                  </Button>
+                </div>
               </div>
             </li>
           ))}
