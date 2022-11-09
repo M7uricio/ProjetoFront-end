@@ -4,10 +4,8 @@ import { IoCloseOutline } from "react-icons/io5";
 
 export const CarouselImages = styled.ul`
   display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
+  justify-content: center;
   list-style: none;
-  gap: 30px;
 
   li {
     gap: 30px;
@@ -27,20 +25,23 @@ export const CloseIcon = styled(IoCloseOutline)`
 
 export const ModalStyle = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    height: "90%",
-    width: "80%",
+    top: "80px",
+    maxWidth: "800px",
+    margin: "0 auto",
+    background: "var(--brand-1)",
+    overflow: "auto",
+    borderRadius: "8px",
+    outline: "none",
+    padding: "20px",
   },
 };
 
 export const ModalClose = styled.button`
-  display: flex;
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  background: none;
 `;
 
 export const ModalHeader = styled.header`
@@ -52,13 +53,13 @@ export const ModalHeader = styled.header`
     z-index: auto;
   }
   h1 {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 600;
   }
 
   h3 {
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 20px;
   }
 
@@ -75,18 +76,18 @@ export const ModalFooter = styled.footer`
   flex-direction: row;
   width: 100%;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 40px;
 
   p {
     padding: 15px;
-    background-color: var(--brand-2);
+    background-color: var(--brand-2-clear);
     border-radius: 8px;
     font-weight: bold;
+    color: var(--white);
   }
 `;
 
 export const ModalContainer = styled.div`
-  div {
-    background-color: red;
-  }
+  background-color: red;
+  z-index: 2;
 `;

@@ -64,4 +64,8 @@ html, body, div, span, applet, object, iframe,
         --white: #FFFFFF;
         --black:#000000;
     }
+
+    .ReactModal__Overlay--after-open{
+        z-index: 2;
+    }
 `;

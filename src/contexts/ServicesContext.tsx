@@ -12,7 +12,7 @@ export interface iDataCategory {
   cnpj: string;
   description: string;
   id: number;
-  images: string[];
+  images: string;
   logo: string;
   phone: string;
   servicename: string;
