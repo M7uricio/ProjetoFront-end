@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { BiArrowToLeft } from "react-icons/bi";
 import Button from "../../components/Button";
 import { UserContext } from "../../contexts/UserContext";
 import { ModalCreateService } from "../../components/Modal/ModalCreateService";
@@ -9,7 +8,15 @@ import { EditServiceForm } from "../../components/Form/EditServiceForm";
 import { ModalContext } from "../../contexts/ModalContext";
 import { ModalProfile } from "../../components/Modal/EditProfileUser";
 import { ServiceContext } from "../../contexts/ServicesContext";
-// import logo from "../../assets/img/logoPet.png";
+import logo from "../../assets/img/logoPet.png";
+import { StyledButtonExit } from "../../components/Icons";
+import {
+  ButtonsMobileDashProvider,
+  MainDashProvider,
+  NavDashProvider,
+} from "./style";
+import { Title } from "../../styles/title";
+import { Text } from "../../styles/text";
 
 export interface iServiceData {
   cnpj: string;
@@ -24,7 +31,7 @@ export interface iServiceData {
 }
 
 export function ServiceProvider() {
-  const { user } = useContext(UserContext);
+  const { user, size } = useContext(UserContext);
   const { deleteService, servicesUser, setService } =
     useContext(ServiceContext);
   const { openModalCreateService, openModalEditService, openModalEditUser } =
@@ -32,23 +39,43 @@ export function ServiceProvider() {
 
   return (
     <>
-      <nav>
-        <BiArrowToLeft />
-        {/* <img src={logo} alt="" /> */}
+      <NavDashProvider>
+        <div className="divExitAndLogo">
+          <StyledButtonExit />
+          <img src={logo} alt="Logo NetPet" />
+        </div>
         <section>
-          <div>
-            <img src="" alt="" />
-            <h1>{user?.name}</h1>
-          </div>
-          <div>
-            <Button onClick={() => openModalCreateService()}>
-              cadastrar novo serviço
-            </Button>
-            <Button onClick={() => openModalEditUser()}>Editar perfil</Button>
+          {size < 720 ? (
+            <></>
+          ) : (
+            <div className="buttonsProvider">
+              <Button onClick={() => openModalCreateService()}>
+                Cadastrar novo serviço
+              </Button>
+              <Button onClick={() => openModalEditUser()}>Editar perfil</Button>
+            </div>
+          )}
+          <div className="infoProvider">
+            <div className="noImage"></div>
+            {/* <img src={user.} alt="" /> */}
+            <Title variant="title2" color="var(--grey-1)">
+              {user?.name}
+            </Title>
           </div>
         </section>
-      </nav>
-      <main>
+      </NavDashProvider>
+      {size > 720 ? (
+        <></>
+      ) : (
+        <ButtonsMobileDashProvider>
+          <Button onClick={() => openModalCreateService()}>
+            Cadastrar novo serviço
+          </Button>
+          <Button onClick={() => openModalEditUser()}>Editar perfil</Button>
+        </ButtonsMobileDashProvider>
+      )}
+
+      <MainDashProvider>
         <ModalCreateService>
           <CreateServiceForm />
         </ModalCreateService>
@@ -60,29 +87,37 @@ export function ServiceProvider() {
           {servicesUser.map((service) => {
             return (
               <li key={service.id}>
-                <div>
-                  <img src={service.logo} alt="" />
-                  <span>{service.typeofservice}</span>
+                <div className="divLogoProvider">
+                  <div>
+                    <img src={service.logo} alt="" />
+                  </div>
+                  <Title variant="title3" color="var(--grey-1)">
+                    {service.servicename}
+                  </Title>
                 </div>
-                <h2>{service.servicename}</h2>
-                <p>{service.description}</p>
-                <p>{service.phone}</p>
-                <Button
-                  onClick={() => {
-                    openModalEditService();
-                    setService(service);
-                  }}
-                >
-                  Editar serviço
-                </Button>
-                <Button onClick={() => deleteService(service)}>
-                  Excluir serviço
-                </Button>
+                <Text variant="textSmall">{service.typeofservice}</Text>
+                <div className="descriptionProvider">
+                  <Text variant="text1">{service.description}</Text>
+                </div>
+                <Text variant="text1">Contato: {service.phone}</Text>
+                <div className="divButtonsService">
+                  <Button
+                    onClick={() => {
+                      openModalEditService();
+                      setService(service);
+                    }}
+                  >
+                    Editar serviço
+                  </Button>
+                  <Button onClick={() => deleteService(service)}>
+                    Excluir serviço
+                  </Button>
+                </div>
               </li>
             );
           })}
         </ul>
-      </main>
+      </MainDashProvider>
     </>
   );
 }
