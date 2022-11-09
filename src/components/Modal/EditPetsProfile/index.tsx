@@ -6,6 +6,8 @@ import { petsContext } from "../../../contexts/PetsContext";
 import { editPetSchema } from "../../../validations/editPetSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormEditPet } from "../../Form/EditPetForm";
+import styled from "styled-components";
+import "../style.css";
 
 export interface iEditFormPet {
   id?: number;
@@ -20,7 +22,12 @@ export const ModalEditPets = () => {
   const { closeModalEditPet, modalEditPetOpen } = useContext(ModalContext);
 
   return (
-    <Modal isOpen={modalEditPetOpen} onRequestClose={closeModalEditPet}>
+    <Modal
+      isOpen={modalEditPetOpen}
+      onRequestClose={closeModalEditPet}
+      className="modalContent"
+      overlayClassName="modalOverlay"
+    >
       <FormEditPet />
     </Modal>
   );
