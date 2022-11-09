@@ -22,7 +22,7 @@ interface iUserContext {
   loading: boolean;
   size: number;
   userEditProfile: (data: ieditForm) => void;
-  
+  logoutFunction: () => void;
 }
 
 interface iUser {
@@ -32,7 +32,6 @@ interface iUser {
   phone: string;
   password: string;
   type: string;
-  
 }
 interface iApiError {
   error: string;
@@ -144,9 +143,9 @@ const UserProvider = ({ children }: iUserContextProps) => {
       localStorage.setItem("@NetPetId:", response.data.user.id);
       const toNavigate = location.state?.from.pathname || "dashboard";
       if (response.data.user.type === "user") {
-        navigate(toNavigate, { replace: true });
+        navigate("/dashboard");
       } else {
-        navigate("/");
+        navigate("/dashboardProviderService");
       }
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
@@ -156,41 +155,38 @@ const UserProvider = ({ children }: iUserContextProps) => {
     }
   };
 
-  const logoutFunctio = async () => {};
+  const logoutFunction = async () => {
+    localStorage.removeItem("@NetPetToken:");
+    localStorage.removeItem("@NetPetId:");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
 
-  const userEditProfile = async (data: any) => {
-    let newData : any = {
-              
-    };
-   let arrayUser : string []  = [];
-
-   Object.keys(data).forEach((key) => {
-    const category = data[key];
-    if (category !== "") {
-      arrayUser.push(key);
-    }
-  });
-  arrayUser.forEach((key) => {
-    newData[key] = data[key];
-  });
-
+  const userEditProfile = async (data: ieditForm) => {
     try {
       const token = localStorage.getItem("@NetPetToken:");
       instance.defaults.headers.authorization = `Bearer ${token}`;
-      const response = await instance.patch(`/users/${user?.id}`, newData, {
-        
-      });
+      const response = await instance.patch(`/users/${user?.id}`, data);
+      setUser(response.data);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
       console.log(requestError);
     }
   };
 
-  const userLogoutFunction = async () => {};
-
   return (
     <UserContext.Provider
-      value={{ userRegisterFunction, userLoginFunction, user, userEditProfile,userRegisterCompanyFunction, loading,size }}
+      value={{
+        userRegisterFunction,
+        userLoginFunction,
+        user,
+        userEditProfile,
+        userRegisterCompanyFunction,
+        loading,
+        size,
+        logoutFunction,
+      }}
     >
       {children}
     </UserContext.Provider>

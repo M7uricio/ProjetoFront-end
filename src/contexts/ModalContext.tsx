@@ -14,8 +14,20 @@ interface iModalContext {
   openModalEditUser: () => void;
   closeModalEditUser: () => void;
   modalEditPetOpen: boolean;
-  openModalEditPet: (data: iEditFormPet) => void;
+  openModalEditPet: () => void;
   closeModalEditPet: () => void;
+  modalCreate: boolean;
+  setModalCreate: React.Dispatch<React.SetStateAction<boolean>>;
+  openModalCreateService: () => void;
+  closeModalCreateService: () => void;
+  modalEdit: boolean;
+  setModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  openModalEditService: () => void;
+  closeModalEditService: () => void;
+  modalEditProfile: boolean;
+  setModalEditProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  openModalEditProfile: () => void;
+  closeModalEditProfile: () => void;
 }
 
 export const ModalContext = createContext<iModalContext>({} as iModalContext);
@@ -24,11 +36,27 @@ const ModalProvider = ({ children }: iModalContextProps) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalEditOpen, setIsEditOpen] = useState(false);
   const [modalEditPetOpen, setIsEditPetOpen] = useState(false);
+  const [modalCreate, setModalCreate] = useState(false);
+
+  const [modalEdit, setModalEdit] = useState(false);
+  const [modalEditProfile, setModalEditProfile] = useState(false);
+
   const { setPetsInfo } = useContext(petsContext);
+
+  const openModalCreateService = () => setModalCreate(true);
+
+  const closeModalCreateService = () => setModalCreate(false);
+
+  const openModalEditService = () => setModalEdit(true);
+
+  const closeModalEditService = () => setModalEdit(false);
+
+  const openModalEditProfile = () => setModalEdit(true);
+
+  const closeModalEditProfile = () => setModalEdit(false);
 
   const openModaladdpet = (): void => {
     setIsOpen(true);
-    console.log(setIsOpen);
   };
 
   const closeModaladdpet = (): void => {
@@ -37,16 +65,14 @@ const ModalProvider = ({ children }: iModalContextProps) => {
 
   const openModalEditUser = (): void => {
     setIsEditOpen(true);
-    console.log(setIsOpen);
   };
 
   const closeModalEditUser = (): void => {
     setIsEditOpen(false);
   };
 
-  const openModalEditPet = (data: iEditFormPet): void => {
+  const openModalEditPet = (): void => {
     setIsEditPetOpen(true);
-    setPetsInfo(data);
   };
 
   const closeModalEditPet = (): void => {
@@ -65,6 +91,18 @@ const ModalProvider = ({ children }: iModalContextProps) => {
         modalEditPetOpen,
         openModalEditPet,
         closeModalEditPet,
+        modalCreate,
+        setModalCreate,
+        openModalCreateService,
+        closeModalCreateService,
+        modalEdit,
+        setModalEdit,
+        openModalEditService,
+        closeModalEditService,
+        modalEditProfile,
+        setModalEditProfile,
+        openModalEditProfile,
+        closeModalEditProfile,
       }}
     >
       {children}
