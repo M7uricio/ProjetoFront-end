@@ -116,7 +116,7 @@ export const LoginMain = styled.div`
   @media (max-width: 762px) {
     flex-direction: column;
 
-    height: max-content;
+    height: 100vh;
 
     background-color: var(--brand-1);
 
