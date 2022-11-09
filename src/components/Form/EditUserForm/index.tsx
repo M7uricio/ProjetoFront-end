@@ -60,10 +60,10 @@ export const FormEditProfile = () => {
         id="password"
         variant="inputPrimary"
         type="password"
-        placeholder="password"
+        placeholder="Password"
         {...register("password")}
       ></Input>
-
+      <p>{errors.password?.message}</p>
       <button type="submit">Editar Perfil</button>
     </StyledForm>
   );

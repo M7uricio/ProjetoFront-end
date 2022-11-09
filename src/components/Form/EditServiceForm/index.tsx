@@ -74,77 +74,75 @@ export const EditServiceForm = () => {
   };
 
   return (
-    <StyledForm>
-      <form id="editService" onSubmit={handleSubmit(patchService)}>
-        <label htmlFor="servicename">Nome do serviço</label>
-        <Input
-          id="servicename"
-          variant="inputPrimary"
-          type="text"
-          placeholder="nome do serviço"
-          {...register("servicename")}
-        />
-        {errors.servicename?.message}
-        <label htmlFor="cnpj">CNPJ</label>
-        <Input
-          id="cnpj"
-          variant="inputPrimary"
-          type="text"
-          placeholder="CNPJ"
-          {...register("cnpj")}
-        />
-        {errors.cnpj?.message}
-        <label htmlFor="phone">Telefone</label>
-        <Input
-          id="phone"
-          variant="inputPrimary"
-          type="number"
-          placeholder="(00)0000-0000"
-          {...register("phone")}
-        />
-        {errors.phone?.message}
-        <label htmlFor="description">Descrição</label>
-        <Input
-          id="description"
-          variant="inputPrimary"
-          type="text"
-          placeholder="Conte sobre o seu serviço"
-          {...register("description")}
-        />
-        {errors.description?.message}
-        <label htmlFor="typeofservice">Tipo de serviço</label>
-        <Select
-          variant="selectPrimary"
-          height="30px"
-          width="100%"
-          id="typeofservice"
-          placeholder="Em qual categoría o seu serviço se encaixa?"
-          {...register("typeofservice")}
-        >
-          <option value="Veterinaria">Veterinária</option>
-          <option value="Hotel">Hotel</option>
-          <option value="Petshop">PetShop</option>
-          <option value="Outros">Outros</option>
-        </Select>
-        {errors.typeofservice?.message}
-        <label htmlFor="">Imagens do serviço</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="url da imagem"
-          {...register("images")}
-        />
-        {errors.images?.message}
-        <label htmlFor="">Logo da empresa</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="url da imagem"
-          {...register("logo")}
-        />
-        {errors.logo?.message}
-        <Button type="submit">Editar serviço</Button>
-      </form>
+    <StyledForm id="editService" onSubmit={handleSubmit(patchService)}>
+      <label htmlFor="servicename">Nome do serviço</label>
+      <Input
+        id="servicename"
+        variant="inputPrimary"
+        type="text"
+        placeholder="nome do serviço"
+        {...register("servicename")}
+      />
+      {errors.servicename?.message}
+      <label htmlFor="cnpj">CNPJ</label>
+      <Input
+        id="cnpj"
+        variant="inputPrimary"
+        type="text"
+        placeholder="CNPJ"
+        {...register("cnpj")}
+      />
+      {errors.cnpj?.message}
+      <label htmlFor="phone">Telefone</label>
+      <Input
+        id="phone"
+        variant="inputPrimary"
+        type="number"
+        placeholder="(00)0000-0000"
+        {...register("phone")}
+      />
+      {errors.phone?.message}
+      <label htmlFor="description">Descrição</label>
+      <Input
+        id="description"
+        variant="inputPrimary"
+        type="text"
+        placeholder="Conte sobre o seu serviço"
+        {...register("description")}
+      />
+      {errors.description?.message}
+      <label htmlFor="typeofservice">Tipo de serviço</label>
+      <Select
+        variant="selectPrimary"
+        height="30px"
+        width="100%"
+        id="typeofservice"
+        placeholder="Em qual categoría o seu serviço se encaixa?"
+        {...register("typeofservice")}
+      >
+        <option value="Veterinaria">Veterinária</option>
+        <option value="Hotel">Hotel</option>
+        <option value="Petshop">PetShop</option>
+        <option value="Outros">Outros</option>
+      </Select>
+      {errors.typeofservice?.message}
+      <label htmlFor="">Imagens do serviço</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="url da imagem"
+        {...register("images")}
+      />
+      {errors.images?.message}
+      <label htmlFor="">Logo da empresa</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="url da imagem"
+        {...register("logo")}
+      />
+      {errors.logo?.message}
+      <Button type="submit">Editar serviço</Button>
     </StyledForm>
   );
 };

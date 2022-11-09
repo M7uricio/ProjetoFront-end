@@ -76,9 +76,7 @@ export function ServiceProvider() {
       )}
 
       <MainDashProvider>
-        <ModalCreateService>
-          <CreateServiceForm />
-        </ModalCreateService>
+        <ModalCreateService />
         <ModalEditService>
           <EditServiceForm />
         </ModalEditService>

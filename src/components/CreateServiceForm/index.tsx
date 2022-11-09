@@ -38,75 +38,72 @@ export const CreateServiceForm = () => {
     };
     createService(newData, setModalCreate);
   };
-
   return (
-    <StyledForm>
-      <form id="createService" onSubmit={handleSubmit(createRequest)}>
-        <label htmlFor="">Nome do serviço</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="nome do serviço"
-          {...register("servicename")}
-        />
-        {errors.servicename?.message}
-        <label htmlFor="">CNPJ</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="CNPJ"
-          {...register("cnpj")}
-        />
-        {errors.cnpj?.message}
-        <label htmlFor="">Telefone</label>
-        <Input
-          variant="inputPrimary"
-          type="number"
-          placeholder="(00)0000-0000"
-          {...register("phone")}
-        />
-        {errors.phone?.message}
-        <label htmlFor="">Descrição</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="Conte sobre o seu serviço"
-          {...register("description")}
-        />
-        {errors.description?.message}
-        <label htmlFor="">Tipo de serviço</label>
-        <Select
-          variant="selectPrimary"
-          width="100%"
-          height="30px"
-          id=""
-          placeholder="Em qual categoría o seu serviço se encaixa?"
-          {...register("typeofservice")}
-        >
-          <option value="Veterinaria">Veterinária</option>
-          <option value="Hotel">Hotel</option>
-          <option value="Petshop">PetShop</option>
-          <option value="Outros">Outros</option>
-        </Select>
-        {errors.typeofservice?.message}
-        <label htmlFor="">Imagens do serviço</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="url da imagem"
-          {...register("images")}
-        />
-        {errors.images?.message}
-        <label htmlFor="">Logo da empresa</label>
-        <Input
-          variant="inputPrimary"
-          type="text"
-          placeholder="url da imagem"
-          {...register("logo")}
-        />
-        {errors.logo?.message}
-        <Button type="submit">Cadastrar serviço</Button>
-      </form>
+    <StyledForm id="createService" onSubmit={handleSubmit(createRequest)}>
+      <label htmlFor="">Nome do serviço</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="nome do serviço"
+        {...register("servicename")}
+      />
+      {errors.servicename?.message}
+      <label htmlFor="">CNPJ</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="CNPJ"
+        {...register("cnpj")}
+      />
+      {errors.cnpj?.message}
+      <label htmlFor="">Telefone</label>
+      <Input
+        variant="inputPrimary"
+        type="number"
+        placeholder="(00)0000-0000"
+        {...register("phone")}
+      />
+      {errors.phone?.message}
+      <label htmlFor="">Descrição</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="Conte sobre o seu serviço"
+        {...register("description")}
+      />
+      {errors.description?.message}
+      <label htmlFor="">Tipo de serviço</label>
+      <Select
+        variant="selectPrimary"
+        width="100%"
+        height="30px"
+        id=""
+        placeholder="Em qual categoría o seu serviço se encaixa?"
+        {...register("typeofservice")}
+      >
+        <option value="Veterinaria">Veterinária</option>
+        <option value="Hotel">Hotel</option>
+        <option value="Petshop">PetShop</option>
+        <option value="Outros">Outros</option>
+      </Select>
+      {errors.typeofservice?.message}
+      <label htmlFor="">Imagens do serviço</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="url da imagem"
+        {...register("images")}
+      />
+      {errors.images?.message}
+      <label htmlFor="">Logo da empresa</label>
+      <Input
+        variant="inputPrimary"
+        type="text"
+        placeholder="url da imagem"
+        {...register("logo")}
+      />
+      {errors.logo?.message}
+      <Button type="submit">Cadastrar serviço</Button>
     </StyledForm>
   );
 };
