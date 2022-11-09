@@ -1,7 +1,9 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ModalContext } from "../../../contexts/ModalContext";
 import { UserContext } from "../../../contexts/UserContext";
+import { EditUserSchema } from "../../../validations/editProfileSchema";
 import { ieditForm } from "../../Modal/EditProfileUser";
 
 export const FormEditProfile = () => {
@@ -13,14 +15,13 @@ export const FormEditProfile = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ieditForm>({
+    resolver: yupResolver(EditUserSchema),
     defaultValues: {
       name: user?.name,
       email: user?.email,
       phone: user?.phone,
-      password: user?.password,
     },
   });
-
   const submit: SubmitHandler<ieditForm> = (data) => {
     userEditProfile(data);
     closeModalEditUser();
@@ -38,6 +39,7 @@ export const FormEditProfile = () => {
           placeholder="password"
           {...register("password")}
         />
+        <p>{errors.password?.message}</p>
 
         <button type="submit">Editar Perfil</button>
       </form>

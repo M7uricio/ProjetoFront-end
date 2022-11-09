@@ -177,6 +177,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
       isLoading: false,
       autoClose: 1000,
     });
+    setUser(null);
     setTimeout(() => {
       navigate("/");
     }, 1000);
