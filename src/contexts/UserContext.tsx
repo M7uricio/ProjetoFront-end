@@ -149,6 +149,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
         autoClose: 1500,
       });
       if (response.data.user.type === "user") {
+        console.log("OI");
         navigate("/dashboard");
       } else {
         navigate("/dashboardProviderService");

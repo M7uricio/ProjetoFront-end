@@ -7,8 +7,10 @@ import { editPetSchema } from "../../../validations/editPetSchema";
 import { iEditFormPet } from "../../Modal/EditPetsProfile";
 import { Input } from "../../Inputs/style";
 import Button from "../../Button";
+import { StyledForm } from "../style";
 
 import ModalEditPetsStyle from "./style";
+import { StyledCloseModal } from "../../Icons";
 export const FormEditPet = () => {
   const { closeModalEditPet } = useContext(ModalContext);
   const { editPets, petsInfo, deletePet } = useContext(petsContext);
@@ -34,17 +36,7 @@ export const FormEditPet = () => {
 
   return (
     <ModalEditPetsStyle>
-      <header>
-        <h3>Editar Pet</h3>
-        <span>Frase de efeito sobre pets</span>
-      </header>
-      <form onSubmit={handleSubmit(submitEditPet)}>
-        <button
-          className="btnCloseModalEditPet"
-          onClick={() => closeModalEditPet()}
-        >
-          X
-        </button>
+      <StyledForm onSubmit={handleSubmit(submitEditPet)}>
         <label htmlFor="">Nome</label>
         <Input
           variant="inputPrimary"
@@ -64,8 +56,10 @@ export const FormEditPet = () => {
           placeholder={"Tipo"}
           {...register("type")}
         ></Input>
+
         {errors.type?.message}
         <label htmlFor="">Foto</label>
+
         <Input
           variant="inputPrimary"
           height="60px"
@@ -76,6 +70,7 @@ export const FormEditPet = () => {
         ></Input>
         {errors.picture?.message}
         <label htmlFor="">Raça</label>
+
         <Input
           variant="inputPrimary"
           height="60px"
@@ -86,9 +81,12 @@ export const FormEditPet = () => {
         ></Input>
 
         {errors.race?.message}
+
         <Button type="submit">Editar Pet</Button>
-      </form>
-      <Button onClick={() => deletePet()}>Remover Pet</Button>
+      </StyledForm>
+      <Button classname="btnRemovePet" onClick={() => deletePet()}>
+        Remover Pet
+      </Button>
     </ModalEditPetsStyle>
   );
 };

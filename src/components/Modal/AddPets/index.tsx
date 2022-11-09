@@ -4,8 +4,13 @@ import { ModalContext } from "../../../contexts/ModalContext";
 import { petsContext } from "../../../contexts/PetsContext";
 import Modal from "react-modal";
 import { UserContext } from "../../../contexts/UserContext";
+import { Input } from "../../Inputs/style";
+import Button from "../../Button";
+import { AddPetsForm } from "../../Form/AddPetsForm";
+import { StyledCloseModal } from "../../Icons";
+import { Title } from "../../../styles/title";
 
-interface iaddFormPet {
+export interface iaddFormPet {
   id: number;
   userId: number;
   name: string;
@@ -15,34 +20,23 @@ interface iaddFormPet {
 }
 
 export const ModalAddPets = () => {
-  const { modalIsOpen } = useContext(ModalContext);
-  const { closeModaladdpet } = useContext(ModalContext);
-  const { addPet } = useContext(petsContext);
-  const { user } = useContext(UserContext);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<iaddFormPet>({});
-
-  const submit = (data: iaddFormPet) => {
-    const newData = { ...data, userId: user?.id };
-    addPet(newData);
-    closeModaladdpet();
-  };
+  const { modalIsOpen, closeModaladdpet } = useContext(ModalContext);
 
   return (
-    <>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModaladdpet}>
-        <form onSubmit={handleSubmit(submit)}>
-          <button onClick={() => closeModaladdpet()}>Fechar</button>
-          <input type="name" placeholder="Nome" {...register("name")} />
-          <input type="type" placeholder="Tipo" {...register("type")} />
-          <input type="picture" placeholder="Foto" {...register("picture")} />
-          <input type="race" placeholder="Raça" {...register("race")} />
-          <button type="submit">Criar novo pet</button>
-        </form>
-      </Modal>
-    </>
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={closeModaladdpet}
+      className="modalContent"
+      overlayClassName="modalOverlay"
+    >
+      <div className="divButtonClose">
+        <StyledCloseModal onClick={() => closeModaladdpet()} />
+      </div>
+
+      <Title variant="title2" color="var(--grey-1)">
+        Adicionar Pet
+      </Title>
+      <AddPetsForm />
+    </Modal>
   );
 };
