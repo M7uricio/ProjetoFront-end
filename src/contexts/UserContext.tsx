@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { iRegisterUser } from "../pages/register";
 import { instance } from "../services/api";
 import { toast } from "react-toastify";
@@ -44,7 +44,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
   const [loading, setLoading] = useState(true);
   const [size, setSize] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   const userProfile = async () => {
     const token = localStorage.getItem("@NetPetToken:");
@@ -135,13 +135,20 @@ const UserProvider = ({ children }: iUserContextProps) => {
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
+    const id = toast.loading("Please wait...");
     try {
       setLoading(true);
+
       const response = await instance.post("/login", data);
-      setUser(response.data.user);
       localStorage.setItem("@NetPetToken:", response.data.accessToken);
       localStorage.setItem("@NetPetId:", response.data.user.id);
-      const toNavigate = location.state?.from.pathname || "dashboard";
+      // const toNavigate = location.state?.from.pathname || "dashboard";
+      toast.update(id, {
+        render: `Seja Bem Vindo ${response.data.user.name}`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1500,
+      });
       if (response.data.user.type === "user") {
         navigate("/dashboard");
       } else {
@@ -149,6 +156,12 @@ const UserProvider = ({ children }: iUserContextProps) => {
       }
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
+      toast.update(id, {
+        render: `Aconteceu um Erro`,
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
       console.log(requestError);
     } finally {
       setLoading(false);
@@ -156,21 +169,41 @@ const UserProvider = ({ children }: iUserContextProps) => {
   };
 
   const logoutFunction = async () => {
+    const id = toast.loading("Please wait...");
     localStorage.removeItem("@NetPetToken:");
     localStorage.removeItem("@NetPetId:");
+    toast.update(id, {
+      render: `Até a Proxima`,
+      type: "warning",
+      isLoading: false,
+      autoClose: 1000,
+    });
     setTimeout(() => {
       navigate("/");
     }, 1000);
   };
 
   const userEditProfile = async (data: ieditForm) => {
+    const id = toast.loading("Please wait...");
     try {
       const token = localStorage.getItem("@NetPetToken:");
       instance.defaults.headers.authorization = `Bearer ${token}`;
       const response = await instance.patch(`/users/${user?.id}`, data);
+      toast.update(id, {
+        render: `Informação alterada com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1000,
+      });
       setUser(response.data);
     } catch (error) {
       const requestError = error as AxiosError<iApiError>;
+      toast.update(id, {
+        render: `Aconteceu um Erro`,
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
       console.log(requestError);
     }
   };

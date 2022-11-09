@@ -14,7 +14,7 @@ import Button from "../../components/Button";
 import ModalInfo from "../../components/Modal/ModalInfo";
 
 export const UserDashBoard = () => {
-  const { size } = useContext(UserContext);
+  const { size, logoutFunction } = useContext(UserContext);
   const {
     newNavBar,
     setDataValueInput,
@@ -41,7 +41,7 @@ export const UserDashBoard = () => {
     <StyledDivUserDashBoard>
       <StyledHeader>
         <div className="buttondAndLogo">
-          <StyledButtonExit />
+          <StyledButtonExit onClick={() => logoutFunction()} />
           <div className="headerLogo">
             <img src={logo} alt="Logo" />
             {size < 720 ? (

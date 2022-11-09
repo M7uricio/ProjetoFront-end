@@ -108,47 +108,50 @@ const ServiceProvider = ({ children }: iServiceContextProps) => {
     newData: iNewServiceData,
     setModalCreate: React.Dispatch<React.SetStateAction<boolean>>
   ) => {
+    const id = toast.loading("Please wait...");
     try {
       const token = localStorage.getItem("@NetPetToken:");
       instance.defaults.headers.authorization = `Bearer ${token}`;
       const { data } = await instance.post("/services", newData);
-      toast.success("Seviço cadastrado com sucesso", {
-        isLoading: false,
-        autoClose: 1000,
-      });
-      // const newEntrie = {
-      //   cnpj: data.cnpj,
-      //   description: data.description,
-      //   images: data.images,
-      //   logo: data.logo,
-      //   phone: data.phone,
-      //   servicename: data.servicename,
-      //   typeofservice: data.typeofservice,
-      // };
       setServicesUser([...servicesUser, data]);
+      toast.update(id, {
+        render: `Cadastro de serviço realizado com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1500,
+      });
       setModalCreate(false);
     } catch (error) {
       console.log(error);
-      toast.error(`${error}`, {
+      toast.update(id, {
+        render: `Ocorreu um problema com o cadastro`,
+        type: "warning",
         isLoading: false,
-        autoClose: 1000,
+        autoClose: 1500,
       });
     }
   };
 
   const deleteService = async (service: iServiceData) => {
     const token = localStorage.getItem("@NetPetToken:");
+    const id = toast.loading("Please wait...");
     try {
       instance.defaults.headers.authorization = `Bearer ${token}`;
-      const resp = await instance.delete(`/services/${service.id}`);
-      toast.success("Serviço excluido com sucesso!", {
-        autoClose: 1000,
+      await instance.delete(`/services/${service.id}`);
+      toast.update(id, {
+        render: `Serviço excluido com sucesso`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1500,
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.message);
-        toast.error(error.message, {
-          autoClose: 2000,
+        toast.update(id, {
+          render: `Ocorreu um erro ao excluir o serviço`,
+          type: "warning",
+          isLoading: false,
+          autoClose: 1500,
         });
       }
     }
