@@ -5,13 +5,13 @@ import logo from "../../assets/img/logoPet.png";
 import { NavBar } from "../../components/NavBar";
 import { StyledHeader } from "../../components/Header/style";
 import { StyledButtonExit } from "../../components/Icons";
-import ModalInfo from "../../components/ModalInfo";
 import { StyledDivUserDashBoard } from "./style";
 import { Title } from "../../styles/title";
 import { Research } from "../../components/Inputs/Research";
 import { Link } from "react-router-dom";
 import peixe from "../../assets/img/Peixinho.png";
 import Button from "../../components/Button";
+import ModalInfo from "../../components/Modal/ModalInfo";
 
 export const UserDashBoard = () => {
   const { size } = useContext(UserContext);

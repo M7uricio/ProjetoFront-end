@@ -22,7 +22,6 @@ export interface iLoginFormData {
 export const Login = () => {
   const { userLoginFunction, size } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  
 
   const {
     register,
@@ -42,27 +41,38 @@ export const Login = () => {
         <img src={LogoLogin} alt="" />
       </div>
       <div className="formDiv">
-      <div className="titleDiv">
-        <Title variant="title1" color="black">Login</Title>
-        <Text variant="text2">Seja bem-vindo a nossa comunidade!</Text>
-      </div>
+        <div className="titleDiv">
+          <Title variant="title1" color="black">
+            Login
+          </Title>
+          <Text variant="text2">Seja bem-vindo a nossa comunidade!</Text>
+        </div>
         <form onSubmit={handleSubmit(submit)}>
           <label htmlFor="email">Email</label>
-          <Input variant="inputPrimary" height="60px" width="100%" placeholder="Digite seu nome aqui" {...register("email")}>
-          </Input>
+          <Input
+            variant="inputPrimary"
+            height="60px"
+            width="100%"
+            placeholder="Digite seu nome aqui"
+            {...register("email")}
+          ></Input>
           {<p>{errors.email?.message}</p>}
 
           <label htmlFor="password">Senha</label>
           <PassWord register={register} />
           {<p>{errors.password?.message}</p>}
 
-          <Button type="submit">Login <StyledPaw variant="paw" font="#FFD7A8" /></Button>
+          <Button type="submit">
+            Login <StyledPaw variant="paw" font="#FFD7A8" />
+          </Button>
         </form>
         <div className="toLogin">
           <Text variant="text2">Ainda não possui cadastro?</Text>
           <Link to="/register">Clique aqui</Link>
         </div>
-        <Link to="/"><AiFillHome/></Link>
+        <Link to="/">
+          <AiFillHome />
+        </Link>
       </div>
     </LoginMain>
   );

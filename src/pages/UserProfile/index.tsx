@@ -30,7 +30,7 @@ const Profile = () => {
 
   const { openModaladdpet, openModalEditUser, openModalEditPet } =
     useContext(ModalContext);
-  const { petsList, userPetsList } = useContext(petsContext);
+  const { petsList, setPetsInfo } = useContext(petsContext);
 
   return (
     <ProfileMain>
@@ -55,22 +55,28 @@ const Profile = () => {
       </header>
       <section>
         <Title variant="title2" color="black">
-            Seus Pets
-            <StyledPaw variant="paw" font="#FFD7A8" />
+          Seus Pets
+          <StyledPaw variant="paw" font="#FFD7A8" />
         </Title>
         <ul>
           {petsList.map((pet) => (
-            <li className="petItem">
+            <li key={pet.id} className="petItem">
               <div className="imgDiv">
-                <img src={pet.picture} alt={pet.name}/>
+                <img src={pet.picture} alt={pet.name} />
               </div>
               <div className="descriptionDiv">
                 <p>{pet.name}</p>
-                <Button onClick={() => openModalEditPet(pet)}>Editar pet</Button>
+                <Button
+                  onClick={() => {
+                    openModalEditPet();
+                    setPetsInfo(pet);
+                  }}
+                >
+                  Editar pet
+                </Button>
                 <ModalEditPets></ModalEditPets>
               </div>
             </li>
-
           ))}
         </ul>
       </section>

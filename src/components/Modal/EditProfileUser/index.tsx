@@ -5,6 +5,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import Modal from "react-modal";
 import React from "react";
 import ReactDOM from "react-dom";
+import { FormEditProfile } from "../../Form/EditUserForm";
 
 export interface ieditForm {
   id: number;
@@ -16,44 +17,12 @@ export interface ieditForm {
 }
 
 export const ModalProfile = () => {
-  const { user, userEditProfile } = useContext(UserContext);
   const { closeModalEditUser, modalEditOpen } = useContext(ModalContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ieditForm>({
-    // defaultValues: {
-    //   name: user?.name,
-    //   email: user?.email,""
-    //   phone: user?.phone,
-    //   password: user?.password,
-    // },
-  });
-
-  const submit: SubmitHandler<ieditForm> = (data) => {
-    userEditProfile(data);
-    closeModalEditUser()
-  };
-console.log(user)
   return (
     <>
       <Modal isOpen={modalEditOpen} onRequestClose={closeModalEditUser}>
-        <form onSubmit={handleSubmit(submit)}>
-          <button onClick={() => closeModalEditUser()}>Fechar</button>
-
-          <input type="name" placeholder="Nome" {...register("name")} />
-          <input type="email" placeholder="Email" {...register("email")} />
-          <input type="phone" placeholder="Telefone" {...register("phone")} />
-          <input
-            type="password"
-            placeholder="password"
-            {...register("password")}
-          />
-
-          <button type="submit">Editar Perfil</button>
-        </form>
+        <FormEditProfile />
       </Modal>
     </>
   );
