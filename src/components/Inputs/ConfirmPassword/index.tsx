@@ -22,8 +22,8 @@ export const ConfirmPassWord = ({ register }: iConfirmPassWord) => {
         height="60px"
         width="100%"
         type={passwordShow ? "text" : "password"}
-        placeholder="Digite aqui sua senha"
-        {...register("password")}
+        placeholder="Confirme a sua Senha"
+        {...register("confirm-password")}
       />
       {passwordShow ? (
         <StyledEye onClick={() => showPass()} />
