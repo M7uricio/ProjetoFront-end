@@ -17,6 +17,7 @@ import {
 } from "./style";
 import { Title } from "../../styles/title";
 import { Text } from "../../styles/text";
+import {CgProfile} from "react-icons/cg";
 
 export interface iServiceData {
   cnpj: string;
@@ -56,8 +57,7 @@ export function ServiceProvider() {
             </div>
           )}
           <div className="infoProvider">
-            <div className="noImage"></div>
-            {/* <img src={user.} alt="" /> */}
+            <CgProfile/>
             <Title variant="title2" color="var(--grey-1)">
               {user?.name}
             </Title>
