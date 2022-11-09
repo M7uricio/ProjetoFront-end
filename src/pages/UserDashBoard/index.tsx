@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import peixe from "../../assets/img/Peixinho.png";
 import Button from "../../components/Button";
 import ModalInfo from "../../components/Modal/ModalInfo";
+import {CgProfile} from "react-icons/cg";
 
 export const UserDashBoard = () => {
   const { size, logoutFunction } = useContext(UserContext);
@@ -74,7 +75,7 @@ export const UserDashBoard = () => {
           )}
 
           <Link to="/userProfile">
-            <img src="" alt="Avatar" />
+            <CgProfile/>
           </Link>
         </div>
       </StyledHeader>

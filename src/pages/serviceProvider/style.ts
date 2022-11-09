@@ -47,6 +47,12 @@ export const NavDashProvider = styled.nav`
       flex-direction: column;
       align-items: center;
     }
+
+    .infoProvider > svg {
+      height: 50px;
+      width: 50px;
+      color: #C18461;
+    }
   }
 
   @media (max-width: 720px) {

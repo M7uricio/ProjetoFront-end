@@ -84,7 +84,7 @@ export const FormEditPet = () => {
 
         <Button type="submit">Editar Pet</Button>
       </StyledForm>
-      <Button classname="btnRemovePet" onClick={() => deletePet()}>
+      <Button classname="btnRemovePet" onClick={() => {deletePet(); closeModalEditPet()}}>
         Remover Pet
       </Button>
     </ModalEditPetsStyle>

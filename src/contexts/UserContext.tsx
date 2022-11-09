@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {/*  useLocation, */ useNavigate } from "react-router-dom";
 import { iRegisterUser } from "../pages/register";
 import { instance } from "../services/api";
 import { toast } from "react-toastify";
@@ -44,7 +44,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
   const [loading, setLoading] = useState(true);
   const [size, setSize] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
+  /* const location = useLocation(); */
 
   const userProfile = async () => {
     const token = localStorage.getItem("@NetPetToken:");
@@ -131,6 +131,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
       }
     }
   };
+  
   const userLoginFunction = async (
     data: iLoginFormData,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -141,7 +142,8 @@ const UserProvider = ({ children }: iUserContextProps) => {
       const response = await instance.post("/login", data);
       localStorage.setItem("@NetPetToken:", response.data.accessToken);
       localStorage.setItem("@NetPetId:", response.data.user.id);
-      const toNavigate = location.state?.from.pathname || "dashboard";
+      /* const toNavigate = location.state?.from.pathname || "dashboard"; */
+      setUser(response.data.user)
       if (response.data.user.type === "user") {
         navigate("/dashboard");
         toast.update(id, {
@@ -150,6 +152,7 @@ const UserProvider = ({ children }: iUserContextProps) => {
           isLoading: false,
           autoClose: 1500,
         });
+        console.log("entrou aqui")
       } else {
         navigate("/dashboardProviderService");
         toast.update(id, {

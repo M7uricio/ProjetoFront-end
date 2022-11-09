@@ -92,7 +92,7 @@ export const LoginMain = styled.div`
 
     width: 100%;
 
-    margin-bottom: 25px;
+    margin: 25px 0;
   }
 
   .toLogin a {
@@ -104,8 +104,8 @@ export const LoginMain = styled.div`
     top: 120px;
     left: 20%;
 
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     padding: 5px;
 
     background-color: var(--brand-1);
@@ -156,7 +156,7 @@ export const LoginMain = styled.div`
     @media (max-width: 762px) {
       flex-direction: column;
 
-      height: max-content;
+      height: 100vh;
 
       background-color: var(--brand-1);
 
